@@ -7,7 +7,7 @@ Ohjeet
 Matti Paksulan ohjeet versionhallintaan: http://www.cs.helsinki.fi/u/paksula/versionhallinta/s09/svn.pdf
 
 
-__________
+---- 
 
 
 Tässäpä hiukan tarkemmat ohjeet Eclipselle projektin checkouttaamiseen ja uuden projektin lisäykseen. Ohjeet perustuvat pitkälti tähän: http://blog.msbbc.co.uk/2007/06/using-googles-free-svn-repository-with.html
@@ -26,7 +26,7 @@ url: https://ohprjala.googlecode.com/svn
 username: sähköpostiosoite jolla sinut on lisätty googlecodeen
 password: paina googlecoden Source -sivulta "googlecode.com password" -linkkiä
 
-___
+---- 
 
 Projektin lisääminen:
 
@@ -41,7 +41,7 @@ team > commit
 jotta jotain jopa menee SVN:ään
 
 
-____
+---- 
 
 
 Projektin checkout:
