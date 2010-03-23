@@ -1,5 +1,7 @@
-eclipse: www.eclipse.org
+eclipse: http://www.eclipse.org
+
 googlecoden eclipse plugin: http://code.google.com/eclipse/
 
 Ohjeet
+
 Matti Paksulan ohjeet versionhallintaan: http://www.cs.helsinki.fi/u/paksula/versionhallinta/s09/svn.pdf
