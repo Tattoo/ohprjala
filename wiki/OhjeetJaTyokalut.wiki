@@ -5,3 +5,46 @@ googlecoden eclipse plugin: http://code.google.com/eclipse/
 Ohjeet
 
 Matti Paksulan ohjeet versionhallintaan: http://www.cs.helsinki.fi/u/paksula/versionhallinta/s09/svn.pdf
+
+
+__________
+
+
+Tässäpä hiukan tarkemmat ohjeet Eclipselle projektin checkouttaamiseen ja uuden projektin lisäykseen. Ohjeet perustuvat pitkälti tähän: http://blog.msbbc.co.uk/2007/06/using-googles-free-svn-repository-with.html
+
+Oletan tässä että Eclipse on asennettu ja kohtalaisen tuttu, ja tiedät kuinka siihen asennetaan pluginejä. Jos et tiedä, niin: http://agile.csc.ncsu.edu/SEMaterials/tutorials/install_plugin/index_v35.html
+
+1) hommaa Subclipse plugin Eclipseen (SVN -versiohallintaplugin)
+Download site:  http://subclipse.tigris.org/update_1.6.x
+Tarvitset listalta vain Sublicpsen
+
+2) Asennuksen jälkeen avaa SVN -perspective ja oikeata nappia SVN Repositories
+new > repository location
+url: https://ohprjala.googlecode.com/svn
+
+3) Kun suoritat commit tai checkout yms toimintoja 
+username: sähköpostiosoite jolla sinut on lisätty googlecodeen
+password: paina googlecoden Source -sivulta "googlecode.com password" -linkkiä
+
+___
+
+Projektin lisääminen:
+
+Java-perspektiivissä  oikeaa nappia projektiin ja 
+team > share project
+
+valitse repository lokaatio
+(syötä käyttäjätunnus ja salasana; kannattaa varmaan pistää raksi ruutuun "save password")
+
+Ja tämän jälkeen projektille vielä 
+team > commit
+jotta jotain jopa menee SVN:ään
+
+
+____
+
+
+Projektin checkout:
+
+- selaa SVN repositoriesia
+- oikeaa nappia projektiin ja checkout
