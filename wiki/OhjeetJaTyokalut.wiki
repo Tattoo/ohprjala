@@ -19,25 +19,25 @@ Download site:  http://subclipse.tigris.org/update_1.6.x
 Tarvitset listalta vain Sublicpsen
 
 2) Asennuksen jälkeen avaa SVN -perspective ja oikeata nappia SVN Repositories
-* new > repository location
-* url: https://ohprjala.googlecode.com/svn
+- new > repository location
+- url: https://ohprjala.googlecode.com/svn
 
 3) Kun suoritat commit tai checkout yms toimintoja 
-* username: sähköpostiosoite jolla sinut on lisätty googlecodeen
-* password: paina googlecoden Source -sivulta "googlecode.com password" -linkkiä
+- username: sähköpostiosoite jolla sinut on lisätty googlecodeen
+- password: paina googlecoden Source -sivulta "googlecode.com password" -linkkiä
 
 ---- 
 
 Projektin lisääminen:
 
-* Java-perspektiivissä  oikeaa nappia projektiin ja 
-* team > share project
+- Java-perspektiivissä  oikeaa nappia projektiin ja 
+- team > share project
 
-* valitse repository lokaatio
+- valitse repository lokaatio
 (syötä käyttäjätunnus ja salasana; kannattaa varmaan pistää raksi ruutuun "save password")
 
 Ja tämän jälkeen projektille vielä 
-* team > commit
+- team > commit
 jotta jotain jopa menee SVN:ään
 
 
@@ -46,5 +46,5 @@ jotta jotain jopa menee SVN:ään
 
 Projektin checkout:
 
-* selaa SVN repositoriesia
-* oikeaa nappia projektiin ja checkout
+- selaa SVN repositoriesia
+- oikeaa nappia projektiin ja checkout
