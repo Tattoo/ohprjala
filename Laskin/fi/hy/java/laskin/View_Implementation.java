@@ -1,11 +1,49 @@
 package fi.hy.java.laskin;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 
 public class View_Implementation extends javax.swing.JFrame  implements View {
 
+	private static final long	serialVersionUID	= -2212730761656490235L;
+	
+	/**
+	 * Causes a button on the UI to be pressed if a key that matches with that button is typed 
+	 */
+	private class KeyListener_imp implements KeyListener {
+		private final static int KEEP_BUTTON_PRESSED_TIME = 50; // ms
+		public void keyPressed(KeyEvent e) {}
+		public void keyReleased(KeyEvent e) {}
+		public void keyTyped(KeyEvent e) {
+			switch (e.getKeyChar()) {
+			case '0':  { button_0.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '1':  { button_1.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '2':  { button_2.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '3':  { button_3.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '4':  { button_4.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '5':  { button_5.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '6':  { button_6.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '7':  { button_7.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '8':  { button_8.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '9':  { button_9.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '+':  { button_add.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '-':  { button_substraction.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '*':  { button_multiply.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '/':  { button_divide.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '^':  { button_power.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case ',':  { button_decimalPoint.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '.':  { button_decimalPoint.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '=':  { button_equals.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '\r': { button_equals.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '\n': { button_equals.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '\b': { button_backspace.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			}
+		}
+	}
+	
 	private Controller controller;
-	private final  int BUTTONPRESSEDTIME = 50; // time in ms that a button keeps visually pressed down
-
+	
 	private javax.swing.JButton button_0;
 	private javax.swing.JButton button_1;
 	private javax.swing.JButton button_2;
@@ -33,6 +71,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	
 	public View_Implementation() {
 		initComponents();
+		this.addKeyListener(new KeyListener_imp());
 	}
 	
 	@Override
