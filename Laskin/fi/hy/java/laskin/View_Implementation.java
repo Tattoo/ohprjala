@@ -53,8 +53,13 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	 * Sends events to be processed by the controller
 	 */
 	private class ActionListener_Impl implements ActionListener {
+		private final javax.swing.JFrame frame;
+		public ActionListener_Impl(javax.swing.JFrame frame) {
+			this.frame = frame;
+		}
 		public void actionPerformed(ActionEvent e) {
 			controller.process(e);
+			frame.requestFocus();
 		} 
 	}
 	
@@ -88,9 +93,10 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	public View_Implementation() {
 		initComponents();
 		this.addKeyListener(new KeyListener_Impl());
-		ActionListener actionListener = new ActionListener_Impl();
+		ActionListener actionListener = new ActionListener_Impl(this);
 		addActionListenerToAllButtons(actionListener);
-
+		this.setFocusable(true);
+		this.requestFocus();
 	}
 	
 	private void addActionListenerToAllButtons(ActionListener actionListener) {

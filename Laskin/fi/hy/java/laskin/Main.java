@@ -1,5 +1,9 @@
 package fi.hy.java.laskin;
 
+/**
+ * Main method for a Calculator
+ * @author ohprjala, Ohjelmistoprosessit ja laatu -kurssin harjoitustyöryhmä 
+ */
 public class Main {
 	
     public static void main(String args[]) {
