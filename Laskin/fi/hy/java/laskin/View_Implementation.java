@@ -1,5 +1,7 @@
 package fi.hy.java.laskin;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,7 +13,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	/**
 	 * Causes a button on the UI to be pressed if a key that matches with that button is typed 
 	 */
-	private class KeyListener_imp implements KeyListener {
+	private class KeyListener_Impl implements KeyListener {
 		private final static int KEEP_BUTTON_PRESSED_TIME = 50; // ms
 		public void keyPressed(KeyEvent e) {}
 		public void keyReleased(KeyEvent e) {}
@@ -40,6 +42,41 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 			case '\b': { button_backspace.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
 			}
 		}
+	}
+	
+	private class ActionListener_Impl implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) { 
+			Object source = e.getSource();
+
+//			if      (source == button_0) { equation.addDigit(0); button_0.setSelected(false); }
+//			else if (source == button_1) { equation.addDigit(1); button_1.setSelected(false); }
+//			else if (source == button_2) { equation.addDigit(2); button_2.setSelected(false); }
+//			else if (source == button_3) { equation.addDigit(3); button_3.setSelected(false); }
+//			else if (source == button_4) { equation.addDigit(4); button_4.setSelected(false); }
+//			else if (source == button_5) { equation.addDigit(5); button_5.setSelected(false); }
+//			else if (source == button_6) { equation.addDigit(6); button_6.setSelected(false); }
+//			else if (source == button_7) { equation.addDigit(7); button_7.setSelected(false); }
+//			else if (source == button_8) { equation.addDigit(8); button_8.setSelected(false); }
+//			else if (source == button_9) { equation.addDigit(9); button_9.setSelected(false); }
+//
+//			else if (source == button_decimalPoint) { equation.addDecimalPoint(); button_decimalPoint.setSelected(false); }
+//			else if (source == button_signChange)   { equation.changeSign();      button_signChange.setSelected(false); }
+//			else if (source == button_equals)       { equation.calculate();       button_equals.setSelected(false); }
+//			else if (source == button_clear)        { equation.clear();           button_clear.setSelected(false); }
+//			else if (source == button_undo)         { equation.undo();            button_undo.setSelected(false); }
+//			else if (source == button_backspace)    { equation.erase();           button_backspace.setSelected(false); }
+//			else if (source == button_add)          { equation.add();             button_add.setSelected(false); }
+//			else if (source == button_substraction) { equation.substract();       button_substraction.setSelected(false); }
+//			else if (source == button_multiply)     { equation.multiply();        button_multiply.setSelected(false); }
+//			else if (source == button_divide)       { equation.divide();          button_divide.setSelected(false); }
+//			else if (source == button_power)        { equation.raiseToPower();    button_power.setSelected(false); }
+//			else if (source == button_squareRoot)   { equation.getSquareRoot();   button_squareRoot.setSelected(false); }
+//
+//			textArea_output.setText( equation.giveOutput() );
+//			this.requestFocus();
+		} 
+		
 	}
 	
 	private Controller controller;
@@ -71,7 +108,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	
 	public View_Implementation() {
 		initComponents();
-		this.addKeyListener(new KeyListener_imp());
+		this.addKeyListener(new KeyListener_Impl());
 	}
 	
 	@Override
@@ -84,11 +121,15 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		this.setVisible(true);
 	}
 	
+	@Override
+	public void setOutput(String output) {
+		textArea_output.setText(output);
+	}
+	
 	/**
 	 * Swing components and layout generated with NetBeans IDE 5.5.
 	 */
 	private void initComponents() {
-
 		button_7 = new javax.swing.JButton();
 		button_8 = new javax.swing.JButton();
 		button_9 = new javax.swing.JButton();
@@ -118,47 +159,27 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
 
 		button_7.setText("7");
-
 		button_8.setText("8");
-
 		button_9.setText("9");
-
 		button_4.setText("4");
-
 		button_5.setText("5");
-
 		button_6.setText("6");
-
 		button_1.setText("1");
-
 		button_2.setText("2");
-
 		button_3.setText("3");
-
 		button_0.setText("0");
-
 		button_decimalPoint.setText(",");
-
 		button_equals.setText("=");
-
 		button_multiply.setText("*");
-
 		button_clear.setText("clear");
-
 		button_squareRoot.setText("sqrt");
-
 		button_power.setText("x^y");
-
 		button_divide.setText("/");
-
 		button_add.setText("+");
-
 		button_undo.setText("undo");
-
 		button_signChange.setText("+/-");
-
 		button_substraction.setText("-");
-
+		
 		textArea_output.setColumns(20);
 		textArea_output.setEditable(false);
 		textArea_output.setRows(10);
