@@ -9,6 +9,8 @@ public class Main {
             	Controller controller = new Controller_Implementation();
             	view.assignController(controller);
             	controller.assignView(view);
+            	// TODO create model
+            	// TODO give model to controller
             	view.setVisible();
             }
         });
