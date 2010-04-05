@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-
 public class View_Implementation extends javax.swing.JFrame  implements View {
 
+	private static final int	OUTPUT_AREA_HEIGHT	= 250;
+	private static final int	OUTPUT_AREA_WIDTH	= 328;
+	
 	private static final long	serialVersionUID	= -2212730761656490235L;
 	
 	/**
@@ -19,64 +21,41 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		public void keyReleased(KeyEvent e) {}
 		public void keyTyped(KeyEvent e) {
 			switch (e.getKeyChar()) {
-			case '0':  { button_0.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '1':  { button_1.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '2':  { button_2.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '3':  { button_3.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '4':  { button_4.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '5':  { button_5.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '6':  { button_6.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '7':  { button_7.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '8':  { button_8.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '9':  { button_9.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '+':  { button_add.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '-':  { button_substraction.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '*':  { button_multiply.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '/':  { button_divide.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '^':  { button_power.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case ',':  { button_decimalPoint.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '.':  { button_decimalPoint.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '=':  { button_equals.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '\r': { button_equals.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '\n': { button_equals.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
-			case '\b': { button_backspace.doClick(KEEP_BUTTON_PRESSED_TIME); break; }
+			case '0':  { pressButton(button_0); break; }
+			case '1':  { pressButton(button_1); break; }
+			case '2':  { pressButton(button_2); break; }
+			case '3':  { pressButton(button_3); break; }
+			case '4':  { pressButton(button_4); break; }
+			case '5':  { pressButton(button_5); break; }
+			case '6':  { pressButton(button_6); break; }
+			case '7':  { pressButton(button_7); break; }
+			case '8':  { pressButton(button_8); break; }
+			case '9':  { pressButton(button_9); break; }
+			case '+':  { pressButton(button_add); break; }
+			case '-':  { pressButton(button_substraction); break; }
+			case '*':  { pressButton(button_multiply); break; }
+			case '/':  { pressButton(button_divide); break; }
+			case '^':  { pressButton(button_power); break; }
+			case ',':  { pressButton(button_decimalPoint); break; }
+			case '.':  { pressButton(button_decimalPoint); break; }
+			case '=':  { pressButton(button_equals); break; }
+			case '\r': { pressButton(button_equals); break; }
+			case '\n': { pressButton(button_equals); break; }
+			case '\b': { pressButton(button_backspace); break; }
 			}
+		}
+		private void pressButton(javax.swing.JButton button) {
+			button.doClick(KEEP_BUTTON_PRESSED_TIME);
 		}
 	}
 	
+	/**
+	 * Sends events to be processed by the controller
+	 */
 	private class ActionListener_Impl implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) { 
-			Object source = e.getSource();
-
-//			if      (source == button_0) { equation.addDigit(0); button_0.setSelected(false); }
-//			else if (source == button_1) { equation.addDigit(1); button_1.setSelected(false); }
-//			else if (source == button_2) { equation.addDigit(2); button_2.setSelected(false); }
-//			else if (source == button_3) { equation.addDigit(3); button_3.setSelected(false); }
-//			else if (source == button_4) { equation.addDigit(4); button_4.setSelected(false); }
-//			else if (source == button_5) { equation.addDigit(5); button_5.setSelected(false); }
-//			else if (source == button_6) { equation.addDigit(6); button_6.setSelected(false); }
-//			else if (source == button_7) { equation.addDigit(7); button_7.setSelected(false); }
-//			else if (source == button_8) { equation.addDigit(8); button_8.setSelected(false); }
-//			else if (source == button_9) { equation.addDigit(9); button_9.setSelected(false); }
-//
-//			else if (source == button_decimalPoint) { equation.addDecimalPoint(); button_decimalPoint.setSelected(false); }
-//			else if (source == button_signChange)   { equation.changeSign();      button_signChange.setSelected(false); }
-//			else if (source == button_equals)       { equation.calculate();       button_equals.setSelected(false); }
-//			else if (source == button_clear)        { equation.clear();           button_clear.setSelected(false); }
-//			else if (source == button_undo)         { equation.undo();            button_undo.setSelected(false); }
-//			else if (source == button_backspace)    { equation.erase();           button_backspace.setSelected(false); }
-//			else if (source == button_add)          { equation.add();             button_add.setSelected(false); }
-//			else if (source == button_substraction) { equation.substract();       button_substraction.setSelected(false); }
-//			else if (source == button_multiply)     { equation.multiply();        button_multiply.setSelected(false); }
-//			else if (source == button_divide)       { equation.divide();          button_divide.setSelected(false); }
-//			else if (source == button_power)        { equation.raiseToPower();    button_power.setSelected(false); }
-//			else if (source == button_squareRoot)   { equation.getSquareRoot();   button_squareRoot.setSelected(false); }
-//
-//			textArea_output.setText( equation.giveOutput() );
-//			this.requestFocus();
+		public void actionPerformed(ActionEvent e) {
+			controller.process(e);
 		} 
-		
 	}
 	
 	private Controller controller;
@@ -109,6 +88,34 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	public View_Implementation() {
 		initComponents();
 		this.addKeyListener(new KeyListener_Impl());
+		ActionListener actionListener = new ActionListener_Impl();
+		addActionListenerToAllButtons(actionListener);
+
+	}
+	
+	private void addActionListenerToAllButtons(ActionListener actionListener) {
+		button_7.addActionListener(actionListener);
+		button_8.addActionListener(actionListener);
+		button_9.addActionListener(actionListener);
+		button_4.addActionListener(actionListener);
+		button_5.addActionListener(actionListener);
+		button_6.addActionListener(actionListener);
+		button_1.addActionListener(actionListener);
+		button_2.addActionListener(actionListener);
+		button_3.addActionListener(actionListener);
+		button_0.addActionListener(actionListener);
+		button_decimalPoint.addActionListener(actionListener);
+		button_equals.addActionListener(actionListener);
+		button_multiply.addActionListener(actionListener);
+		button_clear.addActionListener(actionListener);
+		button_squareRoot.addActionListener(actionListener);
+		button_power.addActionListener(actionListener);
+		button_divide.addActionListener(actionListener);
+		button_add.addActionListener(actionListener);
+		button_undo.addActionListener(actionListener);
+		button_signChange.addActionListener(actionListener);
+		button_substraction.addActionListener(actionListener);
+		button_backspace.addActionListener(actionListener);
 	}
 	
 	@Override
@@ -193,7 +200,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jScrollPane_output, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+								.addComponent(jScrollPane_output, javax.swing.GroupLayout.DEFAULT_SIZE, OUTPUT_AREA_WIDTH, Short.MAX_VALUE)
 								.addGroup(layout.createSequentialGroup()
 										.addContainerGap()
 										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -246,7 +253,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		layout.setVerticalGroup(
 				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
-						.addComponent(jScrollPane_output, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(jScrollPane_output, javax.swing.GroupLayout.PREFERRED_SIZE, OUTPUT_AREA_HEIGHT, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(button_7)
