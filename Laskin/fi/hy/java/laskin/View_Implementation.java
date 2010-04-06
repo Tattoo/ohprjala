@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 
 public class View_Implementation extends javax.swing.JFrame  implements View {
 
+	private static final int	OUTPUT_ROWS	= 10;
+	private static final int	OUTPUT_COLS	= 20;
 	private static final int	OUTPUT_AREA_HEIGHT	= 250;
 	private static final int	OUTPUT_AREA_WIDTH	= 328;
 	
@@ -194,9 +196,9 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		button_substraction.setText(Const.MINUS);
 		button_backspace.setText(Const.BACKSPACE);
 		
-		textArea_output.setColumns(20);
+		textArea_output.setColumns(OUTPUT_COLS);
 		textArea_output.setEditable(false);
-		textArea_output.setRows(10);
+		textArea_output.setRows(OUTPUT_ROWS);
 		jScrollPane_output.setViewportView(textArea_output);
 		
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
