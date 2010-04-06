@@ -1,6 +1,6 @@
 package fi.hy.java.laskin;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Calculator {
 	
@@ -9,71 +9,71 @@ public interface Calculator {
 	 * @param digit
 	 * @return
 	 */
-	public ArrayList<String> addDigit(int digit);
+	public List<String> addDigit(int digit);
 	
 	/**
 	 * Add decimal point after previous digit
 	 * @return
 	 */
-	public ArrayList<String> addDecimalPoint();
+	public List<String> addDecimalPoint();
 	
 	/**
 	 * change sign of the number
 	 * @return
 	 */
-	public ArrayList<String> changeSign();
+	public List<String> changeSign();
 
 	/**
 	 * Reset the calculator and histories
 	 * @return
 	 */
-	public ArrayList<String> clear();
+	public List<String> clear();
 	
 	/**
 	 * Return one calculation step
 	 * @return
 	 */
-	public ArrayList<String> undo();
+	public List<String> undo();
 	
 	/**
 	 * Backspace, erase last inserted digit/operator
 	 * @return
 	 */
-	public ArrayList<String> erase();
+	public List<String> erase();
 	
 	/**
 	 * Make an add calculation
 	 * @return
 	 */
-	public ArrayList<String> add();
+	public List<String> add();
 	
 	/**
 	 * Make a multiply calculation
 	 * @return
 	 */
-	public ArrayList<String> multiply();
+	public List<String> multiply();
 	
 	/**
 	 * Make a divide calculation
 	 * @return
 	 */
-	public ArrayList<String> divide();
+	public List<String> divide();
 	
 	/**
 	 * Make a power calculation
 	 * @return
 	 */
-	public ArrayList<String> raiseToPower();
+	public List<String> raiseToPower();
 	
 	/**
 	 * Get square root of last inserted number
 	 * @return
 	 */
-	public ArrayList<String> getSquareRoot();
+	public List<String> getSquareRoot();
 	
 	/**
 	 * Make the given calculation and save histories
 	 * @return
 	 */
-	public ArrayList<String> calculate();
+	public List<String> calculate();
 }
