@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class View_Implementation extends javax.swing.JFrame  implements View {
 
@@ -19,35 +21,36 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	 */
 	private class KeyListener_Impl implements KeyListener {
 		private final static int KEEP_BUTTON_PRESSED_TIME = 50; // ms
+		private final Map<Character, javax.swing.JButton> charToButtonMapping;
+		public KeyListener_Impl() {
+			this.charToButtonMapping = new HashMap<Character, javax.swing.JButton>();
+			charToButtonMapping.put('0', button_0);
+			charToButtonMapping.put('1', button_1);
+			charToButtonMapping.put('2', button_2);
+			charToButtonMapping.put('3', button_3);
+			charToButtonMapping.put('4', button_4);
+			charToButtonMapping.put('5', button_5);
+			charToButtonMapping.put('6', button_6);
+			charToButtonMapping.put('7', button_7);
+			charToButtonMapping.put('8', button_8);
+			charToButtonMapping.put('9', button_9);
+			charToButtonMapping.put('+', button_add);
+			charToButtonMapping.put('-', button_substraction);
+			charToButtonMapping.put('*', button_multiply);
+			charToButtonMapping.put('/', button_divide);
+			charToButtonMapping.put('^', button_power);
+			charToButtonMapping.put(',', button_decimalPoint);
+			charToButtonMapping.put('.', button_decimalPoint);
+			charToButtonMapping.put('=', button_equals);
+			charToButtonMapping.put('\r', button_equals);
+			charToButtonMapping.put('\n', button_equals);
+			charToButtonMapping.put('\b', button_backspace);
+		}
 		public void keyPressed(KeyEvent e) {}
 		public void keyReleased(KeyEvent e) {}
 		public void keyTyped(KeyEvent e) {
-			switch (e.getKeyChar()) {
-			case '0':  { pressButton(button_0); break; }
-			case '1':  { pressButton(button_1); break; }
-			case '2':  { pressButton(button_2); break; }
-			case '3':  { pressButton(button_3); break; }
-			case '4':  { pressButton(button_4); break; }
-			case '5':  { pressButton(button_5); break; }
-			case '6':  { pressButton(button_6); break; }
-			case '7':  { pressButton(button_7); break; }
-			case '8':  { pressButton(button_8); break; }
-			case '9':  { pressButton(button_9); break; }
-			case '+':  { pressButton(button_add); break; }
-			case '-':  { pressButton(button_substraction); break; }
-			case '*':  { pressButton(button_multiply); break; }
-			case '/':  { pressButton(button_divide); break; }
-			case '^':  { pressButton(button_power); break; }
-			case ',':  { pressButton(button_decimalPoint); break; }
-			case '.':  { pressButton(button_decimalPoint); break; }
-			case '=':  { pressButton(button_equals); break; }
-			case '\r': { pressButton(button_equals); break; }
-			case '\n': { pressButton(button_equals); break; }
-			case '\b': { pressButton(button_backspace); break; }
-			}
-		}
-		private void pressButton(javax.swing.JButton button) {
-			button.doClick(KEEP_BUTTON_PRESSED_TIME);
+			Character key = e.getKeyChar();
+			charToButtonMapping.get(key).doClick(KEEP_BUTTON_PRESSED_TIME);
 		}
 	}
 	
