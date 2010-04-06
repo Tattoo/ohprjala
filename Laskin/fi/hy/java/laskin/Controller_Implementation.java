@@ -29,10 +29,10 @@ public class Controller_Implementation implements Controller {
 	
 	private void callModel(String command) {
 		// TODO calls to model
-		if (Const.DIGITS.contains(command)) {
+		if (isDigit(command)) {
 			
 		} 
-		if (Const.OPERANDS.contains(command)) {
+		if (isOperand(command)) {
 			
 		}
 //		public static final String	DECIMAL_SEPARATOR	= ",";
@@ -41,6 +41,14 @@ public class Controller_Implementation implements Controller {
 //		public static final String	UNDO	= "undo";
 //		public static final String	CHANGE_SIGN	= "+/-";
 //		public static final String	BACKSPACE	= "backspace";
+	}
+
+	private boolean isOperand(String command) {
+		return Const.OPERANDS.contains(command);
+	}
+
+	private boolean isDigit(String command) {
+		return Const.DIGITS.contains(command);
 	}
 	
 }
