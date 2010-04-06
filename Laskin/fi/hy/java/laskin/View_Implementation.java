@@ -171,35 +171,34 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
 
-		button_7.setText("7");
-		button_8.setText("8");
-		button_9.setText("9");
-		button_4.setText("4");
-		button_5.setText("5");
-		button_6.setText("6");
-		button_1.setText("1");
-		button_2.setText("2");
-		button_3.setText("3");
-		button_0.setText("0");
-		button_decimalPoint.setText(",");
-		button_equals.setText("=");
-		button_multiply.setText("*");
-		button_clear.setText("clear");
-		button_squareRoot.setText("sqrt");
-		button_power.setText("x^y");
-		button_divide.setText("/");
-		button_add.setText("+");
-		button_undo.setText("undo");
-		button_signChange.setText("+/-");
-		button_substraction.setText("-");
+		button_1.setText(Const.ONE);
+		button_2.setText(Const.TWO);
+		button_3.setText(Const.THREE);
+		button_4.setText(Const.FOUR);
+		button_5.setText(Const.FIVE);
+		button_6.setText(Const.SIX);
+		button_7.setText(Const.SEVEN);
+		button_8.setText(Const.EIGHT);
+		button_9.setText(Const.NINE);
+		button_0.setText(Const.ZERO);
+		button_decimalPoint.setText(Const.DECIMAL_SEPARATOR);
+		button_equals.setText(Const.EQUALS);
+		button_multiply.setText(Const.MULTIPLY);
+		button_clear.setText(Const.CLEAR);
+		button_squareRoot.setText(Const.SQRT);
+		button_power.setText(Const.RAISE_TO_POWER);
+		button_divide.setText(Const.DIVIDE);
+		button_add.setText(Const.ADD);
+		button_undo.setText(Const.UNDO);
+		button_signChange.setText(Const.CHANGE_SIGN);
+		button_substraction.setText(Const.MINUS);
+		button_backspace.setText(Const.BACKSPACE);
 		
 		textArea_output.setColumns(20);
 		textArea_output.setEditable(false);
 		textArea_output.setRows(10);
 		jScrollPane_output.setViewportView(textArea_output);
-
-		button_backspace.setText("backspace");
-
+		
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(
