@@ -17,7 +17,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	private static final long	serialVersionUID	= -2212730761656490235L;
 	
 	/**
-	 * Causes a button on the UI to be pressed if a key that matches with that button is typed 
+	 * Causes a button on the UI to be pressed if a key that matches that button is typed 
 	 */
 	private class KeyListener_Impl implements KeyListener {
 		private final static int KEEP_BUTTON_PRESSED_TIME = 50; // ms
@@ -46,8 +46,14 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 			charToButtonMapping.put('\n', button_equals);
 			charToButtonMapping.put('\b', button_backspace);
 		}
+		
+		@Override
 		public void keyPressed(KeyEvent e) {}
+		
+		@Override
 		public void keyReleased(KeyEvent e) {}
+		
+		@Override
 		public void keyTyped(KeyEvent e) {
 			Character key = e.getKeyChar();
 			charToButtonMapping.get(key).doClick(KEEP_BUTTON_PRESSED_TIME);
