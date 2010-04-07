@@ -14,7 +14,7 @@ public class Calculator_Imple implements Calculator {
 	private char currentOperator;       // stores the operator (+,-,*,/,^,FIRST,NOP). (Square root is a special operation that doesn't take a second value)
 	private Vector<Double> pastValues;  // history of previous currentvalues for undo button
 	private ArrayList<String> calcHistory;
-
+ 
 	public Calculator_Imple() {
 		currentValue = 0;
 		currentDigits = "";

@@ -202,7 +202,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		button_add.setText(Const.ADD);
 		button_undo.setText(Const.UNDO);
 		button_signChange.setText(Const.CHANGE_SIGN);
-		button_substraction.setText(Const.MINUS);
+		button_substraction.setText(Const.SUBSTRACT);
 		button_backspace.setText(Const.BACKSPACE);
 		
 		textArea_output.setColumns(OUTPUT_COLS);

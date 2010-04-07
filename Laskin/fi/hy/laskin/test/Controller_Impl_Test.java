@@ -91,6 +91,10 @@ public class Controller_Impl_Test {
 				calculatorCommands += Const.UNDO;
 				return fakeOutput;
 			}
+			public List<String> substract() {
+				calculatorCommands += Const.SUBSTRACT;
+				return fakeOutput;
+			}
 		}
 		
 		private Controller controller;
@@ -133,7 +137,22 @@ public class Controller_Impl_Test {
 			assertEquals("1234567890", calculatorCommands);
 		}
 		
-		// TODO operands
+		public void test__it_calls_models_operad_methods() {
+			triggerEvent(Const.ADD);
+			triggerEvent(Const.SUBSTRACT);
+			triggerEvent(Const.MULTIPLY);
+			triggerEvent(Const.DIVIDE);
+			triggerEvent(Const.RAISE_TO_POWER);
+			triggerEvent(Const.SQRT);
+			String expected = 
+				Const.ADD +
+				Const.SUBSTRACT +
+				Const.MULTIPLY + 
+				Const.DIVIDE + 
+				Const.RAISE_TO_POWER + 
+				Const.SQRT;
+			assertEquals(expected, calculatorCommands);
+		}
 		
 		public void test__it_calls_models_other_methods() {
 			triggerEvent(Const.DECIMAL_SEPARATOR);

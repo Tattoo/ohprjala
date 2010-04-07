@@ -48,6 +48,12 @@ public interface Calculator {
 	public List<String> add();
 	
 	/**
+	 * Make a substraction
+	 * @return
+	 */
+	public List<String> substract();
+	
+	/**
 	 * Make a multiply calculation
 	 * @return
 	 */
