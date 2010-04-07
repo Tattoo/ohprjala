@@ -29,21 +29,7 @@ public class Controller_Implementation implements Controller {
 		updateView();
 	}
 	
-	private void updateView() {
-		StringBuilder output = new StringBuilder();
-		for (String s : outputContents) {
-			output.append(s).append("\n");
-		}
-		removeLastLineBrake(output);
-		view.setOutput(output.toString());
-	}
-	
-	private void removeLastLineBrake(StringBuilder output) {
-		if (output.length() > 0) output.deleteCharAt(output.length()-1);
-	}
-	
 	private void callModel(String command) {
-		// TODO calls to model
 		if (isDigit(command)) {
 			outputContents = calculator.addDigit(toDigit(command));
 		} else if (command.equals(Const.DECIMAL_SEPARATOR)){
@@ -71,6 +57,19 @@ public class Controller_Implementation implements Controller {
 		} else if (command.equals(Const.BACKSPACE)){
 			outputContents = calculator.erase();
 		} 
+	}
+	
+	private void updateView() {
+		StringBuilder output = new StringBuilder();
+		for (String s : outputContents) {
+			output.append(s).append("\n");
+		}
+		removeLastLineBrake(output);
+		view.setOutput(output.toString());
+	}
+	
+	private void removeLastLineBrake(StringBuilder output) {
+		if (output.length() > 0) output.deleteCharAt(output.length()-1);
 	}
 	
 	private Integer toDigit(String command) {
