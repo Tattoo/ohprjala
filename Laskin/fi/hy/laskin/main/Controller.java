@@ -1,4 +1,4 @@
-package fi.hy.java.laskin;
+package fi.hy.laskin.main;
 
 import java.awt.event.ActionEvent;
 
@@ -10,7 +10,11 @@ public interface Controller {
 	 */
 	public void assignView(View view);
 	
-	//	public void assignModel(Model model);
+	/**
+	 * Gives this controller the calculator that is to be used in performing functions
+	 * @param calculator
+	 */
+	public void assignModel(Calculator calculator);
 	
 	/**
 	 * Processess an UI event. Performs actions and updates output (if any).

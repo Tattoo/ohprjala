@@ -1,4 +1,4 @@
-package fi.hy.java.laskin;
+package fi.hy.laskin.main;
 
 import java.awt.event.ActionEvent;
 
@@ -6,6 +6,7 @@ public class Controller_Implementation implements Controller {
 
 	private static final long	serialVersionUID	= 8393096071539802563L;
 	private View view;
+	private Calculator calculator;
 	private String outputContents;
 
 	public Controller_Implementation() {
@@ -15,6 +16,10 @@ public class Controller_Implementation implements Controller {
 	@Override
 	public void assignView(View view) {
 		this.view = view;
+	}
+	
+	public void assignModel(Calculator calculator) {
+		this.calculator = calculator;
 	}
 	
 	public void process(ActionEvent e) {
@@ -50,5 +55,7 @@ public class Controller_Implementation implements Controller {
 	private boolean isDigit(String command) {
 		return Const.DIGITS.contains(command);
 	}
+
+	
 	
 }

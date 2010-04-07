@@ -1,4 +1,4 @@
-package fi.hy.java.laskin;
+package fi.hy.laskin.main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;

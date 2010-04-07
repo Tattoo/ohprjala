@@ -1,4 +1,4 @@
-package fi.hy.java.laskin;
+package fi.hy.laskin.main;
 
 /**
  * Main method for a Calculator
@@ -11,10 +11,10 @@ public class Main {
             public void run() {
             	View view = new View_Implementation();
             	Controller controller = new Controller_Implementation();
+            	Calculator calculator = new Calculator_Imple();
             	view.assignController(controller);
             	controller.assignView(view);
-            	// TODO create model
-            	// TODO give model to controller
+            	controller.assignModel(calculator);
             	view.setVisible();
             }
         });

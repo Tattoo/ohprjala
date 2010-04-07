@@ -1,4 +1,4 @@
-package fi.hy.java.laskin;
+package fi.hy.laskin.main;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
