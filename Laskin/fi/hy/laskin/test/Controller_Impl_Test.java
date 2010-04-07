@@ -1,12 +1,16 @@
 package fi.hy.laskin.test;
 
 import fi.hy.laskin.main.Calculator;
+import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.Controller_Implementation;
 import fi.hy.laskin.main.View;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JButton;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -30,42 +34,62 @@ public class Controller_Impl_Test {
 		}
 		
 		private class MockCalculator implements Calculator {
+			private final List<String> fakeOutput;
+			public MockCalculator() {
+				fakeOutput = new ArrayList<String>();
+				fakeOutput.add("1 + 1");
+				fakeOutput.add("  2");
+				fakeOutput.add("Ans+5");
+				fakeOutput.add("  7");
+			}
+			
 			public List<String> add() {
-				return null;
+				calculatorCommands += Const.ADD;
+				return fakeOutput;
 			}
 			public List<String> addDecimalPoint() {
-				return null;
+				calculatorCommands += Const.DECIMAL_SEPARATOR;
+				return fakeOutput;
 			}
 			public List<String> addDigit(int digit) {
 				calculatorCommands += digit;
-				return null;
+				return fakeOutput;
 			}
 			public List<String> calculate() {
-				return null;
+				calculatorCommands += Const.EQUALS;
+				return fakeOutput;
 			}
 			public List<String> changeSign() {
-				return null;
+				calculatorCommands += Const.CHANGE_SIGN;
+				return fakeOutput;
 			}
 			public List<String> clear() {
-				return null;
+				calculatorCommands += Const.CLEAR;
+				return fakeOutput;
 			}
 			public List<String> divide() {
-				return null;
+				calculatorCommands += Const.DIVIDE;
+				return fakeOutput;
 			}
 			public List<String> erase() {
-				return null;
+				calculatorCommands += Const.BACKSPACE;
+				return fakeOutput;
 			}
 			public List<String> getSquareRoot() {
-				return null;
+				calculatorCommands += Const.SQRT;
+				return fakeOutput;
 			}
 			public List<String> multiply() {
-				return null;
+				calculatorCommands += Const.MULTIPLY;
+				return fakeOutput;
 			}
 			public List<String> raiseToPower() {
-				return null;
+				calculatorCommands += Const.RAISE_TO_POWER;
+				return fakeOutput;
 			}
 			public List<String> undo() {
-				return null;
+				calculatorCommands += Const.UNDO;
+				return fakeOutput;
 			}
 		}
 		
@@ -79,7 +103,6 @@ public class Controller_Impl_Test {
 			controller = new Controller_Implementation();
 			mockCalculator = new MockCalculator();
 			mockView = new MockView();
-			mockView.assignController(controller);
 			controller.assignModel(mockCalculator);
 			controller.assignView(mockView);
 			viewOutput = "";
@@ -92,9 +115,57 @@ public class Controller_Impl_Test {
 		}
 		
 		private void triggerEvent(String command) {
-			ActionEvent e = new ActionEvent(null, 0, command);
+			ActionEvent e = new ActionEvent(new JButton(), 0, command);
 			controller.process(e);
-		}     
+		}    
+		
+		public void test__it_calls_models_add_digit_method() {
+			triggerEvent("1");
+			triggerEvent("2");
+			triggerEvent("3");
+			triggerEvent("4");
+			triggerEvent("5");
+			triggerEvent("6");
+			triggerEvent("7");
+			triggerEvent("8");
+			triggerEvent("9");
+			triggerEvent("0");
+			assertEquals("1234567890", calculatorCommands);
+		}
+		
+		// TODO operands
+		
+		public void test__it_calls_models_other_methods() {
+			triggerEvent(Const.DECIMAL_SEPARATOR);
+			triggerEvent(Const.EQUALS);
+			triggerEvent(Const.CLEAR);
+			triggerEvent(Const.UNDO);
+			triggerEvent(Const.CHANGE_SIGN);
+			triggerEvent(Const.BACKSPACE);
+			String expected = 
+				Const.DECIMAL_SEPARATOR +
+				Const.EQUALS +
+				Const.CLEAR + 
+				Const.UNDO + 
+				Const.CHANGE_SIGN + 
+				Const.BACKSPACE;
+			assertEquals(expected, calculatorCommands);
+		}
+		
+		public void test__output_is_initially_empty() {
+			assertEquals("", viewOutput);
+		}
+		
+		public void test__it_updates_output_to_view_after_processing_events() {
+			triggerEvent(Const.EQUALS);
+			String expected = "" +
+			"1 + 1\n" + 
+			"  2\n" + 
+			"Ans+5\n" +
+			"  7";
+			assertEquals(expected, viewOutput);
+		}
+		
 
 	}
 
