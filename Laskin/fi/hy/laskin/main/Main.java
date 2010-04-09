@@ -1,5 +1,9 @@
 package fi.hy.laskin.main;
 
+import fi.hy.laskin.main.calculator.Calculator_Imple;
+import fi.hy.laskin.main.control.Controller_Implementation;
+import fi.hy.laskin.main.view.View_Implementation;
+
 /**
  * Main method for a Calculator
  * @author ohprjala, Ohjelmistoprosessit ja laatu -kurssin harjoitustyöryhmä 

@@ -1,7 +1,9 @@
-package fi.hy.laskin.main;
+package fi.hy.laskin.main.calculator;
 
 import java.util.ArrayList;
 import java.util.Vector;
+
+import fi.hy.laskin.main.Calculator;
 
 public class Calculator_Imple implements Calculator {
 	private final char NOP = 'z';   // no operation at the moment (no currentDigits)

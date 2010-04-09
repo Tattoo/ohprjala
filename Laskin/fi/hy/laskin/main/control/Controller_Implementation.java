@@ -1,8 +1,14 @@
-package fi.hy.laskin.main;
+package fi.hy.laskin.main.control;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import fi.hy.laskin.main.Calculator;
+import fi.hy.laskin.main.Const;
+import fi.hy.laskin.main.Controller;
+import fi.hy.laskin.main.View;
+
 
 public class Controller_Implementation implements Controller {
 

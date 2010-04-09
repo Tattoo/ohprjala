@@ -1,4 +1,4 @@
-package fi.hy.laskin.main;
+package fi.hy.laskin.main.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
+
+import fi.hy.laskin.main.Const;
+import fi.hy.laskin.main.Controller;
+import fi.hy.laskin.main.View;
 
 public class View_Implementation extends javax.swing.JFrame  implements View {
 

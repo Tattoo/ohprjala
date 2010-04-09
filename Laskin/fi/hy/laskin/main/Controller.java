@@ -2,6 +2,7 @@ package fi.hy.laskin.main;
 
 import java.awt.event.ActionEvent;
 
+
 public interface Controller {
 
 	/**

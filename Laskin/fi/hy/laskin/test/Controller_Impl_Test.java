@@ -3,8 +3,8 @@ package fi.hy.laskin.test;
 import fi.hy.laskin.main.Calculator;
 import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
-import fi.hy.laskin.main.Controller_Implementation;
 import fi.hy.laskin.main.View;
+import fi.hy.laskin.main.control.Controller_Implementation;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
