@@ -102,6 +102,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	private javax.swing.JTextArea textArea_output;
 	
 	public View_Implementation() {
+		super("Calculator");
 		initComponents();
 		this.addKeyListener(new KeyListener_Impl());
 		ActionListener actionListener = new ActionListener_Impl(this);
@@ -180,7 +181,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		button_backspace = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
+		//setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
 
 		button_1.setText(Const.ONE);
 		button_2.setText(Const.TWO);
