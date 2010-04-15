@@ -1,6 +1,7 @@
 package fi.hy.laskin.main.calculator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 import fi.hy.laskin.main.Calculator;
@@ -16,6 +17,7 @@ public class Calculator_Imple implements Calculator {
 	private char currentOperator;       // stores the operator (+,-,*,/,^,FIRST,NOP). (Square root is a special operation that doesn't take a second value)
 	private Vector<Double> pastValues;  // history of previous currentvalues for undo button
 	private ArrayList<String> calcHistory;
+	private HashMap<Integer, Double> savedResults; //slot "0" reserved for ANS
  
 	public Calculator_Imple() {
 		currentValue = 0;
@@ -24,6 +26,7 @@ public class Calculator_Imple implements Calculator {
 		currentDigitsIsPositive = true;
 		currentOperator = FIRST;
 		pastValues = new Vector<Double>(10);
+		savedResults = new HashMap<Integer, Double>();
 		calcHistory = new ArrayList<String>(200);
 	}
 
@@ -126,11 +129,12 @@ public class Calculator_Imple implements Calculator {
 	}
 
 	/**
-	 * Resets the calculator (except for pastValues)
+	 * Resets the calculator
 	 */
 	public ArrayList<String> clear() {
-		pastValues = new Vector<Double>(10);
-		calcHistory = new ArrayList<String>(200);
+		pastValues.clear();
+		calcHistory.clear();
+		savedResults.clear();
 		currentValue = 0;
 		currentDigits = "";
 		currentDigitsIsEven = true;
@@ -202,6 +206,21 @@ public class Calculator_Imple implements Calculator {
 		currentOperator = '^';
 		return getCalcHistory();
 	}
+	
+	public ArrayList<String> ans() {
+		if(savedResults.get(0) != null && (currentDigits == "" || currentDigits == "-")) {
+			String ans = savedResults.get(0).toString();
+			for(int i = 0; i < ans.length(); i++) {
+				if(ans.charAt(i) == '.')
+					addDecimalPoint();
+				else if(ans.charAt(i) == '-')
+					changeSign();
+				else
+					addDigit(Integer.parseInt(""+ans.charAt(i)));
+			}
+		}	
+		return getCalcHistory();		
+	}
 
 	/**
 	 * Perform whatever calculation the user has currently entered
@@ -211,11 +230,11 @@ public class Calculator_Imple implements Calculator {
 		String calculation = giveOutput() + " = "; // saves the calculation in string format
 		
 		if (currentOperator == NOP)  // nothing to do
-			return getCalcHistory();;
+			return getCalcHistory();
 
 		// if there is an operator, but no currentDigits to use for that operation, we do nothing 
 		if (currentOperator != FIRST && ( currentDigits.equals("") || currentDigits.equals("-") ) )
-			return getCalcHistory();;
+			return getCalcHistory();
 
 		switch(currentOperator)
 		{
@@ -283,6 +302,7 @@ public class Calculator_Imple implements Calculator {
 		}
 
 		}
+		savedResults.put(0, currentValue);
 		return getCalcHistory();
 	}
 		
@@ -296,7 +316,7 @@ public class Calculator_Imple implements Calculator {
 		this.calculate();  
 		this.addPastValue();
 		currentValue = Math.sqrt(currentValue);
-		calcHistory.add(calculation + currentValue);
+		calcHistory.add("sqrt(" + calculation +") = "+ currentValue);
 		return getCalcHistory();
 	}
 	
@@ -322,10 +342,10 @@ public class Calculator_Imple implements Calculator {
 	 */
 	private String giveOutput() {
 		if (currentOperator == FIRST)
-			return "    " + currentDigits;
+			return currentDigits;
 		if (currentOperator == NOP)
-			return "" + currentValue + "    ";
-		return "" + currentValue + "    " + currentOperator + " " + currentDigits; 
+			return "" + currentValue;
+		return "" + currentValue + " " + currentOperator + " " + currentDigits; 
 	}	
 		
 	private ArrayList<String> getCalcHistory() {
@@ -334,30 +354,5 @@ public class Calculator_Imple implements Calculator {
 			history.add(giveOutput());
 		
 		return history;
-	}
-	
-	private void printHistory() {
-		for(int i = 0; i < this.calcHistory.size(); i++)
-			System.out.println(this.calcHistory.get(i));		
-	}
-	
-	public static void main(String[] args) {
-		Calculator_Imple laskin = new Calculator_Imple();
-		laskin.addDigit(9);
-		laskin.add();
-		laskin.addDigit(10);
-		laskin.calculate();
-		laskin.multiply();
-		laskin.addDigit(10);
-		laskin.calculate();
-		laskin.undo();
-		laskin.multiply();
-		laskin.addDigit(8);
-		laskin.calculate();
-		
-		//laskin.addDigit(10);
-		//laskin.getSquareRoot();
-		laskin.printHistory();
-	}
-	
+	}	
 }
