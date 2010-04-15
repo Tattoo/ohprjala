@@ -81,7 +81,7 @@ public class Controller_Implementation implements Controller {
 
 	private void useOutputDevice(String command) {
 		String filename = outputDevices.get(command).print(outputContents);
-		view.openFileCreatedDialog(filename);
+		view.fileCreated(filename);
 	}
 	
 	private void updateView() {

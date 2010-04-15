@@ -24,6 +24,6 @@ public interface View {
 	 * Opens a dialog telling that a file with the given filename has been created
 	 * @param filename
 	 */
-	public void openFileCreatedDialog(String filename);
+	public void fileCreated(String filename);
 	
 }

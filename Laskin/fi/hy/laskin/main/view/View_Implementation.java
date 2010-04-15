@@ -4,6 +4,7 @@ import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.View;
 
+import java.awt.Dialog;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -11,15 +12,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.LayoutStyle;
 
 
 public class View_Implementation extends javax.swing.JFrame  implements View {
 
+	private static final String	EXIT_PROGRAM	= "Exit";
 	private static final int	OUTPUT_ROWS	= 10;
 	private static final int	OUTPUT_COLS	= 20;
 	
@@ -78,6 +83,9 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 			this.frame = frame;
 		}
 		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand().equals(EXIT_PROGRAM)) {
+				System.exit(0);
+			} 
 			controller.process(e);
 			frame.requestFocus();
 		} 
@@ -85,37 +93,39 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	
 	private Controller controller;
 	
-	private javax.swing.JButton button_0;
-	private javax.swing.JButton button_1;
-	private javax.swing.JButton button_2;
-	private javax.swing.JButton button_3;
-	private javax.swing.JButton button_4;
-	private javax.swing.JButton button_5;
-	private javax.swing.JButton button_6;
-	private javax.swing.JButton button_7;
-	private javax.swing.JButton button_8;
-	private javax.swing.JButton button_9;
-	private javax.swing.JButton button_add;
-	private javax.swing.JButton button_backspace;
-	private javax.swing.JButton button_clear;
-	private javax.swing.JButton button_decimalPoint;
-	private javax.swing.JButton button_divide;
-	private javax.swing.JButton button_equals;
-	private javax.swing.JButton button_multiply;
-	private javax.swing.JButton button_power;
-	private javax.swing.JButton button_signChange;
-	private javax.swing.JButton button_squareRoot;
-	private javax.swing.JButton button_substraction;
-	private javax.swing.JButton button_undo;
+	private JButton button_0;
+	private JButton button_1;
+	private JButton button_2;
+	private JButton button_3;
+	private JButton button_4;
+	private JButton button_5;
+	private JButton button_6;
+	private JButton button_7;
+	private JButton button_8;
+	private JButton button_9;
+	private JButton button_add;
+	private JButton button_backspace;
+	private JButton button_clear;
+	private JButton button_decimalPoint;
+	private JButton button_divide;
+	private JButton button_equals;
+	private JButton button_multiply;
+	private JButton button_power;
+	private JButton button_signChange;
+	private JButton button_squareRoot;
+	private JButton button_substraction;
+	private JButton button_undo;
 	private javax.swing.JScrollPane jScrollPane_output;
 	private javax.swing.JTextArea textArea_output;
-	private javax.swing.JButton button_ans;
+	private JButton button_ans;
 	private MenuBar menubar;
 	private Menu fileMenu;
 	private MenuItem exportToFile;
 	private MenuItem exit;
 	private final ActionListener actionListener;
 	
+	private Dialog fileDialog;
+	  
 	public View_Implementation() {
 		super("Calculator");
 		initComponents();
@@ -169,47 +179,68 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	}
 	
 	@Override
-	public void openFileCreatedDialog(String filename) {
-		// TODO Auto-generated method stub
-		
+	public void fileCreated(String filename) {
+		fileDialog = new Dialog(this, "File created", true);
+	    fileDialog.addWindowListener(new WindowListener() {
+			public void windowClosing(WindowEvent e) {
+				fileDialog.dispose();
+			}
+			public void windowOpened(WindowEvent e) {}
+			public void windowIconified(WindowEvent e) {}
+			public void windowDeiconified(WindowEvent e) {}
+			public void windowDeactivated(WindowEvent e) { }
+			public void windowClosed(WindowEvent e) {}
+			public void windowActivated(WindowEvent e) {}
+		});
+	    JButton fileDialogCloseButton = new JButton("File " +filename+ " has been created to output folder");
+	    fileDialogCloseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fileDialog.dispose();
+			}
+		});
+	    fileDialog.add(fileDialogCloseButton);
+	    fileDialog.pack();
+	    fileDialog.setResizable(false);
+	    fileDialog.setVisible(true);
+	    fileDialog.validate();
 	}
 	
 	/**
 	 * Swing components and layout generated with NetBeans IDE 5.5.
 	 */
 	private void initComponents() {
-		button_7 = new javax.swing.JButton();
-		button_8 = new javax.swing.JButton();
-		button_9 = new javax.swing.JButton();
-		button_4 = new javax.swing.JButton();
-		button_5 = new javax.swing.JButton();
-		button_6 = new javax.swing.JButton();
-		button_1 = new javax.swing.JButton();
-		button_2 = new javax.swing.JButton();
-		button_3 = new javax.swing.JButton();
-		button_0 = new javax.swing.JButton();
-		button_decimalPoint = new javax.swing.JButton();
-		button_equals = new javax.swing.JButton();
-		button_multiply = new javax.swing.JButton();
-		button_clear = new javax.swing.JButton();
-		button_squareRoot = new javax.swing.JButton();
-		button_power = new javax.swing.JButton();
-		button_divide = new javax.swing.JButton();
-		button_add = new javax.swing.JButton();
-		button_undo = new javax.swing.JButton();
-		button_signChange = new javax.swing.JButton();
-		button_substraction = new javax.swing.JButton();
+		button_7 = new JButton();
+		button_8 = new JButton();
+		button_9 = new JButton();
+		button_4 = new JButton();
+		button_5 = new JButton();
+		button_6 = new JButton();
+		button_1 = new JButton();
+		button_2 = new JButton();
+		button_3 = new JButton();
+		button_0 = new JButton();
+		button_decimalPoint = new JButton();
+		button_equals = new JButton();
+		button_multiply = new JButton();
+		button_clear = new JButton();
+		button_squareRoot = new JButton();
+		button_power = new JButton();
+		button_divide = new JButton();
+		button_add = new JButton();
+		button_undo = new JButton();
+		button_signChange = new JButton();
+		button_substraction = new JButton();
 		jScrollPane_output = new javax.swing.JScrollPane();
 		textArea_output = new javax.swing.JTextArea();
-		button_backspace = new javax.swing.JButton();
-		button_ans = new javax.swing.JButton();
+		button_backspace = new JButton();
+		button_ans = new JButton();
 		button_ans.setText(Const.ANS.toUpperCase()); 
 		
 		menubar = new MenuBar();
 		fileMenu = new Menu("File");
 		menubar.add(fileMenu);
 		exportToFile = new MenuItem(Const.EXPORT_TO_TEXTFILE);
-		exit = new MenuItem("Exit");
+		exit = new MenuItem(EXIT_PROGRAM);
 		fileMenu.add(exportToFile);
 		fileMenu.addSeparator();
 		fileMenu.add(exit);

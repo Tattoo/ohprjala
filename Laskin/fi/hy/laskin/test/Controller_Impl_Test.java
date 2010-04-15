@@ -36,7 +36,7 @@ public class Controller_Impl_Test {
 				viewOutput = output;
 			}
 			public void setVisible() {}
-			public void openFileCreatedDialog(String filename) {
+			public void fileCreated(String filename) {
 				openFileCreatedDialogCalled = true;
 				this.filename = filename;
 			}
