@@ -1,13 +1,15 @@
 package fi.hy.laskin.test;
 
+import fi.hy.laskin.main.Calculator;
+import fi.hy.laskin.main.calculator.Calculator_Imple;
+
 import java.util.List;
 
-import fi.hy.laskin.main.calculator.Calculator_Imple;
 import junit.framework.TestCase;
 
 public class Calculator_Imple_Test extends TestCase {
 
-	private Calculator_Imple calc;
+	private Calculator calc;
 	
 	protected void setUp() throws Exception {
 		super.setUp();

@@ -95,6 +95,11 @@ public class Controller_Impl_Test {
 				calculatorCommands += Const.SUBSTRACT;
 				return fakeOutput;
 			}
+
+			public ArrayList<String> ans() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}
 		
 		private Controller controller;
