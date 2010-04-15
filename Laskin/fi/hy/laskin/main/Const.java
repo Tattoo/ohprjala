@@ -27,7 +27,8 @@ public class Const {
 	public static final String	CHANGE_SIGN	= "+/-";
 	public static final String	SUBSTRACT	= "-";
 	public static final String	BACKSPACE	= "backspace";
-	public static final String  ANS = "ans";
+	public static final String  ANS = "Ans";
+	public static final String EXPORT_TO_TEXTFILE = "Export to textfile";
 	
 	public static final Collection<String> DIGITS = createStringCollection(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO);
 	public static final Collection<String> OPERANDS = createStringCollection(MULTIPLY, SUBSTRACT, ADD, DIVIDE, SQRT, RAISE_TO_POWER);

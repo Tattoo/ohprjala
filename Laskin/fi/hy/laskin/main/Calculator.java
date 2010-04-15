@@ -1,6 +1,5 @@
 package fi.hy.laskin.main;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface Calculator {
@@ -88,5 +87,5 @@ public interface Calculator {
 	 * Inserts previous answer as digits, if applicable
 	 * @return
 	 */
-	public ArrayList<String> ans();
+	public List<String> ans();
 }

@@ -2,6 +2,7 @@ package fi.hy.laskin.main;
 
 import fi.hy.laskin.main.calculator.Calculator_Imple;
 import fi.hy.laskin.main.control.Controller_Implementation;
+import fi.hy.laskin.main.outputdevice.TextfileWriter;
 import fi.hy.laskin.main.view.View_Implementation;
 
 /**
@@ -19,8 +20,10 @@ public class Main {
             	Calculator calculator = new Calculator_Imple();
             	
             	view.assignController(controller);
+            	
             	controller.assignView(view);
             	controller.assignModel(calculator);
+            	controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, new TextfileWriter());
             	
             	view.setVisible();
             	

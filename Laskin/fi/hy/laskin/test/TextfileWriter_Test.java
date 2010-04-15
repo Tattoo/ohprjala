@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import fi.hy.laskin.main.calculator.Calculator_Imple;
-import fi.hy.laskin.main.filewriter.TextfileWriter;
+import fi.hy.laskin.main.outputdevice.TextfileWriter;
+
 import junit.framework.TestCase;
 
 public class TextfileWriter_Test extends TestCase {

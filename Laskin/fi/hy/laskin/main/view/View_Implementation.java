@@ -4,6 +4,9 @@ import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.View;
 
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,18 +18,6 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
 
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
 public class View_Implementation extends javax.swing.JFrame  implements View {
 
 	private static final int	OUTPUT_ROWS	= 10;
@@ -119,18 +110,23 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	private javax.swing.JScrollPane jScrollPane_output;
 	private javax.swing.JTextArea textArea_output;
 	private javax.swing.JButton button_ans;
+	private MenuBar menubar;
+	private Menu fileMenu;
+	private MenuItem exportToFile;
+	private MenuItem exit;
+	private final ActionListener actionListener;
 	
 	public View_Implementation() {
 		super("Calculator");
 		initComponents();
 		this.addKeyListener(new KeyListener_Impl());
-		ActionListener actionListener = new ActionListener_Impl(this);
-		addActionListenerToAllButtons(actionListener);
+		actionListener = new ActionListener_Impl(this);
+		addActionListenerToAllButtonsAndMenus();
 		this.setFocusable(true);
 		this.requestFocus();
 	}
 	
-	private void addActionListenerToAllButtons(ActionListener actionListener) {
+	private void addActionListenerToAllButtonsAndMenus() {
 		button_7.addActionListener(actionListener);
 		button_8.addActionListener(actionListener);
 		button_9.addActionListener(actionListener);
@@ -154,6 +150,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		button_substraction.addActionListener(actionListener);
 		button_backspace.addActionListener(actionListener);
 		button_ans.addActionListener(actionListener);
+		fileMenu.addActionListener(actionListener);
 	}
 	
 	@Override
@@ -169,6 +166,12 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	@Override
 	public void setOutput(String output) {
 		textArea_output.setText(output);
+	}
+	
+	@Override
+	public void openFileCreatedDialog(String filename) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/**
@@ -201,7 +204,17 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		button_backspace = new javax.swing.JButton();
 		button_ans = new javax.swing.JButton();
 		button_ans.setText(Const.ANS.toUpperCase()); 
-
+		
+		menubar = new MenuBar();
+		fileMenu = new Menu("File");
+		menubar.add(fileMenu);
+		exportToFile = new MenuItem(Const.EXPORT_TO_TEXTFILE);
+		exit = new MenuItem("Exit");
+		fileMenu.add(exportToFile);
+		fileMenu.addSeparator();
+		fileMenu.add(exit);
+		this.setMenuBar(menubar);
+		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		//setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
 
@@ -330,4 +343,6 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 			    .addContainerGap(637, 637)));
 		pack();
 	}
+
+	
 }

@@ -1,4 +1,4 @@
-package fi.hy.laskin.main.filewriter;
+package fi.hy.laskin.main.outputdevice;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,9 +7,9 @@ import java.util.Calendar;
 import java.util.List;
 
 
-import fi.hy.laskin.main.ResultOutputDevice;
+import fi.hy.laskin.main.OutputDevice;
 
-public class TextfileWriter implements ResultOutputDevice {
+public class TextfileWriter implements OutputDevice {
 		
 	public String print(List<String> results) {
 		Calendar cal = Calendar.getInstance();

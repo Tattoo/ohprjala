@@ -18,6 +18,13 @@ public interface Controller {
 	public void assignModel(Calculator calculator);
 	
 	/**
+	 * Gives this controller a result output device 
+	 * @param name
+	 * @param outputDevice
+	 */
+	public void assignResultOutputDevice(String name, OutputDevice outputDevice);
+	
+	/**
 	 * Processess an UI event. Performs actions and updates output (if any).
 	 * @param e
 	 */

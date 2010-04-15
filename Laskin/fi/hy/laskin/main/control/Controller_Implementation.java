@@ -1,13 +1,16 @@
 package fi.hy.laskin.main.control;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import fi.hy.laskin.main.Calculator;
 import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
+import fi.hy.laskin.main.OutputDevice;
 import fi.hy.laskin.main.View;
+
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Controller_Implementation implements Controller {
@@ -16,9 +19,11 @@ public class Controller_Implementation implements Controller {
 	private View view;
 	private Calculator calculator;
 	private List<String> outputContents;
-
+	private final Map<String, OutputDevice> outputDevices;
+	
 	public Controller_Implementation() {
 		this.outputContents = new ArrayList<String>();
+		this.outputDevices = new HashMap<String, OutputDevice>();
 	}
 	
 	@Override
@@ -28,6 +33,10 @@ public class Controller_Implementation implements Controller {
 	
 	public void assignModel(Calculator calculator) {
 		this.calculator = calculator;
+	}
+	
+	public void assignResultOutputDevice(String name, OutputDevice outputDevice) {
+		this.outputDevices.put(name, outputDevice);
 	}
 	
 	public void process(ActionEvent e) {
@@ -62,7 +71,17 @@ public class Controller_Implementation implements Controller {
 			outputContents = calculator.changeSign();
 		} else if (command.equals(Const.BACKSPACE)){
 			outputContents = calculator.erase();
-		} 
+		} else if (command.equals(Const.ANS)) {
+			outputContents = calculator.ans();
+		}
+		else {
+			useOutputDevice(command);
+		}
+	}
+
+	private void useOutputDevice(String command) {
+		String filename = outputDevices.get(command).print(outputContents);
+		view.openFileCreatedDialog(filename);
 	}
 	
 	private void updateView() {

@@ -20,4 +20,10 @@ public interface View {
 	 */
 	public void setOutput(String output);
 	
+	/**
+	 * Opens a dialog telling that a file with the given filename has been created
+	 * @param filename
+	 */
+	public void openFileCreatedDialog(String filename);
+	
 }

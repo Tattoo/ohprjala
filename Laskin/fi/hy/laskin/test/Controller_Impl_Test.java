@@ -3,6 +3,7 @@ package fi.hy.laskin.test;
 import fi.hy.laskin.main.Calculator;
 import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
+import fi.hy.laskin.main.OutputDevice;
 import fi.hy.laskin.main.View;
 import fi.hy.laskin.main.control.Controller_Implementation;
 
@@ -25,12 +26,20 @@ public class Controller_Impl_Test {
 	
 	public static class WhenSendingEventsToController extends TestCase {
 
+		private static final String	FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES	= "FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES";
+
 		private class MockView implements View {
+			public boolean openFileCreatedDialogCalled = false;
+			public String filename = "";
 			public void assignController(Controller controller) { }
 			public void setOutput(String output) {
 				viewOutput = output;
 			}
 			public void setVisible() {}
+			public void openFileCreatedDialog(String filename) {
+				openFileCreatedDialogCalled = true;
+				this.filename = filename;
+			}
 		}
 		
 		private class MockCalculator implements Calculator {
@@ -96,24 +105,35 @@ public class Controller_Impl_Test {
 				return fakeOutput;
 			}
 
-			public ArrayList<String> ans() {
-				// TODO Auto-generated method stub
-				return null;
+			public List<String> ans() {
+				calculatorCommands += Const.ANS;
+				return fakeOutput;
+			}
+		}
+		
+		private class MockOutputDevice implements OutputDevice {
+			public Boolean called = false;
+			public String print(List<String> results) {
+				called = true;
+				return FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES;
 			}
 		}
 		
 		private Controller controller;
 		private Calculator mockCalculator;
-		private View mockView;
+		private MockView mockView;
 		private String viewOutput;
 		private String calculatorCommands;
+		private MockOutputDevice mockOutputDevice;
 		
 		protected void setUp() {
 			controller = new Controller_Implementation();
 			mockCalculator = new MockCalculator();
 			mockView = new MockView();
+			mockOutputDevice = new MockOutputDevice();
 			controller.assignModel(mockCalculator);
 			controller.assignView(mockView);
+			controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, mockOutputDevice);
 			viewOutput = "";
 			calculatorCommands = "";
 		} 
@@ -166,13 +186,15 @@ public class Controller_Impl_Test {
 			triggerEvent(Const.UNDO);
 			triggerEvent(Const.CHANGE_SIGN);
 			triggerEvent(Const.BACKSPACE);
+			triggerEvent(Const.ANS);
 			String expected = 
 				Const.DECIMAL_SEPARATOR +
 				Const.EQUALS +
 				Const.CLEAR + 
 				Const.UNDO + 
 				Const.CHANGE_SIGN + 
-				Const.BACKSPACE;
+				Const.BACKSPACE +
+				Const.ANS;
 			assertEquals(expected, calculatorCommands);
 		}
 		
@@ -190,6 +212,12 @@ public class Controller_Impl_Test {
 			assertEquals(expected, viewOutput);
 		}
 		
+		public void test___it_uses_textfile_exporter() {
+			triggerEvent(Const.EXPORT_TO_TEXTFILE);
+			assertTrue("Outputdevice should be called", mockOutputDevice.called);
+			assertTrue("Should call view's file created dialog", mockView.openFileCreatedDialogCalled);
+			assertEquals(FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES, mockView.filename);
+		}
 
 	}
 
