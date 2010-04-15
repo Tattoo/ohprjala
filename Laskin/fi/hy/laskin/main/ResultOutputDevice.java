@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ResultOutputDevice {
 	
-	public boolean print(List<String> results);
+	public String print(List<String> results);
 	
 }
