@@ -5,9 +5,6 @@ import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.View;
 
 import java.awt.Dialog;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,12 +14,18 @@ import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.LayoutStyle;
 
 
-public class View_Implementation extends javax.swing.JFrame  implements View {
+public class View_Implementation extends JFrame  implements View {
 
 	private static final String	EXIT_PROGRAM	= "Exit";
 	private static final int	OUTPUT_ROWS	= 10;
@@ -118,10 +121,17 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 	private javax.swing.JScrollPane jScrollPane_output;
 	private javax.swing.JTextArea textArea_output;
 	private JButton button_ans;
-	private MenuBar menubar;
-	private Menu fileMenu;
-	private MenuItem exportToFile;
-	private MenuItem exit;
+	private JMenuBar menubar;
+	private JMenu fileMenu;
+	private JMenuItem exportToFile;
+	private JMenuItem exit;
+	private JMenu optionsMenu;
+	private JMenu audioMenu;
+	private JMenu skinMenu;
+	private JRadioButtonMenuItem audio_1;
+	private JRadioButtonMenuItem audio_2;
+	private JRadioButtonMenuItem skin_1;
+	private JRadioButtonMenuItem skin_2;
 	private final ActionListener actionListener;
 	
 	private Dialog fileDialog;
@@ -236,15 +246,7 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 		button_ans = new JButton();
 		button_ans.setText(Const.ANS.toUpperCase()); 
 		
-		menubar = new MenuBar();
-		fileMenu = new Menu("File");
-		menubar.add(fileMenu);
-		exportToFile = new MenuItem(Const.EXPORT_TO_TEXTFILE);
-		exit = new MenuItem(EXIT_PROGRAM);
-		fileMenu.add(exportToFile);
-		fileMenu.addSeparator();
-		fileMenu.add(exit);
-		this.setMenuBar(menubar);
+		initMenubar();
 		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		//setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
@@ -373,6 +375,48 @@ public class View_Implementation extends javax.swing.JFrame  implements View {
 			            .addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
 			    .addContainerGap(637, 637)));
 		pack();
+	}
+
+	private void initMenubar() {
+		
+		menubar = new JMenuBar();
+		
+		fileMenu = new JMenu("File");
+		exportToFile = new JMenuItem(Const.EXPORT_TO_TEXTFILE);
+		exit = new JMenuItem(EXIT_PROGRAM);
+		fileMenu.add(exportToFile);
+		fileMenu.addSeparator();
+		fileMenu.add(exit);
+		
+		
+		optionsMenu = new JMenu("Options");
+		audioMenu = new JMenu("Sounds");
+		skinMenu = new JMenu("Appearance");
+		optionsMenu.add(audioMenu);
+		optionsMenu.add(skinMenu);
+		
+		ButtonGroup audios = new ButtonGroup();
+		audio_1 = new JRadioButtonMenuItem("No sounds");
+		audio_2 = new JRadioButtonMenuItem("Beeps");
+		audio_1.setSelected(true);
+		audios.add(audio_1);
+		audios.add(audio_2);
+		audioMenu.add(audio_1);
+		audioMenu.add(audio_2);
+		
+		ButtonGroup skins = new ButtonGroup();
+		skin_1 = new JRadioButtonMenuItem("Basic");
+		skin_2 = new JRadioButtonMenuItem("Fancy");
+		skin_1.setSelected(true);
+		skins.add(skin_1);
+		skins.add(skin_2);
+		skinMenu.add(skin_1);
+		skinMenu.add(skin_2);
+		
+		menubar.add(fileMenu);
+		menubar.add(optionsMenu);
+		
+		this.setJMenuBar(menubar);
 	}
 
 	
