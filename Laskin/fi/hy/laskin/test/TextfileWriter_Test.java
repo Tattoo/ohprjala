@@ -25,11 +25,11 @@ public class TextfileWriter_Test extends TestCase {
 	public void test_write_file() throws FileNotFoundException {
 		String fn = writer.print(calc.calculate());
 		File f = new File("output", fn);
-		String expected = "15.0 + 15 = 30.0\n30.0\n";
+		String expected = "15.0 + 15 = 30.0";
 		String output = "";
 		Scanner sc = new Scanner(f);
 		while(sc.hasNextLine())
-			output = output + sc.nextLine() + "\n"; 
+			output = output + sc.nextLine(); 
 		sc.close();	
 		assertEquals(expected, output);
 		
