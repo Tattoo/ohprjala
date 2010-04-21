@@ -435,9 +435,9 @@ public class View_Implementation extends JFrame  implements View {
 		audio_1 = new JRadioButtonMenuItem("No sounds");
 		audio_2 = new JRadioButtonMenuItem("Clicks");
 		audio_3 = new JRadioButtonMenuItem("Beeps");
-		audio_1.setActionCommand("audio_1");
-		audio_2.setActionCommand("audio_2");
-		audio_3.setActionCommand("audio_3");
+		audio_1.setActionCommand(Const.SOUND_EFFECT_THEME__NO_SOUNDS);
+		audio_2.setActionCommand(Const.SOUND_EFFECT_THEME__CLICKS);
+		audio_3.setActionCommand(Const.SOUND_EFFECT_THEME__BEEPS);
 		audio_1.setSelected(true);
 		audios.add(audio_1);
 		audios.add(audio_2);

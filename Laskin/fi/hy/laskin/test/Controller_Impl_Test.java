@@ -6,6 +6,7 @@ import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.OutputDevice;
 import fi.hy.laskin.main.SoundEffectsPlayer;
 import fi.hy.laskin.main.View;
+import fi.hy.laskin.main.calculator.Calculator_Imple;
 import fi.hy.laskin.main.control.Controller_Implementation;
 
 import java.awt.event.ActionEvent;
@@ -120,37 +121,21 @@ public class Controller_Impl_Test {
 			}
 		}
 		
-		private class MockSoundEffectsPlayer implements SoundEffectsPlayer {
-			public int keyPressedSoundPlayedCount = 0;
-			public int errorSoundPlayedCount = 0;
-			@Override
-			public void error() {
-				errorSoundPlayedCount++;
-			}
-			@Override
-			public void keyPressed() {
-				keyPressedSoundPlayedCount++;
-			}
-		}
-		
 		private Controller controller;
 		private Calculator mockCalculator;
 		private MockView mockView;
 		private String viewOutput;
 		private String calculatorCommands;
 		private MockOutputDevice mockOutputDevice;
-		private MockSoundEffectsPlayer mockSoundEffectsPlayer;
 		
 		protected void setUp() {
 			controller = new Controller_Implementation();
 			mockCalculator = new MockCalculator();
 			mockView = new MockView();
 			mockOutputDevice = new MockOutputDevice();
-			mockSoundEffectsPlayer = new MockSoundEffectsPlayer();
 			controller.assignModel(mockCalculator);
 			controller.assignView(mockView);
 			controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, mockOutputDevice);
-			controller.assignSoundEfectsPlayer("mockplayer", mockSoundEffectsPlayer);
 			viewOutput = "";
 			calculatorCommands = "";
 		} 
@@ -236,6 +221,59 @@ public class Controller_Impl_Test {
 			assertEquals(FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES, mockView.filename);
 		}
 		
+	}
+
+
+	public static class WhenPlayingSounds extends TestCase {
+		
+		private static final String	OTHER_MOCK_PLAYER	= "otherMockPlayer";
+		private static final String	MOCKPLAYER	= "mockplayer";
+
+		private class MockSoundEffectsPlayer implements SoundEffectsPlayer {
+			public int keyPressedSoundPlayedCount = 0;
+			public int errorSoundPlayedCount = 0;
+			@Override
+			public void error() {
+				errorSoundPlayedCount++;
+			}
+			@Override
+			public void keyPressed() {
+				keyPressedSoundPlayedCount++;
+			}
+		}
+		
+		private Controller controller;
+		private Calculator calculator;
+		private MockSoundEffectsPlayer mockSoundEffectsPlayer;
+		private MockSoundEffectsPlayer otherMockSoundEffectsPlayer;
+		private View mockView;
+		
+		protected void setUp() {
+			mockView = new View() {
+				@Override
+				public void setVisible() {}
+				@Override
+				public void setOutput(String output) {}
+				@Override
+				public void fileCreated(String filename) {}
+				@Override
+				public void assignController(Controller controller) {}
+			};
+			controller = new Controller_Implementation();
+			calculator = new Calculator_Imple();
+			mockSoundEffectsPlayer = new MockSoundEffectsPlayer();
+			otherMockSoundEffectsPlayer = new MockSoundEffectsPlayer();
+			controller.assignModel(calculator);
+			controller.assignView(mockView);
+			controller.assignSoundEfectsPlayer(MOCKPLAYER, mockSoundEffectsPlayer);
+			controller.assignSoundEfectsPlayer(OTHER_MOCK_PLAYER, otherMockSoundEffectsPlayer);
+		} 
+		
+		private void triggerEvent(String command) {
+			ActionEvent e = new ActionEvent(new JButton(), 0, command);
+			controller.process(e);
+		}   
+		
 		public void test___it_uses_soundefectplayer_after_key_pressed() {
 			triggerEvent(Const.ONE);
 			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
@@ -248,12 +286,34 @@ public class Controller_Impl_Test {
 			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
 		}
 		
+		public void test___it_uses_soundefectplayer_to_play_error_sound___if_key_press_does_nothing() {
+			triggerEvent(Const.ONE);
+			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(Const.ADD);
+			assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(Const.EQUALS);
+			assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(1, mockSoundEffectsPlayer.errorSoundPlayedCount);
+		}
 		
-
+		public void test___it_doesnt_play_sounds_for__non_calculator_related_events() {
+			triggerEvent(Const.EXPORT_TO_TEXTFILE);
+			assertEquals(0, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+		}
+		
+		public void test___it_changes_audio_player() {
+			triggerEvent(Const.ONE);
+			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(OTHER_MOCK_PLAYER);
+			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(0, otherMockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(Const.ONE);
+			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(1, otherMockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+		}
+		
 	}
-
-
-
 
 
 }

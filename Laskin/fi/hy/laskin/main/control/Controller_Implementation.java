@@ -23,6 +23,7 @@ public class Controller_Implementation implements Controller {
 	private final Map<String, OutputDevice> outputDevices;
 	private final Map<String, SoundEffectsPlayer> soundEffectPlayers;
 	private SoundEffectsPlayer currentSoundEffectsPlayer;
+	private String previousLine = "";
 	
 	public Controller_Implementation() {
 		this.outputContents = new ArrayList<String>();
@@ -53,9 +54,41 @@ public class Controller_Implementation implements Controller {
 	
 	public void process(ActionEvent e) {
 		//System.out.println(e);
-		callModel(e.getActionCommand());
+		String command = e.getActionCommand();
+		callModel(command);
 		updateView();
-		currentSoundEffectsPlayer.keyPressed();
+		if (isCalculatorCommand(command)) {
+			playSoundEffects();
+		}
+	}
+	
+	private boolean isCalculatorCommand(String command) {
+		return isDigit(command) || isOperand(command) || isOtherCalculatorCommand(command);
+	}
+	
+	private void updateView() {
+		StringBuilder output = new StringBuilder();
+		for (String s : outputContents) {
+			output.append(s).append("\n");
+		}
+		removeLastLineBrake(output);
+		view.setOutput(output.toString());
+	}
+	
+	private void playSoundEffects() {
+		if (currentSoundEffectsPlayer == null) return;
+		String lastLine = lastLine(); 
+		if (!lastLine.equals(previousLine)) {
+			currentSoundEffectsPlayer.keyPressed();
+		} else {
+			currentSoundEffectsPlayer.error();
+		}
+		previousLine = lastLine;
+	}
+
+	private String lastLine() {
+		if (outputContents.isEmpty()) return "";
+		return outputContents.get(outputContents.size()-1);
 	}
 	
 	private void callModel(String command) {
@@ -87,24 +120,23 @@ public class Controller_Implementation implements Controller {
 			outputContents = calculator.erase();
 		} else if (command.equals(Const.ANS)) {
 			outputContents = calculator.ans();
-		}
-		else if (command.equals(Const.EXPORT_TO_TEXTFILE)){
-			useOutputDevice(command);
+		} else {
+			trytoUseOutputDevice(command);
+			tryToChangeSoundEffectsPlayer(command);
 		}
 	}
 
-	private void useOutputDevice(String command) {
-		String filename = outputDevices.get(command).print(outputContents);
-		view.fileCreated(filename);
+	private void tryToChangeSoundEffectsPlayer(String command) {
+		SoundEffectsPlayer soundEffectsPlayer = soundEffectPlayers.get(command);
+		if (soundEffectsPlayer == null) return;
+		currentSoundEffectsPlayer = soundEffectsPlayer;
 	}
 	
-	private void updateView() {
-		StringBuilder output = new StringBuilder();
-		for (String s : outputContents) {
-			output.append(s).append("\n");
-		}
-		removeLastLineBrake(output);
-		view.setOutput(output.toString());
+	private void trytoUseOutputDevice(String command) {
+		OutputDevice outputDevice = outputDevices.get(command);
+		if (outputDevice == null) return;
+		String filename = outputDevice.print(outputContents);
+		view.fileCreated(filename);
 	}
 	
 	private void removeLastLineBrake(StringBuilder output) {
@@ -122,7 +154,14 @@ public class Controller_Implementation implements Controller {
 	private boolean isDigit(String command) {
 		return Const.DIGITS.contains(command);
 	}
-
+	
+	private boolean isOperand(String command) {
+		return Const.OPERANDS.contains(command);
+	}
+	
+	private boolean isOtherCalculatorCommand(String command) {
+		return Const.OTHER_CALCULATOR_COMMANDS.contains(command);
+	}
 	
 	
 }

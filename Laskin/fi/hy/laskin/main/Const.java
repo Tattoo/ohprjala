@@ -35,7 +35,8 @@ public class Const {
 	
 	public static final Collection<String> DIGITS = createStringCollection(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO);
 	public static final Collection<String> OPERANDS = createStringCollection(MULTIPLY, SUBSTRACT, ADD, DIVIDE, SQRT, RAISE_TO_POWER);
-		
+	public static final Collection<String> OTHER_CALCULATOR_COMMANDS = createStringCollection(DECIMAL_SEPARATOR, EQUALS, CLEAR, UNDO, CHANGE_SIGN, BACKSPACE, ANS);
+	
 	private static Collection<String> createStringCollection(String ...strings) {
 		Collection<String> collection = new LinkedHashSet<String>();
 		for (String s : strings) {
