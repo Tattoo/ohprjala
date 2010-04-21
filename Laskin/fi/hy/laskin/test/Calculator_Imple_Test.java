@@ -57,8 +57,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.addDigit(3);
 		calc.addDigit(4);
 		String output = listToString(calc.calculate());
-		String expected = "12.0 + 34 = 46.0\n" +
-						  "46.0";
+		String expected = "12.0 + 34 = 46.0";
 		assertEquals(expected, output);
 	}	
 	
@@ -74,8 +73,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.add();
 		calc.addDigit(9);
 		output = listToString(calc.calculate());
-		expected = "123.0 + 9 = 132.0\n" +
-				"132.0";
+		expected = "123.0 + 9 = 132.0";
 		assertEquals(expected, output);
 	}
 	
@@ -117,8 +115,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.addDigit(155);
 		calc.calculate();
 		String output = listToString(calc.undo());
-		String expected = "1.0 + 122 = 123.0\n" +
-						  "123.0";
+		String expected = "1.0 + 122 = 123.0";
 		assertEquals(expected, output);		
 	}	
 	
@@ -128,8 +125,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.add();
 		calc.addDigit(6);
 		String output = listToString(calc.calculate());
-		String expected = "5.0 + 6 = 11.0\n" +
-							"11.0";
+		String expected = "5.0 + 6 = 11.0";
 		assertEquals(expected, output);
 	}
 	
@@ -140,8 +136,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.addDigit(3);
 		calc.addDigit(4);
 		String output = listToString(calc.calculate());
-		String expected = "12.0 - 34 = -22.0\n" +
-						  "-22.0";
+		String expected = "12.0 - 34 = -22.0";
 		assertEquals(expected, output);
 	}
 	
@@ -151,8 +146,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.addDigit(1);
 		calc.addDigit(4);
 		String output = listToString(calc.calculate());
-		String expected = "2.0 * 14 = 28.0\n" +
-						  "28.0";
+		String expected = "2.0 * 14 = 28.0";
 		assertEquals(expected, output);
 	}
 
@@ -161,8 +155,7 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.divide();
 		calc.addDigit(5);
 		String output = listToString(calc.calculate());
-		String expected = "20.0 / 5 = 4.0\n" +
-						  "4.0";
+		String expected = "20.0 / 5 = 4.0";
 		assertEquals(expected, output);
 	}
 	
@@ -171,17 +164,14 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.raiseToPower();
 		calc.addDigit(5);
 		String output = listToString(calc.calculate());
-		String expected = "2.0 ^ 5 = 32.0\n" +
-						  "32.0";
+		String expected = "2.0 ^ 5 = 32.0";
 		assertEquals(expected, output);
 	}
 
 	public void test_getSquareRoot() {
 		calc.addDigit(16);
-		calc.getSquareRoot();
-		String output = listToString(calc.calculate());
-		String expected = "sqrt(16) = 4.0\n" +
-						  "4.0";
+		String output = listToString(calc.getSquareRoot());
+		String expected = "sqrt(16) = 4.0";
 		assertEquals(expected, output);
 	}
 	
@@ -190,12 +180,12 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.add();
 		calc.addDigit(5);
 		calc.calculate();
+		calc.ans();
 		calc.add();
 		calc.ans();
 		String output = listToString(calc.calculate());
 		String expected = "8.0 + 5 = 13.0\n" +
-						  "13.0 + 13.0 = 26.0\n" +
-						  "26.0";
+						  "13.0 + 13.0 = 26.0";
 		assertEquals(expected, output);
 	}	
 
