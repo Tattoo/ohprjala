@@ -25,16 +25,21 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 
 public class View_Implementation extends JFrame  implements View {
 
+	private static final String	SKIN_PLASTIC3D	= "skin_3d";
+	private static final String	SKIN_SYSTEM	= "skin_system";
+	private static final String	SKIN_PLASTIC	= "skin_plastic";
 	private static final int	OUTPUT_AREA_WIDTH	= 150;
 	private static final int	OUTPUT_AREA_HEIGHT	= 250;
 	private static final String	EXIT_PROGRAM	= "Exit";
-	
+
 	private static final long	serialVersionUID	= -2212730761656490235L;
-	
+
 	/**
 	 * Causes a button on the UI to be pressed if a key that matches that button is typed 
 	 */
@@ -65,20 +70,20 @@ public class View_Implementation extends JFrame  implements View {
 			charToButtonMapping.put('\n', button_equals);
 			charToButtonMapping.put('\b', button_backspace);
 		}
-		
+
 		@Override
 		public void keyPressed(KeyEvent e) {}
-		
+
 		@Override
 		public void keyReleased(KeyEvent e) {}
-		
+
 		@Override
 		public void keyTyped(KeyEvent e) {
 			Character key = e.getKeyChar();
 			charToButtonMapping.get(key).doClick(KEEP_BUTTON_PRESSED_TIME);
 		}
 	}
-	
+
 	/**
 	 * Sends events to be processed by the controller
 	 */
@@ -88,16 +93,33 @@ public class View_Implementation extends JFrame  implements View {
 			this.frame = frame;
 		}
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand().equals(EXIT_PROGRAM)) {
+			//System.out.println(e.getActionCommand());
+			String action = e.getActionCommand();
+			if (action.equals(EXIT_PROGRAM)) {
 				System.exit(0);
-			} 
+			} else if (action.startsWith("skin_")) {
+				setSkin(action);
+			}
 			controller.process(e);
 			frame.requestFocus();
-		} 
+		}
+	}
+
+	private void setSkin(String skin) {
+		String lookAndFeelClass = UIManager.getSystemLookAndFeelClassName();
+		if (skin.equals(SKIN_PLASTIC)) lookAndFeelClass = "com.jgoodies.looks.plastic.PlasticLookAndFeel"; 
+		if (skin.equals(SKIN_PLASTIC3D)) lookAndFeelClass = "com.jgoodies.looks.plastic.Plastic3DLookAndFeel";
+		try {
+			System.out.println(lookAndFeelClass);
+			UIManager.setLookAndFeel(lookAndFeelClass);
+			SwingUtilities.updateComponentTreeUI(this);
+			this.pack();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private Controller controller;
-	
 	private JButton button_0;
 	private JButton button_1;
 	private JButton button_2;
@@ -134,10 +156,10 @@ public class View_Implementation extends JFrame  implements View {
 	private JRadioButtonMenuItem audio_2;
 	private JRadioButtonMenuItem skin_1;
 	private JRadioButtonMenuItem skin_2;
+	private JRadioButtonMenuItem skin_3;
 	private final ActionListener actionListener;
-
 	private Dialog fileDialog;
-	  
+
 	public View_Implementation() {
 		super("Calculator");
 		initComponents();
@@ -147,7 +169,7 @@ public class View_Implementation extends JFrame  implements View {
 		this.setFocusable(true);
 		this.requestFocus();
 	}
-	
+
 	private void addActionListenerToAllButtonsAndMenus() {
 		button_7.addActionListener(actionListener);
 		button_8.addActionListener(actionListener);
@@ -179,8 +201,9 @@ public class View_Implementation extends JFrame  implements View {
 		audio_2.addActionListener(actionListener);
 		skin_1.addActionListener(actionListener);
 		skin_2.addActionListener(actionListener);
+		skin_3.addActionListener(actionListener);
 	}
-	
+
 	@Override
 	public void assignController(Controller controller) {
 		this.controller = controller;				
@@ -190,16 +213,16 @@ public class View_Implementation extends JFrame  implements View {
 	public void setVisible() {
 		this.setVisible(true);
 	}
-	
+
 	@Override
 	public void setOutput(String output) {
 		textArea_output.setText(output);
 	}
-	
+
 	@Override
 	public void fileCreated(String filename) {
 		fileDialog = new Dialog(this, "File created", true);
-	    fileDialog.addWindowListener(new WindowListener() {
+		fileDialog.addWindowListener(new WindowListener() {
 			public void windowClosing(WindowEvent e) {
 				fileDialog.dispose();
 			}
@@ -210,19 +233,19 @@ public class View_Implementation extends JFrame  implements View {
 			public void windowClosed(WindowEvent e) {}
 			public void windowActivated(WindowEvent e) {}
 		});
-	    JButton fileDialogCloseButton = new JButton("File " +filename+ " has been created to output folder");
-	    fileDialogCloseButton.addActionListener(new ActionListener() {
+		JButton fileDialogCloseButton = new JButton("File " +filename+ " has been created to output folder");
+		fileDialogCloseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fileDialog.dispose();
 			}
 		});
-	    fileDialog.add(fileDialogCloseButton);
-	    fileDialog.pack();
-	    fileDialog.setResizable(false);
-	    fileDialog.setVisible(true);
-	    fileDialog.validate();
+		fileDialog.add(fileDialogCloseButton);
+		fileDialog.pack();
+		fileDialog.setResizable(false);
+		fileDialog.setVisible(true);
+		fileDialog.validate();
 	}
-	
+
 	/**
 	 * Swing components and layout generated with NetBeans IDE 5.5.
 	 */
@@ -230,109 +253,110 @@ public class View_Implementation extends JFrame  implements View {
 		initButtons(); 
 		initMenubar();
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		
+
 		jScrollPane_output = new JScrollPane();
 		textArea_output = new JTextArea();
 		textArea_output.setEditable(false);
 		jScrollPane_output.setViewportView(textArea_output);
-		
+
 		setResizable(false);
-		
+
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setVerticalGroup(layout.createSequentialGroup()
-			.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, OUTPUT_AREA_HEIGHT, GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			    .addComponent(button_undo, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_backspace, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_7, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_8, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_9, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			.addGroup(layout.createParallelGroup()
-			    .addGroup(layout.createSequentialGroup()
-			        .addGap(0, 0, Short.MAX_VALUE)
-			        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			            .addComponent(button_power, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_divide, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_multiply, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_4, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_5, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_6, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-			        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
-			        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			            .addComponent(button_squareRoot, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_substraction, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_add, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_2, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_3, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
-			    .addComponent(button_clear, GroupLayout.Alignment.LEADING, 0, 47, Short.MAX_VALUE))
-			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			    .addComponent(button_equals, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_0, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_decimalPoint, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_signChange, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_ans, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-			.addContainerGap());
+				.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, OUTPUT_AREA_HEIGHT, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(button_undo, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_backspace, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_7, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_8, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_9, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(layout.createParallelGroup()
+								.addGroup(layout.createSequentialGroup()
+										.addGap(0, 0, Short.MAX_VALUE)
+										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+												.addComponent(button_power, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_divide, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_multiply, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_4, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_5, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_6, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
+												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+														.addComponent(button_squareRoot, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_substraction, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_add, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_2, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_3, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
+														.addComponent(button_clear, GroupLayout.Alignment.LEADING, 0, 47, Short.MAX_VALUE))
+														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+														.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+																.addComponent(button_equals, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(button_0, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(button_decimalPoint, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(button_signChange, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(button_ans, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+																.addContainerGap());
 		layout.setHorizontalGroup(layout.createParallelGroup()
-			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			    .addComponent(jScrollPane_output, 0, OUTPUT_AREA_WIDTH, Short.MAX_VALUE)
-			    .addContainerGap())
-			.addGroup(layout.createSequentialGroup()
-			    .addPreferredGap(jScrollPane_output, button_0, LayoutStyle.ComponentPlacement.INDENT)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_0, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_1, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_4, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_7, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-			    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_decimalPoint, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_5, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_8, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-			    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_signChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_3, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_6, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_9, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-			    .addGap(25)
-			    .addGroup(layout.createParallelGroup()
-			        .addGroup(layout.createSequentialGroup()
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_equals, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-			                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			                    .addComponent(button_backspace, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-			                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
-			            .addGroup(layout.createParallelGroup()
-			                .addGroup(layout.createSequentialGroup()
-			                    .addComponent(button_undo, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-			                    .addGap(0, 0, Short.MAX_VALUE))
-			                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			                    .addComponent(button_ans, 0, 102, Short.MAX_VALUE))))
-			        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_add, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_multiply, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_substraction, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_divide, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_squareRoot, GroupLayout.Alignment.LEADING, 0, 66, Short.MAX_VALUE)
-			                .addGroup(layout.createSequentialGroup()
-			                    .addComponent(button_power, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-			                    .addGap(0, 0, Short.MAX_VALUE)))
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			            .addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
-			    .addContainerGap(2, 2)));
+				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+						.addComponent(jScrollPane_output, 0, OUTPUT_AREA_WIDTH, Short.MAX_VALUE)
+						.addContainerGap())
+						.addGroup(layout.createSequentialGroup()
+								.addPreferredGap(jScrollPane_output, button_0, LayoutStyle.ComponentPlacement.INDENT)
+								.addGroup(layout.createParallelGroup()
+										.addComponent(button_0, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_1, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_4, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_7, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(layout.createParallelGroup()
+												.addComponent(button_decimalPoint, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_5, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_8, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+												.addGroup(layout.createParallelGroup()
+														.addComponent(button_signChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_3, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_6, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+														.addComponent(button_9, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+														.addGap(25)
+														.addGroup(layout.createParallelGroup()
+																.addGroup(layout.createSequentialGroup()
+																		.addGroup(layout.createParallelGroup()
+																				.addComponent(button_equals, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+																				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+																						.addComponent(button_backspace, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
+																						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
+																						.addGroup(layout.createParallelGroup()
+																								.addGroup(layout.createSequentialGroup()
+																										.addComponent(button_undo, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+																										.addGap(0, 0, Short.MAX_VALUE))
+																										.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+																												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																												.addComponent(button_ans, 0, 102, Short.MAX_VALUE))))
+																												.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+																														.addGroup(layout.createParallelGroup()
+																																.addComponent(button_add, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+																																.addComponent(button_multiply, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+																																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																																.addGroup(layout.createParallelGroup()
+																																		.addComponent(button_substraction, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+																																		.addComponent(button_divide, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+																																		.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																																		.addGroup(layout.createParallelGroup()
+																																				.addComponent(button_squareRoot, GroupLayout.Alignment.LEADING, 0, 66, Short.MAX_VALUE)
+																																				.addGroup(layout.createSequentialGroup()
+																																						.addComponent(button_power, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+																																						.addGap(0, 0, Short.MAX_VALUE)))
+																																						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																																						.addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
+																																						.addContainerGap(2, 2)));
 		pack();
+		setSkin(SKIN_SYSTEM);
 	}
 
 	private void initButtons() {
@@ -359,7 +383,7 @@ public class View_Implementation extends JFrame  implements View {
 		button_substraction = new JButton();
 		button_backspace = new JButton();
 		button_ans = new JButton();
-		
+
 		button_0.setText(Const.ZERO);
 		button_1.setText(Const.ONE);
 		button_2.setText(Const.TWO);
@@ -386,45 +410,53 @@ public class View_Implementation extends JFrame  implements View {
 	}
 
 	private void initMenubar() {
-		
+
 		menubar = new JMenuBar();
-		
+
 		fileMenu = new JMenu("File");
 		exportToFile = new JMenuItem(Const.EXPORT_TO_TEXTFILE);
 		exit = new JMenuItem(EXIT_PROGRAM);
 		fileMenu.add(exportToFile);
 		fileMenu.addSeparator();
 		fileMenu.add(exit);
-		
-		
+
+
 		optionsMenu = new JMenu("Options");
 		audioMenu = new JMenu("Sounds");
 		skinMenu = new JMenu("Appearance");
 		optionsMenu.add(audioMenu);
 		optionsMenu.add(skinMenu);
-		
+
 		ButtonGroup audios = new ButtonGroup();
 		audio_1 = new JRadioButtonMenuItem("No sounds");
 		audio_2 = new JRadioButtonMenuItem("Beeps");
+		audio_1.setActionCommand("audio_1");
+		audio_2.setActionCommand("audio_2");
 		audio_1.setSelected(true);
 		audios.add(audio_1);
 		audios.add(audio_2);
 		audioMenu.add(audio_1);
 		audioMenu.add(audio_2);
-		
+
 		ButtonGroup skins = new ButtonGroup();
-		skin_1 = new JRadioButtonMenuItem("Basic");
-		skin_2 = new JRadioButtonMenuItem("Fancy");
-		skin_1.setSelected(true);
+		skin_1 = new JRadioButtonMenuItem("Plastic");
+		skin_2 = new JRadioButtonMenuItem("System");
+		skin_3 = new JRadioButtonMenuItem("Plastic 3D");
+		skin_1.setActionCommand(SKIN_PLASTIC);
+		skin_2.setActionCommand(SKIN_SYSTEM);
+		skin_3.setActionCommand(SKIN_PLASTIC3D);
+		skin_2.setSelected(true);
 		skins.add(skin_1);
 		skins.add(skin_2);
-		skinMenu.add(skin_1);
+		skins.add(skin_3);
 		skinMenu.add(skin_2);
-		
+		skinMenu.add(skin_1);
+		skinMenu.add(skin_3);
+
 		menubar.add(fileMenu);
 		menubar.add(optionsMenu);
 		this.setJMenuBar(menubar);
 	}
 
-	
+
 }
