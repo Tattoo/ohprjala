@@ -22,14 +22,16 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.LayoutStyle;
 
 
 public class View_Implementation extends JFrame  implements View {
 
+	private static final int	OUTPUT_AREA_WIDTH	= 150;
+	private static final int	OUTPUT_AREA_HEIGHT	= 250;
 	private static final String	EXIT_PROGRAM	= "Exit";
-	private static final int	OUTPUT_ROWS	= 10;
-	private static final int	OUTPUT_COLS	= 20;
 	
 	private static final long	serialVersionUID	= -2212730761656490235L;
 	
@@ -38,9 +40,9 @@ public class View_Implementation extends JFrame  implements View {
 	 */
 	private class KeyListener_Impl implements KeyListener {
 		private final static int KEEP_BUTTON_PRESSED_TIME = 50; // ms
-		private final Map<Character, javax.swing.JButton> charToButtonMapping;
+		private final Map<Character, JButton> charToButtonMapping;
 		public KeyListener_Impl() {
-			this.charToButtonMapping = new HashMap<Character, javax.swing.JButton>();
+			this.charToButtonMapping = new HashMap<Character, JButton>();
 			charToButtonMapping.put('0', button_0);
 			charToButtonMapping.put('1', button_1);
 			charToButtonMapping.put('2', button_2);
@@ -81,8 +83,8 @@ public class View_Implementation extends JFrame  implements View {
 	 * Sends events to be processed by the controller
 	 */
 	private class ActionListener_Impl implements ActionListener {
-		private final javax.swing.JFrame frame;
-		public ActionListener_Impl(javax.swing.JFrame frame) {
+		private final JFrame frame;
+		public ActionListener_Impl(JFrame frame) {
 			this.frame = frame;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -133,7 +135,7 @@ public class View_Implementation extends JFrame  implements View {
 	private JRadioButtonMenuItem skin_1;
 	private JRadioButtonMenuItem skin_2;
 	private final ActionListener actionListener;
-	
+
 	private Dialog fileDialog;
 	  
 	public View_Implementation() {
@@ -170,7 +172,13 @@ public class View_Implementation extends JFrame  implements View {
 		button_substraction.addActionListener(actionListener);
 		button_backspace.addActionListener(actionListener);
 		button_ans.addActionListener(actionListener);
-		fileMenu.addActionListener(actionListener);
+		//fileMenu.addActionListener(actionListener);
+		exportToFile.addActionListener(actionListener);
+		exit.addActionListener(actionListener);
+		audio_1.addActionListener(actionListener);
+		audio_2.addActionListener(actionListener);
+		skin_1.addActionListener(actionListener);
+		skin_2.addActionListener(actionListener);
 	}
 	
 	@Override
@@ -219,71 +227,21 @@ public class View_Implementation extends JFrame  implements View {
 	 * Swing components and layout generated with NetBeans IDE 5.5.
 	 */
 	private void initComponents() {
-		button_7 = new JButton();
-		button_8 = new JButton();
-		button_9 = new JButton();
-		button_4 = new JButton();
-		button_5 = new JButton();
-		button_6 = new JButton();
-		button_1 = new JButton();
-		button_2 = new JButton();
-		button_3 = new JButton();
-		button_0 = new JButton();
-		button_decimalPoint = new JButton();
-		button_equals = new JButton();
-		button_multiply = new JButton();
-		button_clear = new JButton();
-		button_squareRoot = new JButton();
-		button_power = new JButton();
-		button_divide = new JButton();
-		button_add = new JButton();
-		button_undo = new JButton();
-		button_signChange = new JButton();
-		button_substraction = new JButton();
-		jScrollPane_output = new javax.swing.JScrollPane();
-		textArea_output = new javax.swing.JTextArea();
-		button_backspace = new JButton();
-		button_ans = new JButton();
-		button_ans.setText(Const.ANS.toUpperCase()); 
-		
+		initButtons(); 
 		initMenubar();
-		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		//setMaximizedBounds(new java.awt.Rectangle(400, 200, 400, 200 ));
-
-		button_1.setText(Const.ONE);
-		button_2.setText(Const.TWO);
-		button_3.setText(Const.THREE);
-		button_4.setText(Const.FOUR);
-		button_5.setText(Const.FIVE);
-		button_6.setText(Const.SIX);
-		button_7.setText(Const.SEVEN);
-		button_8.setText(Const.EIGHT);
-		button_9.setText(Const.NINE);
-		button_0.setText(Const.ZERO);
-		button_decimalPoint.setText(Const.DECIMAL_SEPARATOR);
-		button_equals.setText(Const.EQUALS);
-		button_multiply.setText(Const.MULTIPLY);
-		button_clear.setText(Const.CLEAR);
-		button_squareRoot.setText(Const.SQRT);
-		button_power.setText(Const.RAISE_TO_POWER);
-		button_divide.setText(Const.DIVIDE);
-		button_add.setText(Const.ADD);
-		button_undo.setText(Const.UNDO);
-		button_signChange.setText(Const.CHANGE_SIGN);
-		button_substraction.setText(Const.SUBSTRACT);
-		button_backspace.setText(Const.BACKSPACE);
-		button_ans.setText(Const.ANS);
 		
-		textArea_output.setColumns(OUTPUT_COLS);
+		jScrollPane_output = new JScrollPane();
+		textArea_output = new JTextArea();
 		textArea_output.setEditable(false);
-		textArea_output.setRows(OUTPUT_ROWS);
 		jScrollPane_output.setViewportView(textArea_output);
+		
+		setResizable(false);
 		
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setVerticalGroup(layout.createSequentialGroup()
-			.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+			.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, OUTPUT_AREA_HEIGHT, GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 			.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 			    .addComponent(button_undo, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -321,7 +279,7 @@ public class View_Implementation extends JFrame  implements View {
 			.addContainerGap());
 		layout.setHorizontalGroup(layout.createParallelGroup()
 			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			    .addComponent(jScrollPane_output, 0, 1070, Short.MAX_VALUE)
+			    .addComponent(jScrollPane_output, 0, OUTPUT_AREA_WIDTH, Short.MAX_VALUE)
 			    .addContainerGap())
 			.addGroup(layout.createSequentialGroup()
 			    .addPreferredGap(jScrollPane_output, button_0, LayoutStyle.ComponentPlacement.INDENT)
@@ -373,8 +331,58 @@ public class View_Implementation extends JFrame  implements View {
 			                    .addGap(0, 0, Short.MAX_VALUE)))
 			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 			            .addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
-			    .addContainerGap(637, 637)));
+			    .addContainerGap(2, 2)));
 		pack();
+	}
+
+	private void initButtons() {
+		button_0 = new JButton();
+		button_7 = new JButton();
+		button_8 = new JButton();
+		button_9 = new JButton();
+		button_4 = new JButton();
+		button_5 = new JButton();
+		button_6 = new JButton();
+		button_1 = new JButton();
+		button_2 = new JButton();
+		button_3 = new JButton();
+		button_decimalPoint = new JButton();
+		button_equals = new JButton();
+		button_multiply = new JButton();
+		button_clear = new JButton();
+		button_squareRoot = new JButton();
+		button_power = new JButton();
+		button_divide = new JButton();
+		button_add = new JButton();
+		button_undo = new JButton();
+		button_signChange = new JButton();
+		button_substraction = new JButton();
+		button_backspace = new JButton();
+		button_ans = new JButton();
+		
+		button_0.setText(Const.ZERO);
+		button_1.setText(Const.ONE);
+		button_2.setText(Const.TWO);
+		button_3.setText(Const.THREE);
+		button_4.setText(Const.FOUR);
+		button_5.setText(Const.FIVE);
+		button_6.setText(Const.SIX);
+		button_7.setText(Const.SEVEN);
+		button_8.setText(Const.EIGHT);
+		button_9.setText(Const.NINE);
+		button_decimalPoint.setText(Const.DECIMAL_SEPARATOR);
+		button_equals.setText(Const.EQUALS);
+		button_multiply.setText(Const.MULTIPLY);
+		button_clear.setText(Const.CLEAR);
+		button_squareRoot.setText(Const.SQRT);
+		button_power.setText(Const.RAISE_TO_POWER);
+		button_divide.setText(Const.DIVIDE);
+		button_add.setText(Const.ADD);
+		button_undo.setText(Const.UNDO);
+		button_signChange.setText(Const.CHANGE_SIGN);
+		button_substraction.setText(Const.SUBSTRACT);
+		button_backspace.setText(Const.BACKSPACE);
+		button_ans.setText(Const.ANS);
 	}
 
 	private void initMenubar() {
@@ -415,7 +423,6 @@ public class View_Implementation extends JFrame  implements View {
 		
 		menubar.add(fileMenu);
 		menubar.add(optionsMenu);
-		
 		this.setJMenuBar(menubar);
 	}
 

@@ -40,6 +40,7 @@ public class Controller_Implementation implements Controller {
 	}
 	
 	public void process(ActionEvent e) {
+		//System.out.println(e);
 		callModel(e.getActionCommand());
 		updateView();
 	}
@@ -74,7 +75,7 @@ public class Controller_Implementation implements Controller {
 		} else if (command.equals(Const.ANS)) {
 			outputContents = calculator.ans();
 		}
-		else {
+		else if (command.equals(Const.EXPORT_TO_TEXTFILE)){
 			useOutputDevice(command);
 		}
 	}
