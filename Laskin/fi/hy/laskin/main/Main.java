@@ -4,7 +4,10 @@ import fi.hy.laskin.main.calculator.Calculator_Imple;
 import fi.hy.laskin.main.control.Controller_Implementation;
 import fi.hy.laskin.main.outputdevice.TextfileWriter;
 import fi.hy.laskin.main.sounds.NoSounds;
+import fi.hy.laskin.main.sounds.SoundTheme;
 import fi.hy.laskin.main.view.View_Implementation;
+
+import java.io.File;
 
 /**
  * Main method for a Calculator
@@ -26,8 +29,12 @@ public class Main {
             	controller.assignModel(calculator);
             	controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, new TextfileWriter());
             	controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__NO_SOUNDS, new NoSounds());
-//            	controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__CLICKS, new SoundTheme());
-//            	controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__BEEPS, new Beeps());
+            	try {
+					controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__CLICKS, new SoundTheme(new File("sounds", "clicks_key.wav"), new File("sounds", "clicks_error.wav")));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+            	//controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__BEEPS, new Beeps());
             	view.setVisible();
             	
             }
