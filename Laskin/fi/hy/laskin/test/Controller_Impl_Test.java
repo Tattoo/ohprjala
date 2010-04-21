@@ -239,7 +239,16 @@ public class Controller_Impl_Test {
 		public void test___it_uses_soundefectplayer_after_key_pressed() {
 			triggerEvent(Const.ONE);
 			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(Const.ADD);
+			assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(Const.ONE);
+			assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			triggerEvent(Const.EQUALS);
+			assertEquals(4, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
 		}
+		
+		
 
 	}
 

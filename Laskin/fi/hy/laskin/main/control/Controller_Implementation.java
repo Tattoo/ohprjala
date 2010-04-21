@@ -22,6 +22,7 @@ public class Controller_Implementation implements Controller {
 	private List<String> outputContents;
 	private final Map<String, OutputDevice> outputDevices;
 	private final Map<String, SoundEffectsPlayer> soundEffectPlayers;
+	private SoundEffectsPlayer currentSoundEffectsPlayer;
 	
 	public Controller_Implementation() {
 		this.outputContents = new ArrayList<String>();
@@ -45,12 +46,16 @@ public class Controller_Implementation implements Controller {
 	@Override
 	public void assignSoundEfectsPlayer(String name, SoundEffectsPlayer player) {
 		this.soundEffectPlayers.put(name, player);
+		if (currentSoundEffectsPlayer == null) {
+			currentSoundEffectsPlayer = player;
+		}
 	}
 	
 	public void process(ActionEvent e) {
 		//System.out.println(e);
 		callModel(e.getActionCommand());
 		updateView();
+		currentSoundEffectsPlayer.keyPressed();
 	}
 	
 	private void callModel(String command) {
