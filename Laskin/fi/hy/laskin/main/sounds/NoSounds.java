@@ -6,12 +6,12 @@ public class NoSounds implements SoundEffectsPlayer {
 
 	@Override
 	public void keyPressed() {
-		System.out.println("nosound key press");
+		//System.out.println("nosound key press");
 	}
 
 	@Override
 	public void error() {
-		System.out.println("nosound error");
+		//System.out.println("nosound error");
 	}
 	
 }
