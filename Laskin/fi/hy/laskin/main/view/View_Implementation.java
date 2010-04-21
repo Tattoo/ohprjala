@@ -110,7 +110,6 @@ public class View_Implementation extends JFrame  implements View {
 		if (skin.equals(SKIN_PLASTIC)) lookAndFeelClass = "com.jgoodies.looks.plastic.PlasticLookAndFeel"; 
 		if (skin.equals(SKIN_PLASTIC3D)) lookAndFeelClass = "com.jgoodies.looks.plastic.Plastic3DLookAndFeel";
 		try {
-			System.out.println(lookAndFeelClass);
 			UIManager.setLookAndFeel(lookAndFeelClass);
 			SwingUtilities.updateComponentTreeUI(this);
 			this.pack();
