@@ -30,14 +30,26 @@ public class Main {
             	controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, new TextfileWriter());
             	controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__NO_SOUNDS, new NoSounds());
             	try {
-					controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__CLICKS, new SoundTheme(new File("sounds", "clicks_key.wav"), new File("sounds", "clicks_error.wav")));
+            		SoundTheme clickTheme = new SoundTheme(soundFile("clicks_key.wav"), soundFile("clicks_error.wav"));
+            		
+					File[] beeps = new File[3];
+					beeps[0] = soundFile("beeps_key_1.wav");
+					beeps[1] = soundFile("beeps_key_2.wav");
+					beeps[2] = soundFile("beeps_key_3.wav");
+					SoundTheme beepTheme = new SoundTheme(beeps, new File[] {soundFile("beeps_error.wav")} );
+					
+					controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__CLICKS, clickTheme);
+					controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__BEEPS, beepTheme);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-            	//controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__BEEPS, new Beeps());
+				
             	view.setVisible();
-            	
             }
+
+			private File soundFile(String filename) {
+				return new File("sounds", filename);
+			}
         });
     }
     
