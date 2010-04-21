@@ -39,7 +39,8 @@ public class Calculator_Imple implements Calculator {
 	 */
 	public ArrayList<String> addDigit(int digit) {
 		if (currentOperator == NOP) { // No operation but adding digits: clear values and start with "<digit>"
-			this.clear();
+			this.resetInput();
+			currentOperator = FIRST;
 			currentDigits = "" + digit;
 		}
 		else
@@ -247,7 +248,12 @@ public class Calculator_Imple implements Calculator {
 				currentValue = 0;
 			else
 				currentValue = Double.parseDouble(currentDigits);
-			resetInput();
+			
+			currentDigits = "";                          // reset currentDigits
+			currentDigitsIsEven = true;                  // "
+			currentDigitsIsPositive = true;              // "
+			currentOperator = NOP;                       // reset operator
+			
 			break;
 		}
 
@@ -257,6 +263,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);  // String -> double
 			currentValue = currentValue + digits;        // the math
 			calcHistory.add(calculation + currentValue);
+			savedResults.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -267,6 +274,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue - digits;
 			calcHistory.add(calculation + currentValue);
+			savedResults.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -277,6 +285,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue * digits;
 			calcHistory.add(calculation + currentValue);
+			savedResults.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -287,6 +296,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue / digits;
 			calcHistory.add(calculation + currentValue);
+			savedResults.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -297,12 +307,12 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = Math.pow(currentValue, digits);
 			calcHistory.add(calculation + currentValue);
+			savedResults.put(0, currentValue);
 			resetInput();
 			break;
 		}
 
 		}
-		savedResults.put(0, currentValue);
 		return getCalcHistory();
 	}
 		
@@ -317,6 +327,8 @@ public class Calculator_Imple implements Calculator {
 		this.addPastValue();
 		currentValue = Math.sqrt(currentValue);
 		calcHistory.add("sqrt(" + calculation +") = "+ currentValue);
+		savedResults.put(0, currentValue);
+		resetInput();
 		return getCalcHistory();
 	}
 	
@@ -327,7 +339,8 @@ public class Calculator_Imple implements Calculator {
 		currentDigits = "";                          // reset currentDigits
 		currentDigitsIsEven = true;                  // "
 		currentDigitsIsPositive = true;              // "
-		currentOperator = NOP;                       // reset operator
+		currentOperator = FIRST;                       // reset operator
+		currentValue = 0;
 	} 
 	
 	/**
