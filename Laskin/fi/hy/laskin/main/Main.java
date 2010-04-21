@@ -15,7 +15,9 @@ import java.io.File;
  */
 public class Main {
 	
-    public static void main(String args[]) {
+    private static final String	SOUND_DIRECTORY	= "sounds";
+
+	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             	
@@ -24,11 +26,13 @@ public class Main {
             	Calculator calculator = new Calculator_Imple();
             	
             	view.assignController(controller);
-            	
             	controller.assignView(view);
             	controller.assignModel(calculator);
+            	
             	controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, new TextfileWriter());
+            	
             	controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__NO_SOUNDS, new NoSounds());
+            	
             	try {
             		SoundTheme clickTheme = new SoundTheme(soundFile("clicks_key.wav"), soundFile("clicks_error.wav"));
             		
@@ -36,10 +40,12 @@ public class Main {
 					beeps[0] = soundFile("beeps_key_1.wav");
 					beeps[1] = soundFile("beeps_key_2.wav");
 					beeps[2] = soundFile("beeps_key_3.wav");
+					
 					SoundTheme beepTheme = new SoundTheme(beeps, new File[] {soundFile("beeps_error.wav")} );
 					
 					controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__CLICKS, clickTheme);
 					controller.assignSoundEfectsPlayer(Const.SOUND_EFFECT_THEME__BEEPS, beepTheme);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,8 +54,9 @@ public class Main {
             }
 
 			private File soundFile(String filename) {
-				return new File("sounds", filename);
+				return new File(SOUND_DIRECTORY, filename);
 			}
+			
         });
     }
     
