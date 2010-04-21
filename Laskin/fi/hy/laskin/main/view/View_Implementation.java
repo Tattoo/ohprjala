@@ -5,6 +5,7 @@ import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.View;
 
 import java.awt.Dialog;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -114,6 +115,7 @@ public class View_Implementation extends JFrame  implements View {
 			UIManager.setLookAndFeel(lookAndFeelClass);
 			SwingUtilities.updateComponentTreeUI(this);
 			this.pack();
+			textArea_output.setFont(new Font("Monospaced", Font.PLAIN, getFont().getSize()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
