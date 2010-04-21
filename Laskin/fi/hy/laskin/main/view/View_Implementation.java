@@ -34,12 +34,12 @@ public class View_Implementation extends JFrame  implements View {
 	private static final String	SKIN_PLASTIC3D	= "skin_3d";
 	private static final String	SKIN_SYSTEM	= "skin_system";
 	private static final String	SKIN_PLASTIC	= "skin_plastic";
-	private static final int	OUTPUT_AREA_WIDTH	= 150;
+	private static final int	OUTPUT_AREA_WIDTH	= 1; // Element layout is broken (should be redone); if this is set wider than the actual size of the textarea, things look odd
 	private static final int	OUTPUT_AREA_HEIGHT	= 250;
 	private static final String	EXIT_PROGRAM	= "Exit";
 
 	private static final long	serialVersionUID	= -2212730761656490235L;
-
+	
 	/**
 	 * Causes a button on the UI to be pressed if a key that matches that button is typed 
 	 */
@@ -99,8 +99,9 @@ public class View_Implementation extends JFrame  implements View {
 				System.exit(0);
 			} else if (action.startsWith("skin_")) {
 				setSkin(action);
+			} else {
+				controller.process(e);
 			}
-			controller.process(e);
 			frame.requestFocus();
 		}
 	}
