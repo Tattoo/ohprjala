@@ -156,6 +156,7 @@ public class View_Implementation extends JFrame  implements View {
 	private JMenu skinMenu;
 	private JRadioButtonMenuItem audio_1;
 	private JRadioButtonMenuItem audio_2;
+	private JRadioButtonMenuItem audio_3;
 	private JRadioButtonMenuItem skin_1;
 	private JRadioButtonMenuItem skin_2;
 	private JRadioButtonMenuItem skin_3;
@@ -201,6 +202,7 @@ public class View_Implementation extends JFrame  implements View {
 		exit.addActionListener(actionListener);
 		audio_1.addActionListener(actionListener);
 		audio_2.addActionListener(actionListener);
+		audio_3.addActionListener(actionListener);
 		skin_1.addActionListener(actionListener);
 		skin_2.addActionListener(actionListener);
 		skin_3.addActionListener(actionListener);
@@ -431,15 +433,19 @@ public class View_Implementation extends JFrame  implements View {
 
 		ButtonGroup audios = new ButtonGroup();
 		audio_1 = new JRadioButtonMenuItem("No sounds");
-		audio_2 = new JRadioButtonMenuItem("Beeps");
+		audio_2 = new JRadioButtonMenuItem("Clicks");
+		audio_3 = new JRadioButtonMenuItem("Beeps");
 		audio_1.setActionCommand("audio_1");
 		audio_2.setActionCommand("audio_2");
+		audio_3.setActionCommand("audio_3");
 		audio_1.setSelected(true);
 		audios.add(audio_1);
 		audios.add(audio_2);
+		audios.add(audio_3);
 		audioMenu.add(audio_1);
 		audioMenu.add(audio_2);
-
+		audioMenu.add(audio_3);
+		
 		ButtonGroup skins = new ButtonGroup();
 		skin_1 = new JRadioButtonMenuItem("Plastic");
 		skin_2 = new JRadioButtonMenuItem("System");

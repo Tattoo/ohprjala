@@ -25,6 +25,13 @@ public interface Controller {
 	public void assignResultOutputDevice(String name, OutputDevice outputDevice);
 	
 	/**
+	 * Gives this controller a sound efects player
+	 * @param name
+	 * @param player
+	 */
+	public void assignSoundEfectsPlayer(String name, SoundEffectsPlayer player);
+	
+	/**
 	 * Processess an UI event. Performs actions and updates output (if any).
 	 * @param e
 	 */

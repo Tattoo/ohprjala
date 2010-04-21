@@ -4,6 +4,7 @@ import fi.hy.laskin.main.Calculator;
 import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.OutputDevice;
+import fi.hy.laskin.main.SoundEffectsPlayer;
 import fi.hy.laskin.main.View;
 import fi.hy.laskin.main.control.Controller_Implementation;
 
@@ -119,21 +120,37 @@ public class Controller_Impl_Test {
 			}
 		}
 		
+		private class MockSoundEffectsPlayer implements SoundEffectsPlayer {
+			public int keyPressedSoundPlayedCount = 0;
+			public int errorSoundPlayedCount = 0;
+			@Override
+			public void error() {
+				errorSoundPlayedCount++;
+			}
+			@Override
+			public void keyPressed() {
+				keyPressedSoundPlayedCount++;
+			}
+		}
+		
 		private Controller controller;
 		private Calculator mockCalculator;
 		private MockView mockView;
 		private String viewOutput;
 		private String calculatorCommands;
 		private MockOutputDevice mockOutputDevice;
+		private MockSoundEffectsPlayer mockSoundEffectsPlayer;
 		
 		protected void setUp() {
 			controller = new Controller_Implementation();
 			mockCalculator = new MockCalculator();
 			mockView = new MockView();
 			mockOutputDevice = new MockOutputDevice();
+			mockSoundEffectsPlayer = new MockSoundEffectsPlayer();
 			controller.assignModel(mockCalculator);
 			controller.assignView(mockView);
 			controller.assignResultOutputDevice(Const.EXPORT_TO_TEXTFILE, mockOutputDevice);
+			controller.assignSoundEfectsPlayer("mockplayer", mockSoundEffectsPlayer);
 			viewOutput = "";
 			calculatorCommands = "";
 		} 
@@ -217,6 +234,11 @@ public class Controller_Impl_Test {
 			assertTrue("Outputdevice should be called", mockOutputDevice.called);
 			assertTrue("Should call view's file created dialog", mockView.openFileCreatedDialogCalled);
 			assertEquals(FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES, mockView.filename);
+		}
+		
+		public void test___it_uses_soundefectplayer_after_key_pressed() {
+			triggerEvent(Const.ONE);
+			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
 		}
 
 	}

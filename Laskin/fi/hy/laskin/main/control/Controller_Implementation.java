@@ -4,6 +4,7 @@ import fi.hy.laskin.main.Calculator;
 import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.OutputDevice;
+import fi.hy.laskin.main.SoundEffectsPlayer;
 import fi.hy.laskin.main.View;
 
 import java.awt.event.ActionEvent;
@@ -20,10 +21,12 @@ public class Controller_Implementation implements Controller {
 	private Calculator calculator;
 	private List<String> outputContents;
 	private final Map<String, OutputDevice> outputDevices;
+	private final Map<String, SoundEffectsPlayer> soundEffectPlayers;
 	
 	public Controller_Implementation() {
 		this.outputContents = new ArrayList<String>();
 		this.outputDevices = new HashMap<String, OutputDevice>();
+		this.soundEffectPlayers = new HashMap<String, SoundEffectsPlayer>();
 	}
 	
 	@Override
@@ -37,6 +40,11 @@ public class Controller_Implementation implements Controller {
 	
 	public void assignResultOutputDevice(String name, OutputDevice outputDevice) {
 		this.outputDevices.put(name, outputDevice);
+	}
+	
+	@Override
+	public void assignSoundEfectsPlayer(String name, SoundEffectsPlayer player) {
+		this.soundEffectPlayers.put(name, player);
 	}
 	
 	public void process(ActionEvent e) {

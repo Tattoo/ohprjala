@@ -28,7 +28,10 @@ public class Const {
 	public static final String	SUBSTRACT	= "-";
 	public static final String	BACKSPACE	= "backspace";
 	public static final String  ANS = "Ans";
-	public static final String EXPORT_TO_TEXTFILE = "Export to textfile";
+	public static final String  EXPORT_TO_TEXTFILE = "Export to textfile";
+	public static final String  SOUND_EFFECT_THEME__NO_SOUNDS = "sound_effect_theme_no_sounds";
+	public static final String  SOUND_EFFECT_THEME__CLICKS = "sound_effect_theme_clicks";
+	public static final String  SOUND_EFFECT_THEME__BEEPS = "sound_effect_theme_beeps";
 	
 	public static final Collection<String> DIGITS = createStringCollection(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO);
 	public static final Collection<String> OPERANDS = createStringCollection(MULTIPLY, SUBSTRACT, ADD, DIVIDE, SQRT, RAISE_TO_POWER);
