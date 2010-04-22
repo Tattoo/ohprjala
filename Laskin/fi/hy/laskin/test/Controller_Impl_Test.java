@@ -111,6 +111,16 @@ public class Controller_Impl_Test {
 				calculatorCommands += Const.ANS;
 				return fakeOutput;
 			}
+			
+			public List<String> store() {
+				calculatorCommands += Const.STORE;
+				return fakeOutput;				
+			}
+			
+			public List<String> load() {
+				calculatorCommands += Const.LOAD;
+				return fakeOutput;				
+			}			
 		}
 		
 		private class MockOutputDevice implements OutputDevice {
