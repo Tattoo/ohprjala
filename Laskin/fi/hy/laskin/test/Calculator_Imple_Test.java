@@ -187,6 +187,20 @@ public class Calculator_Imple_Test extends TestCase {
 		String expected = "8.0 + 5 = 13.0\n" +
 						  "13.0 + 13.0 = 26.0";
 		assertEquals(expected, output);
-	}	
+	}
+	
+	public void test_store_and_load() {
+		calc.addDigit(8);
+		String output = listToString(calc.store());
+		String expected = "8  GIVE MEMSLOT[1-9]";	
+		assertEquals(expected, output);
+		calc.addDigit(1); //stored to memspace 1
+		calc.add();
+		calc.load();
+		calc.addDigit(1);
+		output = listToString(calc.calculate());
+		expected = "8.0 + 8.0 = 16.0";
+		assertEquals(expected, output);
+	}
 
 }
