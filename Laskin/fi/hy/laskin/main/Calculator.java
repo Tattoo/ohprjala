@@ -88,4 +88,16 @@ public interface Calculator {
 	 * @return
 	 */
 	public List<String> ans();
+
+	/**
+	 * Stores current value to memory, next digit is memslot 1-9
+	 * @return
+	 */
+	public List<String> store();
+	
+	/**
+	 * Loads stored value, next given digit is memslot 1-9
+	 * @return
+	 */
+	public List<String> load();
 }
