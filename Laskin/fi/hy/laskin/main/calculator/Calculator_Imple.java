@@ -9,15 +9,20 @@ import fi.hy.laskin.main.Calculator;
 public class Calculator_Imple implements Calculator {
 	private final char NOP = 'z';   // no operation at the moment (no currentDigits)
 	private final char FIRST = 'x'; // no operations yet performed (no currentValue)
-
+	private final char STORE = 'y'; // next digit for store
+	private final char LOAD = 'o'; // next digit for load
+	
+	
 	private double currentValue;        // holds the current value
 	private String currentDigits;       // holds the value (as String) that math operation is going to use to currentValue
 	private boolean currentDigitsIsEven; // true if no decimal point, false if decimal point already used
 	private boolean currentDigitsIsPositive; // true if positive, false if negative
 	private char currentOperator;       // stores the operator (+,-,*,/,^,FIRST,NOP). (Square root is a special operation that doesn't take a second value)
+	private char nextDigitIsMemory; // indicates if next digit is for store/load 
+	
 	private Vector<Double> pastValues;  // history of previous currentvalues for undo button
 	private ArrayList<String> calcHistory;
-	private HashMap<Integer, Double> savedResults; //slot "0" reserved for ANS
+	private HashMap<Integer, Double> memory; //slot "0" reserved for ANS
  
 	public Calculator_Imple() {
 		currentValue = 0;
@@ -26,8 +31,9 @@ public class Calculator_Imple implements Calculator {
 		currentDigitsIsPositive = true;
 		currentOperator = FIRST;
 		pastValues = new Vector<Double>(10);
-		savedResults = new HashMap<Integer, Double>();
+		memory = new HashMap<Integer, Double>();
 		calcHistory = new ArrayList<String>(200);
+		nextDigitIsMemory = NOP;
 	}
 
 	/**
@@ -38,16 +44,79 @@ public class Calculator_Imple implements Calculator {
 	 * new digit as a first currentDigit.
 	 */
 	public ArrayList<String> addDigit(int digit) {
+		if(nextDigitIsMemory != NOP) { //store or load
+			if(digit < 0 || digit > 9) //check if valid memspace
+				return getCalcHistory();
+			
+			if(nextDigitIsMemory == STORE) {
+				Double dbl = Double.parseDouble(currentDigits);
+				memory.put(digit, dbl);
+				nextDigitIsMemory = NOP;
+				return getCalcHistory();
+			} else { //LOAD
+				if(memory.get(digit) == null) 
+					return getCalcHistory();
+				
+				String s = memory.get(digit).toString();
+				nextDigitIsMemory = NOP;
+				for(int i = 0; i < s.length(); i++) {
+					if(s.charAt(i) == '.')
+						addDecimalPoint();
+					else if(s.charAt(i) == '-')
+						changeSign();
+					else
+						addDigit(Integer.parseInt(""+s.charAt(i)));
+					//System.out.println(s.charAt(i));
+					System.out.println(currentDigits);
+				}
+				return getCalcHistory();
+			}
+		}
+		
 		if (currentOperator == NOP) { // No operation but adding digits: clear values and start with "<digit>"
 			this.resetInput();
 			currentOperator = FIRST;
 			currentDigits = "" + digit;
 		}
-		else
+		else 
 			currentDigits = currentDigits + digit;
+		
 		return getCalcHistory();
 	}
+	
+	
+	/**
+	 * When store function is called, model waits for a next digit
+	 * between 1-9 and stores the last currentDigits to memory.
+	 * @return
+	 */
+	public ArrayList<String> store() {
+		if(currentDigits == "" || currentOperator != FIRST)
+			return getCalcHistory();
+		
+		nextDigitIsMemory = STORE;
+		
+		ArrayList<String> newlist = new ArrayList<String>(getCalcHistory());
+		String str = newlist.remove(newlist.size()-1);
+		str = str + "  GIVE MEMSLOT[1-9]";
+		newlist.add(str);
+		return newlist;
+	}
 
+	/**
+	 * When load function is called, model waits for a next digit
+	 * between 1-9 and loads digits from memory
+	 * @return
+	 */
+	public ArrayList<String> load() {
+		nextDigitIsMemory = LOAD;
+		ArrayList<String> newlist = new ArrayList<String>(getCalcHistory());
+		String str = newlist.remove(newlist.size()-1);
+		str = str + "  GIVE MEMSLOT[1-9]";
+		newlist.add(str);
+		return newlist;
+	}	
+	
 	/**
 	 * Remove the last (rightmost) digit if there are digits. Or if there aren't but there is an 
 	 * operation, erase the operator by setting it to NOP. If we erase a decimal point or a minus 
@@ -135,7 +204,7 @@ public class Calculator_Imple implements Calculator {
 	public ArrayList<String> clear() {
 		pastValues.clear();
 		calcHistory.clear();
-		savedResults.clear();
+		memory.clear();
 		currentValue = 0;
 		currentDigits = "";
 		currentDigitsIsEven = true;
@@ -209,8 +278,10 @@ public class Calculator_Imple implements Calculator {
 	}
 	
 	public ArrayList<String> ans() {
-		if(savedResults.get(0) != null && (currentDigits == "" || currentDigits == "-")) {
-			String ans = savedResults.get(0).toString();
+		if(memory.get(0) != null && (currentDigits == "" || currentDigits == "-")) {
+			String ans = memory.get(0).toString();
+			if(ans.charAt(0) == 'I') //covers case "Infinity" 
+				return getCalcHistory();
 			for(int i = 0; i < ans.length(); i++) {
 				if(ans.charAt(i) == '.')
 					addDecimalPoint();
@@ -263,7 +334,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);  // String -> double
 			currentValue = currentValue + digits;        // the math
 			calcHistory.add(calculation + currentValue);
-			savedResults.put(0, currentValue);
+			memory.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -274,7 +345,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue - digits;
 			calcHistory.add(calculation + currentValue);
-			savedResults.put(0, currentValue);
+			memory.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -285,7 +356,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue * digits;
 			calcHistory.add(calculation + currentValue);
-			savedResults.put(0, currentValue);
+			memory.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -296,7 +367,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue / digits;
 			calcHistory.add(calculation + currentValue);
-			savedResults.put(0, currentValue);
+			memory.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -307,7 +378,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = Math.pow(currentValue, digits);
 			calcHistory.add(calculation + currentValue);
-			savedResults.put(0, currentValue);
+			memory.put(0, currentValue);
 			resetInput();
 			break;
 		}
@@ -327,7 +398,7 @@ public class Calculator_Imple implements Calculator {
 		this.addPastValue();
 		currentValue = Math.sqrt(currentValue);
 		calcHistory.add("sqrt(" + calculation +") = "+ currentValue);
-		savedResults.put(0, currentValue);
+		memory.put(0, currentValue);
 		resetInput();
 		return getCalcHistory();
 	}
