@@ -15,7 +15,7 @@ public class Calculator_Imple_Test extends TestCase {
 		super.setUp();
 		calc = new Calculator_Imple();		
 	}
-	
+ 
 	private String listToString(List<String> list) {
 		if(list == null) 
 			return null;
@@ -188,7 +188,7 @@ public class Calculator_Imple_Test extends TestCase {
 						  "13.0 + 13.0 = 26.0";
 		assertEquals(expected, output);
 	}
-	
+	 
 	public void test_store_and_load() {
 		calc.addDigit(8);
 		String output = listToString(calc.store());
@@ -197,6 +197,8 @@ public class Calculator_Imple_Test extends TestCase {
 		calc.addDigit(1); //stored to memspace 1
 		calc.add();
 		calc.load();
+		expected = "8.0 +   GIVE MEMSLOT[1-9]";
+		assertEquals(expected, listToString(calc.load()));
 		calc.addDigit(1);
 		output = listToString(calc.calculate());
 		expected = "8.0 + 8.0 = 16.0";
