@@ -15,7 +15,7 @@ public class Calculator_Imple implements Calculator {
 	private boolean currentDigitsIsEven; // true if no decimal point, false if decimal point already used
 	private boolean currentDigitsIsPositive; // true if positive, false if negative
 	private char currentOperator;       // stores the operator (+,-,*,/,^,FIRST,NOP). (Square root is a special operation that doesn't take a second value)
-	private Vector<Double> pastValues;  // history of previous currentvalues for undo button
+	private final Vector<Double> pastValues;  // history of previous currentvalues for undo button
 	private ArrayList<String> calcHistory;
  
 	public Calculator_Imple() {
@@ -51,8 +51,8 @@ public class Calculator_Imple implements Calculator {
 		if (currentOperator == NOP) { // No operation but adding digits: clear values and start with "<digit>"
 			//this.clear();
 			//currentDigits = "" + digit;
-			currentValue = Double.valueOf(digit);
-			currentDigits = "";
+			currentDigits = currentDigits + digit;
+			currentValue = Double.valueOf(currentDigits);
 		}
 		else
 			currentDigits = currentDigits + digit;
@@ -90,25 +90,22 @@ public class Calculator_Imple implements Calculator {
 	 */
 	public ArrayList<String> addDecimalPoint()
 	{
-		if (currentOperator == NOP) // No operation but adding digits: clear values and start with "0."
-		{
-			this.clear();
-			currentDigits = "0.";
-			return getCalcHistory();
-		}
+		if (!currentDigitsIsEven) return getCalcHistory();
+		
+//		if (currentOperator == NOP) // No operation but adding digits: clear values and start with "0."
+//		{
+//			currentDigits = currentDigits + ".0";
+//			currentValue = Double.valueOf(currentDigits);
+//		}
 
-		if (currentDigitsIsEven)    // decimal point not yet used
-		{
-			if (currentDigits.equals(""))
-				currentDigits = "0."; 
-			else if (currentDigits.equals("-"))
-				currentDigits = "-0.";
-			else
-				currentDigits = currentDigits + ".";
-
-			currentDigitsIsEven = false;
-		}
-		// if decimal point already was used, do nothing
+		if (currentDigits.equals(""))
+			currentDigits = "0."; 
+		else if (currentDigits.equals("-"))
+			currentDigits = "-0.";
+		else
+			currentDigits = currentDigits + ".";
+		
+		currentDigitsIsEven = false;
 		return getCalcHistory();
 	}
 
@@ -144,7 +141,7 @@ public class Calculator_Imple implements Calculator {
 	 * Resets the calculator (except for pastValues)
 	 */
 	public ArrayList<String> clear() {
-		pastValues = new Vector<Double>(10);
+//		pastValues = new Vector<Double>(10);
 		calcHistory = new ArrayList<String>(200);
 		currentValue = 0;
 		currentDigits = "";
@@ -162,11 +159,12 @@ public class Calculator_Imple implements Calculator {
 		if (pastValues.size() < 2) return getCalcHistory();
 		currentValue = pastValues.get(pastValues.size()-2);
 		pastValues.remove(pastValues.size()-1);
-		calcHistory.remove(calcHistory.size()-1);
+		if (!calcHistory.isEmpty())
+			calcHistory.remove(calcHistory.size()-1);
 		
 		return getCalcHistory();
 	}
-
+	
 	private Double previousValue() {
 		return pastValues.get(pastValues.size()-1);
 	}
