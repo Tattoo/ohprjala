@@ -30,7 +30,8 @@ public class Calculator_Imple implements Calculator {
 
 	@Override
 	public List<String> ans() {
-		currentDigits = Double.toString( pastValues.get(pastValues.size()-1));
+		if (pastValues.isEmpty()) return getCalcHistory(); 
+		currentDigits = Double.toString( previousValue());
 		return getCalcHistory();
 	}
 	
@@ -157,18 +158,19 @@ public class Calculator_Imple implements Calculator {
 	 * Resets the calculator, but starts with currentValue being the last stored currentValue (from pastValues)
 	 */
 	public ArrayList<String> undo() {
-		if (pastValues.size() == 0) // nothing to undo
-			return getCalcHistory();
-
-		if (pastValues.size() > 0)
-			currentValue = pastValues.remove( pastValues.size()-1 ).doubleValue(); 
-		if (calcHistory.size() > 0) 
-			calcHistory.remove(calcHistory.size()-1);
+		if (pastValues.isEmpty()) return getCalcHistory();
+		if (pastValues.size() < 2) return getCalcHistory();
+		currentValue = pastValues.get(pastValues.size()-2);
+		pastValues.remove(pastValues.size()-1);
+		calcHistory.remove(calcHistory.size()-1);
 		
-		resetInput();
 		return getCalcHistory();
 	}
 
+	private Double previousValue() {
+		return pastValues.get(pastValues.size()-1);
+	}
+	
 	/**
 	 * Executes any calculations the user has typed, and then starts to take digits to be added to that new currentValue
 	 */
@@ -242,7 +244,7 @@ public class Calculator_Imple implements Calculator {
 				currentValue = 0;
 			else
 				currentValue = Double.parseDouble(currentDigits);
-			resetInput();
+			finalizeCalculation();
 			break;
 		}
 
@@ -251,7 +253,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);  // String -> double
 			currentValue = currentValue + digits;        // the math
 			calcHistory.add(calculation + currentValue);
-			resetInput();
+			finalizeCalculation();
 			break;
 		}
 
@@ -260,7 +262,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue - digits;
 			calcHistory.add(calculation + currentValue);
-			resetInput();
+			finalizeCalculation();
 			break;
 		}
 
@@ -269,7 +271,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue * digits;
 			calcHistory.add(calculation + currentValue);
-			resetInput();
+			finalizeCalculation();
 			break;
 		}
 
@@ -278,7 +280,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = currentValue / digits;
 			calcHistory.add(calculation + currentValue);
-			resetInput();
+			finalizeCalculation();
 			break;
 		}
 
@@ -287,7 +289,7 @@ public class Calculator_Imple implements Calculator {
 			digits = Double.parseDouble(currentDigits);
 			currentValue = Math.pow(currentValue, digits);
 			calcHistory.add(calculation + currentValue);
-			resetInput();
+			finalizeCalculation();
 			break;
 		}
 
@@ -301,18 +303,18 @@ public class Calculator_Imple implements Calculator {
 	 * of the result.
 	 */
 	public ArrayList<String> getSquareRoot() {
-		String calculation = giveOutput();
-		this.calculate();  
-		this.addPastValue();
+		calculate();
+		double valueOperatedOn = currentValue;
 		currentValue = Math.sqrt(currentValue);
-		calcHistory.add(calculation + currentValue);
+		calcHistory.add("sqrt(" + valueOperatedOn + ") = "+currentValue);
+		finalizeCalculation();
 		return getCalcHistory();
 	}
 	
 	/**
 	 * Resets calculator variables to default
 	*/
-	private void resetInput() {
+	private void finalizeCalculation() {
 		addPastValue();
 		currentDigits = "";                          // reset currentDigits
 		currentDigitsIsEven = true;                  // "
@@ -332,10 +334,10 @@ public class Calculator_Imple implements Calculator {
 	 */
 	private String giveOutput() {
 		if (currentOperator == FIRST)
-			return "    " + currentDigits;
+			return currentDigits;
 		if (currentOperator == NOP)
-			return "" + currentValue + "    ";
-		return "" + currentValue + "    " + currentOperator + " " + currentDigits; 
+			return "" + currentValue;
+		return "" + currentValue + " " + currentOperator + " " + currentDigits; 
 	}	
 	
 	private ArrayList<String> getCalcHistory() {

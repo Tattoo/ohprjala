@@ -120,6 +120,11 @@ public class Controller_Impl_Test {
 			public List<String> load() {
 				calculatorCommands += Const.LOAD;
 				return fakeOutput;				
+			}
+
+			@Override
+			public String giveCurrentValue() {
+				return "1";
 			}			
 		}
 		
@@ -230,6 +235,7 @@ public class Controller_Impl_Test {
 			assertTrue("Should call view's file created dialog", mockView.openFileCreatedDialogCalled);
 			assertEquals(FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES, mockView.filename);
 		}
+
 		
 	}
 
@@ -325,5 +331,49 @@ public class Controller_Impl_Test {
 		
 	}
 
+	
+	
+	public static class WhenStoringAndLoadingValues extends TestCase {
+		
+		private Controller controller;
+		private Calculator calculator;
+		private View mockView;
+		
+		protected void setUp() {
+			mockView = new View() {
+				@Override
+				public void setVisible() {}
+				@Override
+				public void setOutput(String output) {}
+				@Override
+				public void fileCreated(String filename) {}
+				@Override
+				public void assignController(Controller controller) {}
+			};
+			controller = new Controller_Implementation();
+			calculator = new Calculator_Imple();
+			controller.assignModel(calculator);
+			controller.assignView(mockView);
+		} 
+		
+		private void triggerEvent(String command) {
+			ActionEvent e = new ActionEvent(new JButton(), 0, command);
+			controller.process(e);
+		}   
+		
+		
+		public void test___it_() {
+			triggerEvent(Const.ONE);
+			triggerEvent(Const.ADD);
+			triggerEvent(Const.ONE);
+			triggerEvent(Const.ADD);
+			assertEquals("2.0", calculator.giveCurrentValue());
+			triggerEvent(Const.EQUALS);
+			
+		}
+		
+	}
+
+	
 
 }
