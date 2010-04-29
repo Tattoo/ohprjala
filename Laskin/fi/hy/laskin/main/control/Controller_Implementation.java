@@ -30,7 +30,7 @@ public class Controller_Implementation implements Controller {
 		this.outputDevices = new HashMap<String, OutputDevice>();
 		this.soundEffectPlayers = new HashMap<String, SoundEffectsPlayer>();
 	}
-	
+	 
 	@Override
 	public void assignView(View view) {
 		this.view = view;
@@ -120,7 +120,13 @@ public class Controller_Implementation implements Controller {
 			outputContents = calculator.erase();
 		} else if (command.equals(Const.ANS)) {
 			outputContents = calculator.ans();
-		} else {
+		} 
+//		else if (command.equals(Const.STORE)) {
+//			outputContents = calculator.store();
+//		} else if (command.equals(Const.LOAD)) {
+//			outputContents = calculator.load();
+//		} 
+		else {
 			trytoUseOutputDevice(command);
 			tryToChangeSoundEffectsPlayer(command);
 		}
