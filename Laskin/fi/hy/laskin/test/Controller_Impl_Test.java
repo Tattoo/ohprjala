@@ -338,13 +338,14 @@ public class Controller_Impl_Test {
 		private Controller controller;
 		private Calculator calculator;
 		private View mockView;
+		private String outputString;
 		
 		protected void setUp() {
 			mockView = new View() {
 				@Override
 				public void setVisible() {}
 				@Override
-				public void setOutput(String output) {}
+				public void setOutput(String output) { outputString = output;}
 				@Override
 				public void fileCreated(String filename) {}
 				@Override
@@ -362,15 +363,50 @@ public class Controller_Impl_Test {
 		}   
 		
 		
-		public void test___it_() {
+		public void test___it_stores_and_loads_values() {
 			triggerEvent(Const.ONE);
 			triggerEvent(Const.ADD);
 			triggerEvent(Const.ONE);
-			triggerEvent(Const.ADD);
-			assertEquals("2.0", calculator.giveCurrentValue());
 			triggerEvent(Const.EQUALS);
+			assertEquals("1.0 + 1 = 2.0\n2.0", outputString);
+			assertEquals("2.0", calculator.giveCurrentValue());
+			triggerEvent(Const.STORE);
+			triggerEvent(Const.ONE);
+			assertEquals("2.0", calculator.giveCurrentValue());
+			assertEquals("1.0 + 1 = 2.0\n2.0", outputString);
 			
+			triggerEvent(Const.ONE);
+			assertEquals("1.0", calculator.giveCurrentValue());
+			assertEquals("1.0 + 1 = 2.0\n1.0", outputString);
+			
+			triggerEvent(Const.LOAD);
+			triggerEvent(Const.ONE);
+			assertEquals("2.0", calculator.giveCurrentValue());
+			assertEquals("1.0 + 1 = 2.0\n1.0", outputString);
 		}
+		
+		public void test___it_stores_and_loads_values2() {
+			triggerEvent(Const.ONE);
+			triggerEvent(Const.ZERO);
+			triggerEvent(Const.EQUALS);
+			assertEquals("10.0", calculator.giveCurrentValue());
+			assertEquals("10.0", outputString);
+			
+			triggerEvent(Const.STORE);
+			triggerEvent(Const.ONE);
+			
+			triggerEvent(Const.CLEAR);
+			assertEquals("0.0", calculator.giveCurrentValue());
+			assertEquals("", outputString);
+			
+			triggerEvent(Const.LOAD);
+			triggerEvent(Const.ONE);
+			
+			assertEquals("10.0", calculator.giveCurrentValue());
+			assertEquals("10.0", outputString);
+		}
+		
+		
 		
 	}
 

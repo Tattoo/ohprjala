@@ -24,11 +24,15 @@ public class Controller_Implementation implements Controller {
 	private final Map<String, SoundEffectsPlayer> soundEffectPlayers;
 	private SoundEffectsPlayer currentSoundEffectsPlayer;
 	private String previousLine = "";
+	private boolean inStoreMode = false;
+	private boolean inLoadMode = false;
+	private final String[] storedValues;
 	
 	public Controller_Implementation() {
 		this.outputContents = new ArrayList<String>();
 		this.outputDevices = new HashMap<String, OutputDevice>();
 		this.soundEffectPlayers = new HashMap<String, SoundEffectsPlayer>();
+		this.storedValues = new String[] {"0","0","0","0","0","0","0","0","0","0","0","0" };
 	}
 	 
 	@Override
@@ -92,6 +96,19 @@ public class Controller_Implementation implements Controller {
 	}
 	
 	private void callModel(String command) {
+		if (inStoreMode || inLoadMode) {
+			if (isDigit(command)) {
+				if (inLoadMode) {
+					loadValue(command);
+				} else if (inStoreMode) {
+					storeValue(command);
+				}
+			}
+			inStoreMode = false;
+			inLoadMode = false;
+			return;
+		}
+		
 		if (isDigit(command)) {
 			outputContents = calculator.addDigit(toDigit(command));
 		} else if (command.equals(Const.DECIMAL_SEPARATOR)){
@@ -121,15 +138,38 @@ public class Controller_Implementation implements Controller {
 		} else if (command.equals(Const.ANS)) {
 			outputContents = calculator.ans();
 		} 
-//		else if (command.equals(Const.STORE)) {
-//			outputContents = calculator.store();
-//		} else if (command.equals(Const.LOAD)) {
-//			outputContents = calculator.load();
-//		} 
+		else if (command.equals(Const.STORE)) {
+			enterStoreMode();
+		} else if (command.equals(Const.LOAD)) {
+			enterLoadMode();
+		} 
 		else {
 			trytoUseOutputDevice(command);
 			tryToChangeSoundEffectsPlayer(command);
 		}
+	}
+
+	private void loadValue(String command) {
+		String value = storedValues[Integer.valueOf(command)];
+		for (char c : value.toCharArray()) {
+			String character = ""+c;
+			if (isDigit(character))
+				outputContents = calculator.addDigit(Integer.valueOf(character) );
+			else if (character.equals("."))
+				outputContents = calculator.addDecimalPoint();
+		}
+	}
+
+	private void storeValue(String command) {
+		storedValues[Integer.valueOf(command)] = calculator.giveCurrentValue();
+	}
+	
+	private void enterStoreMode() {
+		inStoreMode = true;
+	}
+	
+	private void enterLoadMode() {
+		inLoadMode = true;
 	}
 
 	private void tryToChangeSoundEffectsPlayer(String command) {
