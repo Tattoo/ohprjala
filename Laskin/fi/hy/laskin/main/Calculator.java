@@ -90,14 +90,20 @@ public interface Calculator {
 	public List<String> ans();
 
 	/**
-	 * Stores current value to memory, next digit is memslot 1-9
+	 * Returns current value
 	 * @return
 	 */
-	public List<String> store();
+	public String giveCurrentValue();
 	
-	/**
-	 * Loads stored value, next given digit is memslot 1-9
-	 * @return
-	 */
-	public List<String> load();
+//	/**
+//	 * Stores current value to memory, next digit is memslot 1-9
+//	 * @return
+//	 */
+//	public List<String> store();
+//	
+//	/**
+//	 * Loads stored value, next given digit is memslot 1-9
+//	 * @return
+//	 */
+//	public List<String> load();
 }
