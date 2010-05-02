@@ -72,6 +72,7 @@ public class Controller_Implementation implements Controller {
 		}
 		removeLastLineBrake(output);
 		view.setOutput(output.toString());
+		view.setMemory(calculator.getMemory());
 	}
 
 	private void playSoundEffects() {

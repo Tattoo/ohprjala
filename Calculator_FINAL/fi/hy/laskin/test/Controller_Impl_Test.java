@@ -11,7 +11,9 @@ import fi.hy.laskin.main.control.Controller_Implementation;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 
@@ -32,7 +34,7 @@ public class Controller_Impl_Test {
 		private class MockView implements View {
 			public boolean	openFileCreatedDialogCalled	= false;
 			public String	filename					= "";
-
+			public Map<Integer, Double> memory;
 			public void assignController(Controller controller) {}
 
 			public void setOutput(String output) {
@@ -45,8 +47,12 @@ public class Controller_Impl_Test {
 				openFileCreatedDialogCalled = true;
 				this.filename = filename;
 			}
-		}
 
+			public void setMemory(Map<Integer, Double> memory) {
+				this.memory = memory;
+			}
+		}
+		
 		private class MockCalculator implements Calculator {
 			private final List<String>	fakeOutput;
 
@@ -136,6 +142,13 @@ public class Controller_Impl_Test {
 			public List<String> load() {
 				calculatorCommands += Const.LOAD;
 				return fakeOutput;
+			}
+
+			public Map<Integer, Double> getMemory() {
+				Map<Integer, Double> memory = new HashMap<Integer, Double>();
+				memory.put(1, 5.0D);
+				memory.put(2, Math.PI);
+				return memory;
 			}
 		}
 
@@ -248,7 +261,11 @@ public class Controller_Impl_Test {
 			assertTrue("Should call view's file created dialog", mockView.openFileCreatedDialogCalled);
 			assertEquals(FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES, mockView.filename);
 		}
-
+		
+		public void test__it_updates_memory_to_view() {
+			triggerEvent(Const.ONE);
+			assertEquals(mockCalculator.getMemory(), mockView.memory);
+		}
 	}
 
 	public static class WhenPlayingSounds extends TestCase {
@@ -291,6 +308,8 @@ public class Controller_Impl_Test {
 
 				@Override
 				public void assignController(Controller controller) {}
+
+				public void setMemory(Map<Integer, Double> memory) {}
 			};
 			controller = new Controller_Implementation();
 			calculator = new Calculator_Imple();

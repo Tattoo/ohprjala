@@ -1,5 +1,7 @@
 package fi.hy.laskin.main;
 
+import java.util.Map;
+
 public interface View {
 
 	/**
@@ -23,6 +25,12 @@ public interface View {
 	 */
 	public void setOutput(String output);
 
+	/**
+	 * Updates memory values
+	 * @param memory
+	 */
+	public void setMemory(Map<Integer, Double> memory);
+	
 	/**
 	 * Opens a dialog telling that a file with the given filename has been
 	 * created

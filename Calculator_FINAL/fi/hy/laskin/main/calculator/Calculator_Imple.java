@@ -4,6 +4,7 @@ import fi.hy.laskin.main.Calculator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class Calculator_Imple implements Calculator {
@@ -458,5 +459,9 @@ public class Calculator_Imple implements Calculator {
 			history.add(giveOutput());
 
 		return history;
+	}
+	
+	public Map<Integer, Double>getMemory() {
+		return memory;
 	}
 }
