@@ -364,6 +364,32 @@ public class Controller_Impl_Test {
 			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
 			assertEquals(1, otherMockSoundEffectsPlayer.keyPressedSoundPlayedCount);
 		}
+		
+		public void test___plays_clicks__when_storing_to_memory() {
+			triggerEvent(Const.ONE);
+			triggerEvent(Const.ONE);
+			assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+			triggerEvent(Const.STORE);
+			assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+			triggerEvent(Const.ONE);
+			assertEquals(4, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+		}
+		
+//		public void test___plays_error_if_incorretly_sotring_to_memory() {
+//			triggerEvent(Const.ONE);
+//			triggerEvent(Const.ONE);
+//			assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+//			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+//			triggerEvent(Const.STORE);
+//			assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+//			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+//			triggerEvent(Const.ANS);
+//			assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+//			assertEquals(1, mockSoundEffectsPlayer.errorSoundPlayedCount);
+//		}
 
 	}
 
