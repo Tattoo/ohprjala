@@ -12,6 +12,7 @@ public class Calculator_Imple implements Calculator {
 	private final char						FIRST	= 'x';				
 	private final char						STORE	= 'y';				
 	private final char						LOAD	= 'o';		
+	private final String					PI		= "3.14159265";
 	
 	private double							currentValue;				
 	private String							currentDigits;				
@@ -59,16 +60,7 @@ public class Calculator_Imple implements Calculator {
 				}
 				String s = memory.get(digit).toString();
 				nextDigitIsMemory = NOP;
-				for (int i = 0; i < s.length(); i++) {
-					if (s.charAt(i) == '.')
-						addDecimalPoint();
-					else if (s.charAt(i) == '-')
-						changeSign();
-					else if (s.charAt(i) == 'E')
-						addCharEToDigits();
-					else
-						addDigit(Integer.parseInt("" + s.charAt(i)));
-				}
+				addStrToDigits(s);
 				return getCalcHistory();
 			}
 		}
@@ -109,6 +101,8 @@ public class Calculator_Imple implements Calculator {
 	 * @return
 	 */
 	public ArrayList<String> load() {
+		if(currentDigits != "")
+			return getCalcHistory();
 		String str = "";
 		nextDigitIsMemory = LOAD;
 		ArrayList<String> newlist = new ArrayList<String>(getCalcHistory());
@@ -312,17 +306,8 @@ public class Calculator_Imple implements Calculator {
 			String ans = memory.get(0).toString();
 			if (ans.charAt(0) == 'I') // covers case "Infinity"
 				return getCalcHistory();
-			for (int i = 0; i < ans.length(); i++) {
-				if (ans.charAt(i) == '.')
-					addDecimalPoint();
-				else if (ans.charAt(i) == '-')
-					changeSign();
-				else if (ans.charAt(i) == 'E') {
-					addCharEToDigits();
-				}
-				else
-					addDigit(Integer.parseInt("" + ans.charAt(i)));
-			}
+
+			addStrToDigits(ans);
 		}
 		return getCalcHistory();
 	}
@@ -433,7 +418,29 @@ public class Calculator_Imple implements Calculator {
 		resetInput();
 		return getCalcHistory();
 	}
-
+	public ArrayList<String> pi() {
+		if(nextDigitIsMemory != NOP || currentDigits != "") {
+			nextDigitIsMemory = NOP;
+			return getCalcHistory();
+		}		
+		addStrToDigits(PI);
+		return getCalcHistory();
+	}
+	
+	private void addStrToDigits(String str) {
+		for(int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '.')
+				addDecimalPoint();
+			else if (str.charAt(i) == '-')
+				changeSign();
+			else if (str.charAt(i) == 'E') {
+				addCharEToDigits();
+			}
+			else
+				addDigit(Integer.parseInt("" + str.charAt(i)));			
+		}
+	}
+	
 	/** 
 	 * called if digits contain E char, e.g. 2.3289E12 
 	 */
