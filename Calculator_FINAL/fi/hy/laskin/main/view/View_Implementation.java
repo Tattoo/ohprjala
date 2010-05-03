@@ -188,7 +188,7 @@ public class View_Implementation extends JFrame implements View {
 	public View_Implementation() {
 		super("Calculator");
 		
-		memoryTextGenerator = new MemoryTextGenerator(new int[] {1,2,3,4,5,6,7,8,9,0}, MEMORY_SLOT_MAX_CHAR_COUNT, MEMORY_SLOT_MAX_ROWS);
+		memoryTextGenerator = new MemoryTextGenerator(new int[] {1,2,3,4,5,6,7,8,9}, MEMORY_SLOT_MAX_CHAR_COUNT, MEMORY_SLOT_MAX_ROWS);
 		
 		initComponents();
 		this.addKeyListener(new KeyListener_Impl());
