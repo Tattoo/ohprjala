@@ -224,11 +224,17 @@ public class Calculator_Imple implements Calculator {
 	 * currentValue (from pastValues)
 	 */
 	public ArrayList<String> undo() {
+		if(nextDigitIsMemory != NOP) {
+			return erase(); //clears memory using state
+		}
+		
 		if (pastValues.size() == 0) // nothing to undo
 			return getCalcHistory();
 
-		if (pastValues.size() > 0)
+		if (pastValues.size() > 0) {
 			currentValue = pastValues.remove(pastValues.size() - 1).doubleValue();
+			memory.put(0, currentValue);
+		}
 		if (calcHistory.size() > 0)
 			calcHistory.remove(calcHistory.size() - 1);
 
