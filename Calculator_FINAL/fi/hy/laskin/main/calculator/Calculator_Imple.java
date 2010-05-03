@@ -44,7 +44,7 @@ public class Calculator_Imple implements Calculator {
 	 */
 	public ArrayList<String> addDigit(int digit) {
 		if (nextDigitIsMemory != NOP) { // store or load
-			if (digit < 0 || digit > 9) // check if valid memspace
+			if (digit < 1 || digit > 9) // check if valid memspace
 				return getCalcHistory();
 
 			if (nextDigitIsMemory == STORE) {
@@ -64,6 +64,8 @@ public class Calculator_Imple implements Calculator {
 						addDecimalPoint();
 					else if (s.charAt(i) == '-')
 						changeSign();
+					else if (s.charAt(i) == 'E')
+						addCharEToDigits();
 					else
 						addDigit(Integer.parseInt("" + s.charAt(i)));
 				}
@@ -107,9 +109,11 @@ public class Calculator_Imple implements Calculator {
 	 * @return
 	 */
 	public ArrayList<String> load() {
+		String str = "";
 		nextDigitIsMemory = LOAD;
 		ArrayList<String> newlist = new ArrayList<String>(getCalcHistory());
-		String str = newlist.remove(newlist.size() - 1);
+		if(newlist.size() > 0)
+			str = newlist.remove(newlist.size() - 1);
 		str = str + "  GIVE MEMSLOT[1-9]";
 		newlist.add(str);
 		return newlist;
@@ -122,6 +126,11 @@ public class Calculator_Imple implements Calculator {
 	 * corresponding boolean values too.
 	 */
 	public ArrayList<String> erase() {
+		if(nextDigitIsMemory != NOP) { //cancel memory usage
+			nextDigitIsMemory = NOP;
+			return getCalcHistory();
+		}
+		
 		if (currentDigits.equals("")) // no digits -> set operator = NOP (but no  change for FIRST)
 			if (currentOperator == FIRST)
 				return getCalcHistory();
@@ -201,7 +210,7 @@ public class Calculator_Imple implements Calculator {
 	public ArrayList<String> clear() {
 		pastValues.clear();
 		calcHistory.clear();
-		memory.clear();
+		//memory.clear();
 		currentValue = 0;
 		currentDigits = "";
 		currentDigitsIsEven = true;
@@ -302,6 +311,9 @@ public class Calculator_Imple implements Calculator {
 					addDecimalPoint();
 				else if (ans.charAt(i) == '-')
 					changeSign();
+				else if (ans.charAt(i) == 'E') {
+					addCharEToDigits();
+				}
 				else
 					addDigit(Integer.parseInt("" + ans.charAt(i)));
 			}
@@ -416,6 +428,13 @@ public class Calculator_Imple implements Calculator {
 		return getCalcHistory();
 	}
 
+	/** 
+	 * called if digits contain E char, e.g. 2.3289E12 
+	 */
+	private void addCharEToDigits() {
+		currentDigits = currentDigits + 'E';
+	}
+	
 	private boolean checkFirstNumber() {
 		if (currentDigits == "" && currentOperator == FIRST) {
 			ans();
