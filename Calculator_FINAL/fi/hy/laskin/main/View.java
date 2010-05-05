@@ -27,10 +27,11 @@ public interface View {
 
 	/**
 	 * Updates memory values
+	 * 
 	 * @param memory
 	 */
 	public void setMemory(Map<Integer, Double> memory);
-	
+
 	/**
 	 * Opens a dialog telling that a file with the given filename has been
 	 * created

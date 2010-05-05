@@ -54,9 +54,6 @@ public class SoundPlayerTests {
 			return new File(SOUND_DIRECTORY, filename);
 		}
 
-	
 	}
 
-
 }
-

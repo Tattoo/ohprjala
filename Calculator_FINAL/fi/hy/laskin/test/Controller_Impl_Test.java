@@ -32,9 +32,10 @@ public class Controller_Impl_Test {
 		private static final String	FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES	= "FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES";
 
 		private class MockView implements View {
-			public boolean	openFileCreatedDialogCalled	= false;
-			public String	filename					= "";
-			public Map<Integer, Double> memory;
+			public boolean				openFileCreatedDialogCalled	= false;
+			public String				filename					= "";
+			public Map<Integer, Double>	memory;
+
 			public void assignController(Controller controller) {}
 
 			public void setOutput(String output) {
@@ -52,7 +53,7 @@ public class Controller_Impl_Test {
 				this.memory = memory;
 			}
 		}
-		
+
 		private class MockCalculator implements Calculator {
 			private final List<String>	fakeOutput;
 
@@ -261,7 +262,7 @@ public class Controller_Impl_Test {
 			assertTrue("Should call view's file created dialog", mockView.openFileCreatedDialogCalled);
 			assertEquals(FILENAME_THAT_THE_OUTPUT_DEVICE_GIVES, mockView.filename);
 		}
-		
+
 		public void test__it_updates_memory_to_view() {
 			triggerEvent(Const.ONE);
 			assertEquals(mockCalculator.getMemory(), mockView.memory);
@@ -364,7 +365,7 @@ public class Controller_Impl_Test {
 			assertEquals(1, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
 			assertEquals(1, otherMockSoundEffectsPlayer.keyPressedSoundPlayedCount);
 		}
-		
+
 		public void test___plays_clicks__when_storing_to_memory() {
 			triggerEvent(Const.ONE);
 			triggerEvent(Const.ONE);
@@ -377,19 +378,19 @@ public class Controller_Impl_Test {
 			assertEquals(4, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
 			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
 		}
-		
-//		public void test___plays_error_if_incorretly_sotring_to_memory() {
-//			triggerEvent(Const.ONE);
-//			triggerEvent(Const.ONE);
-//			assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
-//			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
-//			triggerEvent(Const.STORE);
-//			assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
-//			assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
-//			triggerEvent(Const.ANS);
-//			assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
-//			assertEquals(1, mockSoundEffectsPlayer.errorSoundPlayedCount);
-//		}
+
+		// public void test___plays_error_if_incorretly_sotring_to_memory() {
+		// triggerEvent(Const.ONE);
+		// triggerEvent(Const.ONE);
+		// assertEquals(2, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+		// assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+		// triggerEvent(Const.STORE);
+		// assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+		// assertEquals(0, mockSoundEffectsPlayer.errorSoundPlayedCount);
+		// triggerEvent(Const.ANS);
+		// assertEquals(3, mockSoundEffectsPlayer.keyPressedSoundPlayedCount);
+		// assertEquals(1, mockSoundEffectsPlayer.errorSoundPlayedCount);
+		// }
 
 	}
 

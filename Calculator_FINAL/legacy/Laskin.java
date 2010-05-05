@@ -10,10 +10,10 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 
 	private static final long		serialVersionUID	= 1L;
 	private final int				BUTTONPRESSEDTIME	= 50;	// time in ms
-																// that a button
-																// keeps
-																// visually
-																// pressed down
+	// that a button
+	// keeps
+	// visually
+	// pressed down
 	// when using keyboard keys
 	private final Equation			equation;
 
@@ -473,61 +473,62 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 	private class Equation {
 
 		private final char				NOP		= 'z';				// no
-																	// operation
-																	// at the
-																	// moment
-																	// (no
-																	// currentDigits)
+		// operation
+		// at the
+		// moment
+		// (no
+		// currentDigits)
 		private final char				FIRST	= 'x';				// no
-																	// operations
-																	// yet
-																	// performed
-																	// (no
-																	// currentValue)
+		// operations
+		// yet
+		// performed
+		// (no
+		// currentValue)
 
 		private double					currentValue;				// holds the
-																	// current
-																	// value
+		// current
+		// value
 		private String					currentDigits;				// holds the
-																	// value (as
-																	// String)
-																	// that math
-																	// operation
-																	// is going
-																	// to use to
-																	// currentValue
+		// value (as
+		// String)
+		// that math
+		// operation
+		// is going
+		// to use to
+		// currentValue
 		private boolean					currentDigitsIsEven;		// true if
-																	// no
-																	// decimal
-																	// point,
-																	// false if
-																	// decimal
-																	// point
-																	// already
-																	// used
+		// no
+		// decimal
+		// point,
+		// false if
+		// decimal
+		// point
+		// already
+		// used
 		private boolean					currentDigitsIsPositive;	// true if
-																	// positive,
-																	// false if
-																	// negative
+		// positive,
+		// false if
+		// negative
 		private char					currentOperator;			// stores
-																	// the
-																	// operator
-																	// (+,-,*,/,^,FIRST,NOP).
-																	// (Square
-																	// root is a
-																	// special
-																	// operation
-																	// that
-																	// doesn't
-																	// take a
-																	// second
-																	// value)
+		// the
+		// operator
+		// (+,-,*,/,^,FIRST,NOP).
+		// (Square
+		// root is a
+		// special
+		// operation
+		// that
+		// doesn't
+		// take a
+		// second
+		// value)
 		private final Vector<Double>	pastValues;				// history
-																	// of
-																	// previous
-																	// currentvalues
-																	// for undo
-																	// button
+
+		// of
+		// previous
+		// currentvalues
+		// for undo
+		// button
 
 		public Equation() {
 			currentValue = 0;
@@ -559,8 +560,8 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 		 */
 		public void addDigit(int digit) {
 			if (currentOperator == NOP) { // No operation but adding digits:
-											// clear values and start with
-											// "<digit>"
+				// clear values and start with
+				// "<digit>"
 				this.clear();
 				currentDigits = "" + digit;
 			} else
@@ -575,7 +576,7 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 		 */
 		public void erase() {
 			if (currentDigits.equals("")) // no digits -> set operator = NOP
-											// (but no change for FIRST)
+				// (but no change for FIRST)
 				if (currentOperator == FIRST)
 					return;
 				else {
@@ -592,11 +593,11 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 				currentDigitsIsPositive = true;
 
 			currentDigits = currentDigits.substring(0, currentDigits.length() - 1); // remove
-																					// last
-																					// (rightmost)
-																					// char
-																					// of
-																					// String
+			// last
+			// (rightmost)
+			// char
+			// of
+			// String
 		}
 
 		/**
@@ -605,7 +606,7 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 		 */
 		public void addDecimalPoint() {
 			if (currentOperator == NOP) // No operation but adding digits: clear
-										// values and start with "0."
+			// values and start with "0."
 			{
 				this.clear();
 				currentDigits = "0.";
@@ -632,7 +633,7 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 		 */
 		public void changeSign() {
 			if (currentOperator == NOP) // No operation -> no digits: change the
-										// sign of the currentValue
+			// sign of the currentValue
 			{
 				if (currentValue <= 0)
 					currentValue = Math.abs(currentValue);
@@ -648,8 +649,8 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 			} else // or they were negative
 			{
 				currentDigits = currentDigits.substring(1); // remove first
-															// (leftmost) char
-															// of the String
+				// (leftmost) char
+				// of the String
 				currentDigitsIsPositive = true;
 			}
 		}
@@ -659,7 +660,7 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 		 */
 		public void clear() {
 			pastValues.add(new Double(currentValue)); // store currentValue to
-														// pastValues
+			// pastValues
 			currentValue = 0;
 			currentDigits = "";
 			currentDigitsIsEven = true;
@@ -749,17 +750,17 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 			switch (currentOperator) {
 
 			case FIRST: // No operation yet, but either the user has pressed
-						// equal sign, or
+				// equal sign, or
 			{ // for example pressed the add-button (operations calls
 				// calculate() first).
 				// In either case we make the currentDigits the currentValue.
 
 				if (currentDigits.equals("") || currentDigits.equals("-")) // if
-																			// no
-																			// value,
-																			// set
-																			// to
-																			// zero
+					// no
+					// value,
+					// set
+					// to
+					// zero
 					currentValue = 0;
 				else
 					currentValue = Double.parseDouble(currentDigits);
@@ -773,8 +774,8 @@ public class Laskin extends javax.swing.JFrame implements ActionListener, KeyLis
 
 			case '+': {
 				pastValues.add(new Double(currentValue)); // store the
-															// currentValue to
-															// pastValues
+				// currentValue to
+				// pastValues
 				digits = Double.parseDouble(currentDigits); // String -> double
 				currentValue = currentValue + digits; // the math
 				currentDigits = ""; // reset currentDigits

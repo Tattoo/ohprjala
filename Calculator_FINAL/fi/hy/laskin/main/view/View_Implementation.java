@@ -43,17 +43,17 @@ import javax.swing.UIManager;
  */
 public class View_Implementation extends JFrame implements View {
 
-	private static final int	MEMORY_SLOT_MAX_ROWS	= 5;
-	private static final int	MEMORY_SLOT_MAX_CHAR_COUNT	= 6;
-	private static final String	SKIN_PLASTIC3D		= "skin_3d";
-	private static final String	SKIN_SYSTEM			= "skin_system";
-	private static final String	SKIN_PLASTIC		= "skin_plastic";
-	private static final String	EXIT_PROGRAM		= "Exit";
+	private static final int			MEMORY_SLOT_MAX_ROWS		= 5;
+	private static final int			MEMORY_SLOT_MAX_CHAR_COUNT	= 6;
+	private static final String			SKIN_PLASTIC3D				= "skin_3d";
+	private static final String			SKIN_SYSTEM					= "skin_system";
+	private static final String			SKIN_PLASTIC				= "skin_plastic";
+	private static final String			EXIT_PROGRAM				= "Exit";
 
-	private static final long	serialVersionUID	= -2212730761656490235L;
-	
-	private final MemoryTextGenerator memoryTextGenerator;
-	
+	private static final long			serialVersionUID			= -2212730761656490235L;
+
+	private final MemoryTextGenerator	memoryTextGenerator;
+
 	/**
 	 * Causes a button on the UI to be pressed if a key that matches that button
 	 * is typed
@@ -174,8 +174,8 @@ public class View_Implementation extends JFrame implements View {
 	private JMenu					optionsMenu;
 	private JMenu					audioMenu;
 	private JMenu					skinMenu;
-	private JTextPane memoryPanel;
-	private JLabel memoryLabel;
+	private JTextPane				memoryPanel;
+	private JLabel					memoryLabel;
 	private JRadioButtonMenuItem	audio_1;
 	private JRadioButtonMenuItem	audio_2;
 	private JRadioButtonMenuItem	audio_3;
@@ -187,19 +187,19 @@ public class View_Implementation extends JFrame implements View {
 
 	public View_Implementation() {
 		super("Calculator");
-		
-		memoryTextGenerator = new MemoryTextGenerator(new int[] {1,2,3,4,5,6,7,8,9}, MEMORY_SLOT_MAX_CHAR_COUNT, MEMORY_SLOT_MAX_ROWS);
-		
+
+		memoryTextGenerator = new MemoryTextGenerator(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, MEMORY_SLOT_MAX_CHAR_COUNT, MEMORY_SLOT_MAX_ROWS);
+
 		initComponents();
 		this.addKeyListener(new KeyListener_Impl());
 		actionListener = new ActionListener_Impl(this);
 		addActionListenerToAllButtonsAndMenus();
 		this.setFocusable(true);
 		this.requestFocus();
-		
+
 		this.setMemory(null);
 	}
-	
+
 	private void addActionListenerToAllButtonsAndMenus() {
 		button_7.addActionListener(actionListener);
 		button_8.addActionListener(actionListener);
@@ -296,9 +296,9 @@ public class View_Implementation extends JFrame implements View {
 		memoryPanel = new JTextPane();
 		memoryLabel = new JLabel();
 		memoryLabel.setText("Memory slot contents:");
-		
+
 		memoryPanel.setEditable(false);
-		
+
 		textArea_output = new JTextArea();
 		textArea_output.setEditable(false);
 		jScrollPane_output.setViewportView(textArea_output);
@@ -308,112 +308,112 @@ public class View_Implementation extends JFrame implements View {
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setVerticalGroup(layout.createSequentialGroup()
-			.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
-			.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			    .addComponent(button_store, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_undo, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_backspace, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_7, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_8, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(button_9, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			    .addComponent(memoryLabel, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			.addGroup(layout.createParallelGroup()
-			    .addGroup(layout.createSequentialGroup()
-			        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			            .addComponent(button_load, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_power, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_divide, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_multiply, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_4, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_5, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_6, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-			        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
-			        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			            .addComponent(button_squareRoot, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_substraction, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_add, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_2, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			            .addComponent(button_3, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-			        .addGap(42))
-			    .addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup()
-			        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			            .addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
-			            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			                .addComponent(button_0, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_equals, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_decimalPoint, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_signChange, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_ans, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-			            .addGap(10))
-			        .addComponent(memoryPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
-			.addContainerGap());
+				.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(button_store, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_undo, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_backspace, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_7, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_8, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_9, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(memoryLabel, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup()
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(button_load, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_power, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_divide, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_multiply, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_4, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_5, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_6, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(button_squareRoot, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_substraction, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_add, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_2, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(button_3, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(42))
+						.addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup()
+								.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+										.addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
+										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+												.addComponent(button_0, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_equals, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_decimalPoint, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_signChange, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_ans, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGap(10))
+								.addComponent(memoryPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap());
 		layout.setHorizontalGroup(layout.createParallelGroup()
-			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			    .addComponent(jScrollPane_output, 0, 766, Short.MAX_VALUE)
-			    .addContainerGap())
-			.addGroup(layout.createSequentialGroup()
-			    .addPreferredGap(jScrollPane_output, button_0, LayoutStyle.ComponentPlacement.INDENT)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_0, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_1, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_4, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_7, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-			    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_decimalPoint, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_5, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_8, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-			    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_signChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_3, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_6, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_9, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-			    .addGap(52)
-			    .addGroup(layout.createParallelGroup()
-			        .addGroup(layout.createSequentialGroup()
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_equals, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-			                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			                    .addComponent(button_backspace, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-			                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_undo, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-			                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			                    .addComponent(button_ans, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))))
-			        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_add, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_multiply, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_substraction, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_divide, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			            .addGroup(layout.createParallelGroup()
-			                .addComponent(button_squareRoot, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-			                .addComponent(button_power, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			            .addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-			    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			    .addGroup(layout.createParallelGroup()
-			        .addComponent(button_load, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-			        .addComponent(button_store, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))
-			    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-			    .addGroup(layout.createParallelGroup()
-			        .addGroup(layout.createSequentialGroup()
-			            .addComponent(memoryPanel, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-			            .addGap(0, 0, Short.MAX_VALUE))
-			        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			            .addComponent(memoryLabel, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
-			            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)))
-			    .addContainerGap(23, 23)));
+				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+						.addComponent(jScrollPane_output, 0, 766, Short.MAX_VALUE)
+						.addContainerGap())
+				.addGroup(layout.createSequentialGroup()
+						.addPreferredGap(jScrollPane_output, button_0, LayoutStyle.ComponentPlacement.INDENT)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(button_0, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_1, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_4, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_7, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(button_decimalPoint, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_5, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_8, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(button_signChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_3, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_6, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_9, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+						.addGap(52)
+						.addGroup(layout.createParallelGroup()
+								.addGroup(layout.createSequentialGroup()
+										.addGroup(layout.createParallelGroup()
+												.addComponent(button_equals, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+												.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+														.addComponent(button_backspace, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
+										.addGroup(layout.createParallelGroup()
+												.addComponent(button_undo, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+												.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+														.addComponent(button_ans, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+										.addGroup(layout.createParallelGroup()
+												.addComponent(button_add, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_multiply, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(layout.createParallelGroup()
+												.addComponent(button_substraction, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_divide, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(layout.createParallelGroup()
+												.addComponent(button_squareRoot, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+												.addComponent(button_power, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(button_load, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_store, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(layout.createParallelGroup()
+								.addGroup(layout.createSequentialGroup()
+										.addComponent(memoryPanel, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+										.addGap(0, 0, Short.MAX_VALUE))
+								.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+										.addComponent(memoryLabel, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)))
+						.addContainerGap(23, 23)));
 		pack();
 		setSkin(SKIN_SYSTEM);
 	}
@@ -445,7 +445,7 @@ public class View_Implementation extends JFrame implements View {
 		button_backspace = new JButton(Const.BACKSPACE);
 		button_ans = new JButton(Const.ANS);
 	}
-	
+
 	private void initMenubar() {
 		menubar = new JMenuBar();
 
@@ -498,7 +498,7 @@ public class View_Implementation extends JFrame implements View {
 	}
 
 	public void setMemory(Map<Integer, Double> memory) {
-		this.memoryPanel.setText( memoryTextGenerator.generateText(memory));
+		this.memoryPanel.setText(memoryTextGenerator.generateText(memory));
 	}
 
 }

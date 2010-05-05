@@ -47,19 +47,17 @@ import javax.swing.UIManager;
  */
 public class View_Implementation_v2 extends JFrame implements View {
 
-	private static final int	MEMORY_SLOT_MAX_ROWS	= 5;
-	private static final int	MEMORY_SLOT_MAX_CHAR_COUNT	= 12;
-	private static final String	SKIN_PLASTIC3D		= "skin_3d";
-	private static final String	SKIN_SYSTEM			= "skin_system";
-	private static final String	SKIN_PLASTIC		= "skin_plastic";
-	private static final String	EXIT_PROGRAM		= "Exit";
-	private static final long	serialVersionUID	= -2212730761656490235L;
+	private static final int			MEMORY_SLOT_MAX_ROWS		= 5;
+	private static final int			MEMORY_SLOT_MAX_CHAR_COUNT	= 12;
+	private static final String			SKIN_PLASTIC3D				= "skin_3d";
+	private static final String			SKIN_SYSTEM					= "skin_system";
+	private static final String			SKIN_PLASTIC				= "skin_plastic";
+	private static final String			EXIT_PROGRAM				= "Exit";
+	private static final long			serialVersionUID			= -2212730761656490235L;
 
-	private Controller				controller;
-	private final ActionListener	actionListener;
-	private final MemoryTextGenerator memoryTextGenerator;
-
-	
+	private Controller					controller;
+	private final ActionListener		actionListener;
+	private final MemoryTextGenerator	memoryTextGenerator;
 
 	/**
 	 * Constructor
@@ -67,13 +65,13 @@ public class View_Implementation_v2 extends JFrame implements View {
 	public View_Implementation_v2() {
 		super("Calculator");
 		actionListener = new ActionListener_Impl(this);
-		memoryTextGenerator = new MemoryTextGenerator(new int[] {1,2,3,4,5,6,7,8,9}, MEMORY_SLOT_MAX_CHAR_COUNT, MEMORY_SLOT_MAX_ROWS);
+		memoryTextGenerator = new MemoryTextGenerator(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, MEMORY_SLOT_MAX_CHAR_COUNT, MEMORY_SLOT_MAX_ROWS);
 		initComponents();
 		addActionListenerToAllButtonsAndMenus();
 		this.addKeyListener(new KeyListener_Impl());
 		this.setFocusable(true);
 		this.requestFocus();
-		this.setMemory(null); 
+		this.setMemory(null);
 	}
 
 	@Override
@@ -93,19 +91,27 @@ public class View_Implementation_v2 extends JFrame implements View {
 
 	@Override
 	public void setMemory(Map<Integer, Double> memory) {
-		this.memoryPanel.setText( memoryTextGenerator.generateText(memory));
+		this.memoryPanel.setText(memoryTextGenerator.generateText(memory));
 	}
-	
+
 	@Override
 	public void fileCreated(String filename) {
 		fileDialog = new Dialog(this, "File created", true);
 		fileDialog.addWindowListener(new WindowListener() {
-			public void windowClosing(WindowEvent e) { fileDialog.dispose(); }
+			public void windowClosing(WindowEvent e) {
+				fileDialog.dispose();
+			}
+
 			public void windowOpened(WindowEvent e) {}
+
 			public void windowIconified(WindowEvent e) {}
+
 			public void windowDeiconified(WindowEvent e) {}
+
 			public void windowDeactivated(WindowEvent e) {}
+
 			public void windowClosed(WindowEvent e) {}
+
 			public void windowActivated(WindowEvent e) {}
 		});
 		JButton fileDialogCloseButton = new JButton("File " + filename + " has been created to output folder");
@@ -120,7 +126,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 		fileDialog.setVisible(true);
 		fileDialog.validate();
 	}
-	
+
 	/**
 	 * Causes a button on the UI to be pressed if a key that matches that button
 	 * is typed
@@ -168,7 +174,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 				button.doClick(KEEP_BUTTON_PRESSED_TIME);
 		}
 	}
-	
+
 	/**
 	 * Sends events to be processed by the controller
 	 */
@@ -195,7 +201,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 
 	private void setSkin(String skin) {
 		String lookAndFeelClass = UIManager.getSystemLookAndFeelClassName();
-		if (skin.equals(SKIN_PLASTIC))   lookAndFeelClass = "com.jgoodies.looks.plastic.PlasticLookAndFeel";
+		if (skin.equals(SKIN_PLASTIC)) lookAndFeelClass = "com.jgoodies.looks.plastic.PlasticLookAndFeel";
 		if (skin.equals(SKIN_PLASTIC3D)) lookAndFeelClass = "com.jgoodies.looks.plastic.Plastic3DLookAndFeel";
 		try {
 			UIManager.setLookAndFeel(lookAndFeelClass);
@@ -207,7 +213,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Swing components and layout generated with NetBeans IDE 5.5.
 	 */
@@ -217,11 +223,11 @@ public class View_Implementation_v2 extends JFrame implements View {
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		
+
 		jScrollPane_output = new JScrollPane();
 		{
 			jPanel1 = new JPanel();
-			TableLayout jPanel1Layout = new TableLayout(new double[][] {{TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}, {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}});
+			TableLayout jPanel1Layout = new TableLayout(new double[][] { { TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL }, { TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL } });
 			jPanel1Layout.setHGap(5);
 			jPanel1Layout.setVGap(5);
 			jPanel1.setLayout(jPanel1Layout);
@@ -246,7 +252,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 		}
 		{
 			operandsPanel = new JPanel();
-			TableLayout operandsPanelLayout = new TableLayout(new double[][] {{TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}, {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}});
+			TableLayout operandsPanelLayout = new TableLayout(new double[][] { { TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL }, { TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL } });
 			operandsPanelLayout.setHGap(5);
 			operandsPanelLayout.setVGap(5);
 			operandsPanel.setLayout(operandsPanelLayout);
@@ -356,28 +362,28 @@ public class View_Implementation_v2 extends JFrame implements View {
 			}
 		}
 		layout.setVerticalGroup(layout.createSequentialGroup()
-			.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-			.addGroup(layout.createParallelGroup()
-			    .addGroup(layout.createSequentialGroup()
-			        .addComponent(operandsPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-			    .addGroup(layout.createSequentialGroup()
-			        .addComponent(numbersPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-			    .addGroup(layout.createSequentialGroup()
-			        .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
-			.addContainerGap(95, Short.MAX_VALUE));
+				.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup()
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(operandsPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(numbersPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(95, Short.MAX_VALUE));
 		layout.setHorizontalGroup(layout.createParallelGroup()
-			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			    .addComponent(jScrollPane_output, 0, 993, Short.MAX_VALUE)
-			    .addContainerGap())
-			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-			    .addPreferredGap(jScrollPane_output, numbersPanel, LayoutStyle.ComponentPlacement.INDENT)
-			    .addComponent(numbersPanel, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
-			    .addGap(20)
-			    .addComponent(operandsPanel, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
-			    .addGap(63)
-			    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 337, GroupLayout.PREFERRED_SIZE)
-			    .addContainerGap(94, Short.MAX_VALUE)));
+				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+						.addComponent(jScrollPane_output, 0, 993, Short.MAX_VALUE)
+						.addContainerGap())
+				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+						.addPreferredGap(jScrollPane_output, numbersPanel, LayoutStyle.ComponentPlacement.INDENT)
+						.addComponent(numbersPanel, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
+						.addGap(20)
+						.addComponent(operandsPanel, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
+						.addGap(63)
+						.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 337, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(94, Short.MAX_VALUE)));
 
 		textArea_output = new JTextArea();
 		textArea_output.setEditable(false);
@@ -414,8 +420,8 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private JButton					button_store;
 	private JButton					button_load;
 	private JButton					button_pi;
-	private JScrollPane	jScrollPane_output;
-	private JTextArea	textArea_output;
+	private JScrollPane				jScrollPane_output;
+	private JTextArea				textArea_output;
 	private JButton					button_ans;
 	private JMenuBar				menubar;
 	private JMenu					fileMenu;
@@ -424,11 +430,11 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private JMenu					optionsMenu;
 	private JMenu					audioMenu;
 	private JMenu					skinMenu;
-	private JTextPane memoryPanel;
-	private JPanel jPanel1;
-	private JPanel operandsPanel;
-	private JPanel numbersPanel;
-	private JLabel memoryLabel;
+	private JTextPane				memoryPanel;
+	private JPanel					jPanel1;
+	private JPanel					operandsPanel;
+	private JPanel					numbersPanel;
+	private JLabel					memoryLabel;
 	private JRadioButtonMenuItem	audio_1;
 	private JRadioButtonMenuItem	audio_2;
 	private JRadioButtonMenuItem	audio_3;
@@ -436,10 +442,9 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private JRadioButtonMenuItem	skin_2;
 	private JRadioButtonMenuItem	skin_3;
 	private Dialog					fileDialog;
-	
-	private void initButtons() {
-	}
-	
+
+	private void initButtons() {}
+
 	private void initMenubar() {
 		menubar = new JMenuBar();
 
@@ -490,7 +495,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 		menubar.add(optionsMenu);
 		this.setJMenuBar(menubar);
 	}
-	
+
 	private void addActionListenerToAllButtonsAndMenus() {
 		button_7.addActionListener(actionListener);
 		button_8.addActionListener(actionListener);
@@ -526,5 +531,5 @@ public class View_Implementation_v2 extends JFrame implements View {
 		skin_2.addActionListener(actionListener);
 		skin_3.addActionListener(actionListener);
 	}
-	
+
 }

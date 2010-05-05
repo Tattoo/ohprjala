@@ -8,21 +8,21 @@ import java.util.Map;
 import java.util.Vector;
 
 public class Calculator_Imple implements Calculator {
-	private final char						NOP		= 'z';				
-	private final char						FIRST	= 'x';				
-	private final char						STORE	= 'y';				
-	private final char						LOAD	= 'o';		
+	private final char						NOP		= 'z';
+	private final char						FIRST	= 'x';
+	private final char						STORE	= 'y';
+	private final char						LOAD	= 'o';
 	private final String					PI		= "3.14159265";
-	
-	private double							currentValue;				
-	private String							currentDigits;				
-	private boolean							currentDigitsIsEven;		
-	private boolean							currentDigitsIsPositive;	
-	private char							currentOperator;			
-	private char							nextDigitIsMemory;			
-	private final Vector<Double>			pastValues;				
+
+	private double							currentValue;
+	private String							currentDigits;
+	private boolean							currentDigitsIsEven;
+	private boolean							currentDigitsIsPositive;
+	private char							currentOperator;
+	private char							nextDigitIsMemory;
+	private final Vector<Double>			pastValues;
 	private final ArrayList<String>			calcHistory;
-	private final HashMap<Integer, Double>	memory;					
+	private final HashMap<Integer, Double>	memory;
 
 	public Calculator_Imple() {
 		currentValue = 0;
@@ -65,7 +65,8 @@ public class Calculator_Imple implements Calculator {
 			}
 		}
 
-		if (currentOperator == NOP) { // No operation but adding digits: clear values and start with "<digit>"
+		if (currentOperator == NOP) { // No operation but adding digits: clear
+										// values and start with "<digit>"
 			this.resetInput();
 			currentOperator = FIRST;
 			currentDigits = "" + digit;
@@ -101,12 +102,12 @@ public class Calculator_Imple implements Calculator {
 	 * @return
 	 */
 	public ArrayList<String> load() {
-		if(currentDigits != "")
+		if (currentDigits != "")
 			return getCalcHistory();
 		String str = "";
 		nextDigitIsMemory = LOAD;
 		ArrayList<String> newlist = new ArrayList<String>(getCalcHistory());
-		if(newlist.size() > 0)
+		if (newlist.size() > 0)
 			str = newlist.remove(newlist.size() - 1);
 		str = str + "  GIVE MEMSLOT[1-9]";
 		newlist.add(str);
@@ -120,12 +121,13 @@ public class Calculator_Imple implements Calculator {
 	 * corresponding boolean values too.
 	 */
 	public ArrayList<String> erase() {
-		if(nextDigitIsMemory != NOP) { //cancel memory usage
+		if (nextDigitIsMemory != NOP) { // cancel memory usage
 			nextDigitIsMemory = NOP;
 			return getCalcHistory();
 		}
-		
-		if (currentDigits.equals("")) // no digits -> set operator = NOP (but no  change for FIRST)
+
+		if (currentDigits.equals("")) // no digits -> set operator = NOP (but no
+										// change for FIRST)
 			if (currentOperator == FIRST)
 				return getCalcHistory();
 			else {
@@ -141,7 +143,12 @@ public class Calculator_Imple implements Calculator {
 		else if (lastDigit == '-')
 			currentDigitsIsPositive = true;
 
-		currentDigits = currentDigits.substring(0, currentDigits.length() - 1); // remove last (rightmost) char of String
+		currentDigits = currentDigits.substring(0, currentDigits.length() - 1); // remove
+																				// last
+																				// (rightmost)
+																				// char
+																				// of
+																				// String
 		return getCalcHistory();
 	}
 
@@ -150,7 +157,8 @@ public class Calculator_Imple implements Calculator {
 	 * digit
 	 */
 	public ArrayList<String> addDecimalPoint() {
-		if (currentOperator == NOP) // No operation but adding digits: clear values and start with "0."
+		if (currentOperator == NOP) // No operation but adding digits: clear
+									// values and start with "0."
 		{
 			this.clear();
 			currentDigits = "0.";
@@ -177,7 +185,8 @@ public class Calculator_Imple implements Calculator {
 	 * there are no digits
 	 */
 	public ArrayList<String> changeSign() {
-		if (currentOperator == NOP) // No operation -> no digits: change the sign of the currentValue
+		if (currentOperator == NOP) // No operation -> no digits: change the
+									// sign of the currentValue
 		{
 			if (currentValue <= 0)
 				currentValue = Math.abs(currentValue);
@@ -192,7 +201,9 @@ public class Calculator_Imple implements Calculator {
 			currentDigitsIsPositive = false;
 		} else // or they were negative
 		{
-			currentDigits = currentDigits.substring(1); // remove first (leftmost) char of the String
+			currentDigits = currentDigits.substring(1); // remove first
+														// (leftmost) char of
+														// the String
 			currentDigitsIsPositive = true;
 		}
 		return getCalcHistory();
@@ -204,7 +215,7 @@ public class Calculator_Imple implements Calculator {
 	public ArrayList<String> clear() {
 		pastValues.clear();
 		calcHistory.clear();
-		//memory.clear();
+		// memory.clear();
 		currentValue = 0;
 		currentDigits = "";
 		currentDigitsIsEven = true;
@@ -218,10 +229,10 @@ public class Calculator_Imple implements Calculator {
 	 * currentValue (from pastValues)
 	 */
 	public ArrayList<String> undo() {
-		if(nextDigitIsMemory != NOP) {
-			return erase(); //clears memory using state
+		if (nextDigitIsMemory != NOP) { return erase(); // clears memory using
+														// state
 		}
-		
+
 		if (pastValues.size() == 0) // nothing to undo
 			return getCalcHistory();
 
@@ -318,7 +329,7 @@ public class Calculator_Imple implements Calculator {
 	public ArrayList<String> calculate() {
 		double digits; // currentDigits (String) as a double
 		String calculation = giveOutput() + " = "; // saves the calculation in
-													// string format
+		// string format
 
 		if (currentOperator == NOP) // nothing to do
 			return getCalcHistory();
@@ -331,10 +342,16 @@ public class Calculator_Imple implements Calculator {
 		switch (currentOperator) {
 
 		case FIRST: {
-			// No operation yet, but either the user has pressed equal sign, or for example pressed the add-button 
-			// (operations calls calculate() first). In either case we make the currentDigits the currentValue.
+			// No operation yet, but either the user has pressed equal sign, or
+			// for example pressed the add-button
+			// (operations calls calculate() first). In either case we make the
+			// currentDigits the currentValue.
 
-			if (currentDigits.equals("") || currentDigits.equals("-")) // if no value, set to zero
+			if (currentDigits.equals("") || currentDigits.equals("-")) // if no
+																		// value,
+																		// set
+																		// to
+																		// zero
 				currentValue = 0;
 			else
 				currentValue = Double.parseDouble(currentDigits);
@@ -418,36 +435,36 @@ public class Calculator_Imple implements Calculator {
 		resetInput();
 		return getCalcHistory();
 	}
+
 	public ArrayList<String> pi() {
-		if(nextDigitIsMemory != NOP || currentDigits != "") {
+		if (nextDigitIsMemory != NOP || currentDigits != "") {
 			nextDigitIsMemory = NOP;
 			return getCalcHistory();
-		}		
+		}
 		addStrToDigits(PI);
 		return getCalcHistory();
 	}
-	
+
 	private void addStrToDigits(String str) {
-		for(int i = 0; i < str.length(); i++) {
+		for (int i = 0; i < str.length(); i++) {
 			if (str.charAt(i) == '.')
 				addDecimalPoint();
 			else if (str.charAt(i) == '-')
 				changeSign();
 			else if (str.charAt(i) == 'E') {
 				addCharEToDigits();
-			}
-			else
-				addDigit(Integer.parseInt("" + str.charAt(i)));			
+			} else
+				addDigit(Integer.parseInt("" + str.charAt(i)));
 		}
 	}
-	
-	/** 
-	 * called if digits contain E char, e.g. 2.3289E12 
+
+	/**
+	 * called if digits contain E char, e.g. 2.3289E12
 	 */
 	private void addCharEToDigits() {
 		currentDigits = currentDigits + 'E';
 	}
-	
+
 	private boolean checkFirstNumber() {
 		if (currentDigits == "" && currentOperator == FIRST) {
 			ans();
@@ -492,8 +509,8 @@ public class Calculator_Imple implements Calculator {
 
 		return history;
 	}
-	
-	public Map<Integer, Double>getMemory() {
+
+	public Map<Integer, Double> getMemory() {
 		return memory;
 	}
 }

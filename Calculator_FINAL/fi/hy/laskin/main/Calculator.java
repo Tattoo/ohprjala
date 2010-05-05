@@ -117,10 +117,11 @@ public interface Calculator {
 	 * @return
 	 */
 	public List<String> load();
-	
+
 	/**
 	 * Retuns the values currenty in memory
+	 * 
 	 * @return
 	 */
-	public Map<Integer, Double>getMemory();
+	public Map<Integer, Double> getMemory();
 }
