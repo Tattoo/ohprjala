@@ -4,8 +4,11 @@ import fi.hy.laskin.main.Const;
 import fi.hy.laskin.main.Controller;
 import fi.hy.laskin.main.View;
 
+import info.clearthought.layout.TableLayout;
+
 import java.awt.Dialog;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -69,7 +73,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 		this.addKeyListener(new KeyListener_Impl());
 		this.setFocusable(true);
 		this.requestFocus();
-		this.setMemory(null);
+		this.setMemory(null); 
 	}
 
 	@Override
@@ -210,14 +214,170 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private void initComponents() {
 		initButtons();
 		initMenubar();
+		GroupLayout layout = new GroupLayout(getContentPane());
+		getContentPane().setLayout(layout);
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		
 		jScrollPane_output = new JScrollPane();
-		memoryPanel = new JTextPane();
-		memoryLabel = new JLabel();
-		memoryLabel.setText("Memory slot contents:");
-
-		memoryPanel.setEditable(false);
+		{
+			jPanel1 = new JPanel();
+			TableLayout jPanel1Layout = new TableLayout(new double[][] {{TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}, {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}});
+			jPanel1Layout.setHGap(5);
+			jPanel1Layout.setVGap(5);
+			jPanel1.setLayout(jPanel1Layout);
+			{
+				button_store = new JButton(Const.STORE);
+				jPanel1.add(button_store, "0, 1");
+			}
+			{
+				button_load = new JButton(Const.LOAD);
+				jPanel1.add(button_load, "0, 2");
+			}
+			{
+				memoryLabel = new JLabel();
+				jPanel1.add(memoryLabel, "1, 0, 3, 0");
+				memoryLabel.setText("Memory slot contents:");
+			}
+			{
+				memoryPanel = new JTextPane();
+				jPanel1.add(memoryPanel, "1, 1, 3, 3");
+				memoryPanel.setEditable(false);
+			}
+		}
+		{
+			operandsPanel = new JPanel();
+			TableLayout operandsPanelLayout = new TableLayout(new double[][] {{TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}, {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL}});
+			operandsPanelLayout.setHGap(5);
+			operandsPanelLayout.setVGap(5);
+			operandsPanel.setLayout(operandsPanelLayout);
+			{
+				button_backspace = new JButton(Const.BACKSPACE);
+				operandsPanel.add(button_backspace, "0, 0, 1, 0");
+			}
+			{
+				button_undo = new JButton(Const.UNDO);
+				operandsPanel.add(button_undo, "2, 0");
+			}
+			{
+				button_multiply = new JButton(Const.MULTIPLY);
+				operandsPanel.add(button_multiply, "0, 1");
+			}
+			{
+				button_divide = new JButton(Const.DIVIDE);
+				operandsPanel.add(button_divide, "1, 1");
+			}
+			{
+				button_power = new JButton(Const.RAISE_TO_POWER);
+				operandsPanel.add(button_power, "2, 1");
+			}
+			{
+				button_add = new JButton(Const.ADD);
+				operandsPanel.add(button_add, "0, 2");
+			}
+			{
+				button_substraction = new JButton(Const.SUBSTRACT);
+				operandsPanel.add(button_substraction, "1, 2");
+			}
+			{
+				button_squareRoot = new JButton(Const.SQRT);
+				operandsPanel.add(button_squareRoot, "2, 2");
+			}
+			{
+				button_equals = new JButton(Const.EQUALS);
+				operandsPanel.add(button_equals, "0, 3, 1, 3");
+			}
+			{
+				button_ans = new JButton(Const.ANS);
+				operandsPanel.add(button_ans, "2, 3, 3, 3");
+			}
+			{
+				button_clear = new JButton(Const.CLEAR);
+				operandsPanel.add(button_clear, "3, 0, 3, 1");
+			}
+			{
+				button_pi = new JButton(Const.PI);
+				operandsPanel.add(button_pi, "3, 2");
+			}
+		}
+		{
+			numbersPanel = new JPanel();
+			GridLayout numbersPanelLayout = new GridLayout(4, 3);
+			numbersPanelLayout.setColumns(1);
+			numbersPanelLayout.setHgap(5);
+			numbersPanelLayout.setVgap(5);
+			numbersPanel.setLayout(numbersPanelLayout);
+			{
+				button_7 = new JButton(Const.SEVEN);
+				numbersPanel.add(button_7);
+			}
+			{
+				button_8 = new JButton(Const.EIGHT);
+				numbersPanel.add(button_8);
+			}
+			{
+				button_9 = new JButton(Const.NINE);
+				numbersPanel.add(button_9);
+			}
+			{
+				button_4 = new JButton(Const.FOUR);
+				numbersPanel.add(button_4);
+			}
+			{
+				button_5 = new JButton(Const.FIVE);
+				numbersPanel.add(button_5);
+			}
+			{
+				button_6 = new JButton(Const.SIX);
+				numbersPanel.add(button_6);
+			}
+			{
+				button_1 = new JButton(Const.ONE);
+				numbersPanel.add(button_1);
+			}
+			{
+				button_2 = new JButton(Const.TWO);
+				numbersPanel.add(button_2);
+			}
+			{
+				button_3 = new JButton(Const.THREE);
+				numbersPanel.add(button_3);
+			}
+			{
+				button_0 = new JButton(Const.ZERO);
+				numbersPanel.add(button_0);
+			}
+			{
+				button_decimalPoint = new JButton(Const.DECIMAL_SEPARATOR);
+				numbersPanel.add(button_decimalPoint);
+			}
+			{
+				button_signChange = new JButton(Const.CHANGE_SIGN);
+				numbersPanel.add(button_signChange);
+			}
+		}
+		layout.setVerticalGroup(layout.createSequentialGroup()
+			.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+			.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+			.addGroup(layout.createParallelGroup()
+			    .addGroup(layout.createSequentialGroup()
+			        .addComponent(operandsPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+			    .addGroup(layout.createSequentialGroup()
+			        .addComponent(numbersPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+			    .addGroup(layout.createSequentialGroup()
+			        .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
+			.addContainerGap(95, Short.MAX_VALUE));
+		layout.setHorizontalGroup(layout.createParallelGroup()
+			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+			    .addComponent(jScrollPane_output, 0, 993, Short.MAX_VALUE)
+			    .addContainerGap())
+			.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+			    .addPreferredGap(jScrollPane_output, numbersPanel, LayoutStyle.ComponentPlacement.INDENT)
+			    .addComponent(numbersPanel, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
+			    .addGap(20)
+			    .addComponent(operandsPanel, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
+			    .addGap(63)
+			    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 337, GroupLayout.PREFERRED_SIZE)
+			    .addContainerGap(94, Short.MAX_VALUE)));
 
 		textArea_output = new JTextArea();
 		textArea_output.setEditable(false);
@@ -225,115 +385,6 @@ public class View_Implementation_v2 extends JFrame implements View {
 
 		setResizable(false);
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addComponent(jScrollPane_output, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(button_store, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_undo, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_backspace, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_7, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_8, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_9, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(memoryLabel, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup()
-								.addGroup(layout.createSequentialGroup()
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(button_load, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_power, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_divide, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_multiply, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_4, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_5, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_6, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
-												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-														.addComponent(button_squareRoot, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_substraction, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_add, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_1, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_2, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_3, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-														.addGap(42))
-														.addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup()
-																.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-																		.addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
-																		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-																				.addComponent(button_0, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(button_equals, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(button_decimalPoint, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(button_signChange, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(button_ans, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-																				.addGap(10))
-																				.addComponent(memoryPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
-																				.addContainerGap());
-		layout.setHorizontalGroup(layout.createParallelGroup()
-				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-						.addComponent(jScrollPane_output, 0, 766, Short.MAX_VALUE)
-						.addContainerGap())
-						.addGroup(layout.createSequentialGroup()
-								.addPreferredGap(jScrollPane_output, button_0, LayoutStyle.ComponentPlacement.INDENT)
-								.addGroup(layout.createParallelGroup()
-										.addComponent(button_0, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-										.addComponent(button_1, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-										.addComponent(button_4, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-										.addComponent(button_7, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(layout.createParallelGroup()
-												.addComponent(button_decimalPoint, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_5, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-												.addComponent(button_8, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-												.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-												.addGroup(layout.createParallelGroup()
-														.addComponent(button_signChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_3, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_6, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-														.addComponent(button_9, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-														.addGap(52)
-														.addGroup(layout.createParallelGroup()
-																.addGroup(layout.createSequentialGroup()
-																		.addGroup(layout.createParallelGroup()
-																				.addComponent(button_equals, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-																				.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-																						.addComponent(button_backspace, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-																						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
-																						.addGroup(layout.createParallelGroup()
-																								.addComponent(button_undo, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-																								.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-																										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-																										.addComponent(button_ans, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))))
-																										.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-																												.addGroup(layout.createParallelGroup()
-																														.addComponent(button_add, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-																														.addComponent(button_multiply, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-																														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-																														.addGroup(layout.createParallelGroup()
-																																.addComponent(button_substraction, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-																																.addComponent(button_divide, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-																																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-																																.addGroup(layout.createParallelGroup()
-																																		.addComponent(button_squareRoot, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-																																		.addComponent(button_power, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
-																																		.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-																																		.addComponent(button_clear, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-																																		.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-																																		.addGroup(layout.createParallelGroup()
-																																				.addComponent(button_load, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-																																				.addComponent(button_store, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))
-																																				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-																																				.addGroup(layout.createParallelGroup()
-																																						.addGroup(layout.createSequentialGroup()
-																																								.addComponent(memoryPanel, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-																																								.addGap(0, 0, Short.MAX_VALUE))
-																																								.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-																																										.addComponent(memoryLabel, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
-																																										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)))
-																																										.addContainerGap(23, 23)));
 		pack();
 		setSkin(SKIN_SYSTEM);
 	}
@@ -362,6 +413,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private JButton					button_undo;
 	private JButton					button_store;
 	private JButton					button_load;
+	private JButton					button_pi;
 	private JScrollPane	jScrollPane_output;
 	private JTextArea	textArea_output;
 	private JButton					button_ans;
@@ -373,6 +425,9 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private JMenu					audioMenu;
 	private JMenu					skinMenu;
 	private JTextPane memoryPanel;
+	private JPanel jPanel1;
+	private JPanel operandsPanel;
+	private JPanel numbersPanel;
 	private JLabel memoryLabel;
 	private JRadioButtonMenuItem	audio_1;
 	private JRadioButtonMenuItem	audio_2;
@@ -383,31 +438,6 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private Dialog					fileDialog;
 	
 	private void initButtons() {
-		button_0 = new JButton(Const.ZERO);
-		button_7 = new JButton(Const.SEVEN);
-		button_8 = new JButton(Const.EIGHT);
-		button_9 = new JButton(Const.NINE);
-		button_4 = new JButton(Const.FOUR);
-		button_5 = new JButton(Const.FIVE);
-		button_6 = new JButton(Const.SIX);
-		button_1 = new JButton(Const.ONE);
-		button_2 = new JButton(Const.TWO);
-		button_3 = new JButton(Const.THREE);
-		button_decimalPoint = new JButton(Const.DECIMAL_SEPARATOR);
-		button_equals = new JButton(Const.EQUALS);
-		button_multiply = new JButton(Const.MULTIPLY);
-		button_clear = new JButton(Const.CLEAR);
-		button_squareRoot = new JButton(Const.SQRT);
-		button_power = new JButton(Const.RAISE_TO_POWER);
-		button_divide = new JButton(Const.DIVIDE);
-		button_add = new JButton(Const.ADD);
-		button_undo = new JButton(Const.UNDO);
-		button_load = new JButton(Const.LOAD);
-		button_store = new JButton(Const.STORE);
-		button_signChange = new JButton(Const.CHANGE_SIGN);
-		button_substraction = new JButton(Const.SUBSTRACT);
-		button_backspace = new JButton(Const.BACKSPACE);
-		button_ans = new JButton(Const.ANS);
 	}
 	
 	private void initMenubar() {
