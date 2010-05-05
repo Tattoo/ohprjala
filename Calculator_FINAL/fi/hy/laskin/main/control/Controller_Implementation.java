@@ -116,6 +116,8 @@ public class Controller_Implementation implements Controller {
 			outputContents = calculator.undo();
 		} else if (command.equals(Const.CHANGE_SIGN)) {
 			outputContents = calculator.changeSign();
+		} else if (command.equals(Const.PI)) {
+			outputContents = calculator.pi();
 		} else if (command.equals(Const.BACKSPACE)) {
 			outputContents = calculator.erase();
 		} else if (command.equals(Const.ANS)) {

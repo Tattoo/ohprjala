@@ -522,6 +522,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 		button_substraction.addActionListener(actionListener);
 		button_backspace.addActionListener(actionListener);
 		button_ans.addActionListener(actionListener);
+		button_pi.addActionListener(actionListener);
 		exportToFile.addActionListener(actionListener);
 		exit.addActionListener(actionListener);
 		audio_1.addActionListener(actionListener);

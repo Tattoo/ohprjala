@@ -1,5 +1,6 @@
 package fi.hy.laskin.main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,4 +125,11 @@ public interface Calculator {
 	 * @return
 	 */
 	public Map<Integer, Double> getMemory();
+	
+	/**
+	 * Inserts PI, if applicable
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> pi();
 }

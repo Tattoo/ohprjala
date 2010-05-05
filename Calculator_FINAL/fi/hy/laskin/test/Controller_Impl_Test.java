@@ -151,6 +151,8 @@ public class Controller_Impl_Test {
 				memory.put(2, Math.PI);
 				return memory;
 			}
+
+			public ArrayList<String> pi() {return null;}
 		}
 
 		private class MockOutputDevice implements OutputDevice {
