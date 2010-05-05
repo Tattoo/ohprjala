@@ -5,7 +5,7 @@ import fi.hy.laskin.main.control.Controller_Implementation;
 import fi.hy.laskin.main.outputdevice.TextfileWriter;
 import fi.hy.laskin.main.sounds.NoSounds;
 import fi.hy.laskin.main.sounds.SoundTheme;
-import fi.hy.laskin.main.view.View_Implementation;
+import fi.hy.laskin.main.view.View_Implementation_v2;
 
 import java.io.File;
 
@@ -22,7 +22,7 @@ public class Main {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 
-				View view = new View_Implementation();
+				View view = new View_Implementation_v2();
 				Controller controller = new Controller_Implementation();
 				Calculator calculator = new Calculator_Imple();
 
