@@ -8,7 +8,11 @@ import java.util.Map;
  * Generates a string presentation from a map of values that are stored to
  * memory. For example:
  * 
- * 1: 5.0 6: 2: 2,22222 7: 3: 8: 1,345678 4: 9: 5: 0:
+ * 1: 5.0     6: 
+ * 2: 2,22222 7: 
+ * 3:         8: 1,345678 
+ * 4:         9: 
+ * 5:         0:
  * 
  */
 public class MemoryTextGenerator {

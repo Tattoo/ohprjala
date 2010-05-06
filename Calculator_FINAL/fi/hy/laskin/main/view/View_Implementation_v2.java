@@ -214,11 +214,7 @@ public class View_Implementation_v2 extends JFrame implements View {
 		}
 	}
 
-	/**
-	 * Swing components and layout generated with NetBeans IDE 5.5.
-	 */
 	private void initComponents() {
-		initButtons();
 		initMenubar();
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -442,8 +438,6 @@ public class View_Implementation_v2 extends JFrame implements View {
 	private JRadioButtonMenuItem	skin_2;
 	private JRadioButtonMenuItem	skin_3;
 	private Dialog					fileDialog;
-
-	private void initButtons() {}
 
 	private void initMenubar() {
 		menubar = new JMenuBar();
