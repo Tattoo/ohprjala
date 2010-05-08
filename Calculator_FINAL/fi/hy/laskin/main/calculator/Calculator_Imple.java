@@ -132,6 +132,9 @@ public class Calculator_Imple implements Calculator {
 				return getCalcHistory();
 			else {
 				currentOperator = NOP;
+				currentOperator = FIRST;
+				currentDigits = ""+currentValue;
+				currentValue = 0;
 				return getCalcHistory();
 			}
 		// else -- there are digits:
@@ -450,7 +453,10 @@ public class Calculator_Imple implements Calculator {
 			if (str.charAt(i) == '.')
 				addDecimalPoint();
 			else if (str.charAt(i) == '-')
-				changeSign();
+				if(currentDigits.charAt(currentDigits.length()-1) == 'E') //if negative power
+					currentDigits = currentDigits+'-';
+				else
+					changeSign();
 			else if (str.charAt(i) == 'E') {
 				addCharEToDigits();
 			} else
